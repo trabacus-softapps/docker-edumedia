@@ -7,7 +7,7 @@ class res_partner(osv.osv):
     _inherit = 'res.partner'
       
     def fields_view_get(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):
-
+        context = dict(context or {})
         sup_id = cust_id = mentor = 0  
         
         tree_name = 'ed_partner_tree'
@@ -153,6 +153,7 @@ class res_partner(osv.osv):
 #        return True
        
     def create(self, cr, uid, vals, context=None):
+        context = dict(context or {})
         partner_id = False
         class_obj = self.pool.get('ed.class.details')          
         vals.update({'ed_state': True})
