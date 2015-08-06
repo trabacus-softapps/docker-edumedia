@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_allocation" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="OPENERP_RELATIONS" value="[&apos;lines&apos;]"/>
+	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="department_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Department-department_id/id]]></fieldDescription>
+	</field>
+	<field name="Department" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Department-department_id/Name-complete_name]]></fieldDescription>
+	</field>
+	<field name="designation_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Designation-job_id/id]]></fieldDescription>
+	</field>
+	<field name="Designation" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Designation-job_id/Job_Name-name]]></fieldDescription>
+	</field>
+	<field name="Name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Name-name]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Allocation Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="368" y="0" width="304" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="672" y="0" width="75" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="44">
+			<crosstab>
+				<reportElement x="0" y="0" width="802" height="44"/>
+				<crosstabHeaderCell>
+					<cellContents>
+						<staticText>
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="122" height="30" backcolor="#F0F8FF"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold"/>
+							</textElement>
+							<text><![CDATA[Designation]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="Designation" width="122">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{Designation}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="122" height="25"/>
+								<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1"/>
+								<textElement textAlignment="Left">
+									<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{Designation}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="Department" height="30">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{Department}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="30"/>
+								<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1"/>
+								<textElement textAlignment="Left">
+									<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{Department}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="NameMeasure" class="java.lang.String">
+					<measureExpression><![CDATA[$F{Name}]]></measureExpression>
+				</measure>
+				<crosstabCell width="75" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField isStretchWithOverflow="true">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="25"/>
+							<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1"/>
+							<textElement textAlignment="Left">
+								<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{NameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="Designation">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{NameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="Department">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{NameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="Designation" columnTotalGroup="Department">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{NameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

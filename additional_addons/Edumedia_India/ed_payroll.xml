@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data> 
+         
+          <!-- *********************************************************************** 	   
+	 		 		HUMAN RESOURCES->Payroll->My Payslip
+	             *********************************************************************** 
+	<record id="ed_view_payslip_search" model="ir.ui.view">
+            <field name="name">ed_view_payslip_search</field>
+            <field name="model">hr.payslip</field>
+            <field name="type">search</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="arch" type="xml"> 
+            	<filter icon="terp-dolar_ok!" string="Paid" domain="[('state','=','done'),('paid','=',True)]" help="Paid Slip" position ="replace">		              
+            		 <filter icon="terp-dolar_ok!" name="paid_sal" string="Paid" domain="[('state','=','done'),('paid','=',True)]" help="Paid Slip"/>
+            	</filter>
+            </field>
+    </record>   
+    --> 
+      <record id="ed_view_payslip_form" model="ir.ui.view">  
+            <field name="name">ed_view_payslip_form</field>
+            <field name="model">hr.payslip</field>
+            <field name="type">form</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml"> 
+            	
+            	            	 
+           <!-- 	<field name='holiday_days' position = 'replace'> 
+            		<field name='paid_lv' readonly="1"/>
+            		<field name='unpaid_lv' readonly="1"/>
+            	</field> 
+            	
+            	<field name="total_pay" position ="after">       	   
+						<field name="amt_words" invisible="1"/>
+				</field>-->
+                <xpath expr='//button[@name="cancel_sheet"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>
+
+                <xpath expr='//button[@name="compute_sheet"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>
+                
+          <!--      <xpath expr='//button[@string="Recompute Sheet"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>-->
+                
+                <xpath expr='//button[@name="hr_verify_sheet"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>
+                
+       <!--         <xpath expr='//button[@name="final_verify_sheet"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>
+                
+                <xpath expr='//button[@name="process_sheet"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>-->
+                
+                <xpath expr='//button[@name="draft"]' position='attributes'>
+                  <attribute name="groups">Edumedia_India.ed_hr</attribute>
+                </xpath>
+                                
+         	 </field>
+         </record>
+         
+         
+         
+         <record id="action_ed_view_payslip_form" model="ir.actions.act_window">
+	         <field name="name">My Payslip</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">hr.payslip</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">[('employee_id.user_id','=',uid),('state','=','done')]</field>	        
+	         <field name="context">{"search_default_paid_sal":1}</field>
+	        <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/> 
+	     </record>        
+        
+      <record id="action_ed_payslip_tree_view" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="hr_payroll.view_hr_payslip_tree"/>
+          <field name="act_window_id" ref="action_ed_view_payslip_form"/>
+      </record>
+        
+      <record id="action_ed_payslip_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="hr_payroll.view_hr_payslip_form"/>
+          <field name="act_window_id" ref="action_ed_view_payslip_form"/>
+      </record>
+	
+	  <menuitem action="action_ed_view_payslip_form" id="menu_my_payslip" name="My Payslip" parent="hr_payroll.menu_hr_root_payroll" sequence="2"/>
+         
+       <!-- *********************************************************************** 	   
+	 		 		HUMAN RESOURCES->configuration -> Payroll-> salary heads
+	             *********************************************************************** 
+	<record id="ed_view_salary_heads_form" model="ir.ui.view">
+            <field name="name">ed_view_salary_heads_form</field>
+            <field name="model">hr.allounce.deduction.categoty</field>
+            <field name="type">form</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="hr_payroll.hr_allounce_deduction_categoty_form"/>
+            <field name="arch" type="xml"> 
+       			<field name="type" position = "after">
+       				<field name="annual"/>
+       				<newline/>
+       			</field>
+       		</field>
+   </record>	--> 
+   
+   <!-- *********************************************************************** 	   
+	 		 		HUMAN RESOURCES-> Payroll-> payroll Reg
+	             ***********************************************************************  
+	<record id="ed_view_payroll_reg_form" model="ir.ui.view">
+            <field name="name">ed_view_payroll_reg_form</field>
+            <field name="model">hr.payroll.register</field>
+            <field name="type">form</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payroll_register_form"/>
+            <field name="arch" type="xml"> 
+       			<field name="date" position = "after">
+       				<field name="annual"/>
+       			</field>
+       		</field>
+   </record>	-->
+       </data>
+   </openerp>
+ 

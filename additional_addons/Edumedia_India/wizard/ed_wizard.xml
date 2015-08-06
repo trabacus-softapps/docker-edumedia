@@ -1,0 +1,555 @@
+<?xml version="1.0" ?>
+<openerp>
+ <data>
+ 
+ <menuitem id="menu_ed_reports" name="Reports" parent="menu_schlcinema_root" sequence="7"/> 
+  <menuitem id="menu_ed_activity_reports" name="Reports" parent="menu_activity_root" sequence="7"/> 
+
+<!--  *********************************************************************************
+						Reports => Mailing List Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_maillist_rpt" model="ed.vw.mailing.list" name="ed.vw.mailing.list" 
+				rml="Edumedia_India/reports/ed_maillist_rpt.jrxml" string="Mailing List" auto="False" header="False" />
+     
+       
+	  <record id="ed_mailing_list_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_mailing_list_rpt_view</field> 
+	          <field name="model">ed.wiz.mailing.list</field> 
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Mailing List Report" >
+	                <group colspan="4">
+	                    <field name="category_id"/>
+	                    <field name="country_id"/>
+	                    <field name="state_id" domain="[('country_id','=',country_id)]"/>
+	                    <field name="ed_city_id" domain="[('state_id','=',state_id)]"/>
+	                </group>
+	                <field name="jasper_output" required="1" />
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_mailing_list" model="ir.actions.act_window">
+	          <field name="name">Mailing List Report</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.mailing.list</field> 
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+ 
+ 
+		 <menuitem id="menu_ed_mailing_list" parent="menu_ed_reports" action="action_ed_mailing_list" 
+		            name ='Mailing List'
+		            sequence="1"/>
+		            
+<!--  *********************************************************************************
+						Reports => Training List Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_training_rpt" model='ed.vw.training.list' name="ed.vw.training.list" 
+				rml="Edumedia_India/reports/ed_training_rpt.jrxml" string="Training List" auto="False" header="False" />
+     
+       
+	  <record id="ed_training_list_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_training_list_rpt_view</field>
+	          <field name="model">ed.wiz.training.list</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Training List Report" >
+	                <group colspan="4">
+	                    <field name="category_id"/>
+	                    <field name="sch_date"/>
+	                    <field name="user_id"/>
+	                    <field name="ed_complt"/>
+	                </group>
+	                 <field name="jasper_output" required="1" />
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_training_list" model="ir.actions.act_window">
+	          <field name="name">Training List Report</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.training.list</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+ 
+ 
+		 <menuitem id="menu_ed_training_list" parent="menu_ed_reports" action="action_ed_training_list" 
+		            name ='Training List' sequence="2"/>		
+
+
+<!--  *********************************************************************************
+						Reports => Payment List Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_payment_rpt" model='ed.vw.payment.list' name="ed.vw.payment.list" 
+				rml="Edumedia_India/reports/ed_payment_rpt.jrxml" string="Payments" auto="False" header="False" />
+     
+       
+	  <record id="ed_payment_list_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_payment_list_rpt_view</field>
+	          <field name="model">ed.wiz.payment.list</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Payments" >
+	                <group colspan="4">
+	                    <field name="category_id"/>
+	                   <field name="nxt_payment_date"/>
+	                </group>
+	                 <field name="jasper_output" required="1" />
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_payment_list" model="ir.actions.act_window">
+	          <field name="name">Payments</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.payment.list</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_payment_list" parent="menu_ed_reports" action="action_ed_payment_list" 
+		            name ='Payments' sequence="3"/>		
+
+
+<!--  *********************************************************************************
+						Reports => Sessions Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_sessions_rpt" model='ed.vw.sessions.list' name="ed.vw.sessions.list" 
+				rml="Edumedia_India/reports/ed_sessions_rpt.jrxml" string="Sessions" auto="False" header="False" />
+     
+       
+	  <record id="ed_sessions_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_sessions_rpt_view</field>
+	          <field name="model">ed.wiz.sessions.list</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Sessions" >
+	                <group colspan="4">
+	                    <field name="category_id"/>
+	                                     
+	                </group>
+	                <field colspan="4" name="class_ids"  nolabel="1"/>
+	                    
+	                 <field name="jasper_output" required="1" />
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_sessions" model="ir.actions.act_window">
+	          <field name="name">Sessions</field>
+	          <field name="type">ir.actions.act_window</field>  
+	          <field name="res_model">ed.wiz.sessions.list</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_sessions" parent="menu_ed_reports" action="action_ed_sessions" 
+		            name ='Sessions' sequence="4"/>		
+
+
+<!--  *********************************************************************************
+						Reports => Activity Sessions Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_activity_sessions_rpt" model='ed.vw.monthly.sessions' name="ed.vw.monthly.sessions" 
+				rml="Edumedia_India/reports/ed_activity_sessions_rpt.jrxml" string="Activity Sessions" auto="False" header="False" />
+     
+       
+	  <record id="ed_activity_sessions_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_activity_sessions_rpt_view</field>
+	          <field name="model">ed.wiz.monthly.sessions</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Activity Sessions" >
+	                <group col="6" colspan="4">
+<!-- 	                    <field name="partner_id" required="1" domain="['|'('ed_sh_act','=',True),('ed_sh_aksh','=',False)]"/> -->
+	                        <field name="partner_id" required="1" domain="['|','&amp;',('ed_sh_act','=',1),('ed_sh_aksh','=',False),'&amp;',('ed_sh_aksh','=',1),('ed_sh_act','=',False)]"/>
+	                    
+	                    <field name="date1" required="1"/>
+                         <field name="date2" required="1"/>
+                         <field name="ed_type" required="1" />
+                         <field name="jasper_output" required="1" />
+                         </group>
+	                <button  icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_activity_sessions" model="ir.actions.act_window">
+	          <field name="name">Activity Sessions</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.monthly.sessions</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_sessions" parent="menu_ed_activity_reports" action="action_ed_activity_sessions" 
+		            name ='Activity Sessions' sequence="3"/>		
+
+<!--  *********************************************************************************
+						Reports => Activity Time Table Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_time_table_rpt" model='ed.vw.time.table.list' name="ed.vw.time.table.list" 
+				rml="Edumedia_India/reports/ed_time_table_rpt.jrxml" string="Time Table" auto="False" header="False" />
+     
+       
+	  <record id="ed_time_table_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_time_table_rpt_view</field>
+	          <field name="model">ed.wiz.time.table.list</field>
+	          <field name="type">form</field>  
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Time Table" >
+	                <group col="6" colspan="4">
+	                    <field name="account_id" required="1"/>
+	                    <field name="city_id" required="1"/>
+                         <field name="name"/> 
+                          <field name="ed_type" required="1" />                                   
+	                     <field name="jasper_output" required="1" />
+	                 </group> 
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>      
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_time_table_rpt_view" model="ir.actions.act_window">
+	          <field name="name">Time Table</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.time.table.list</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_time_table_action" parent="menu_ed_activity_reports" action="action_ed_time_table_rpt_view" 
+		            name ='Time Table' sequence="2"/>		
+
+
+<!--  *********************************************************************************
+						Reports => Akshaya topic list  Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_topic_list_rpt" model='ed.vw.topic.list' name="ed.vw.topic.list" 
+				rml="Edumedia_India/reports/ed_topic_list_rpt.jrxml" string="Topic List Report" auto="False" header="False" />
+     
+       
+	  <record id="ed_topic_list_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_topic_list_rpt_view</field>
+	          <field name="model">ed.wiz.topic.list</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="List Of Akshaya Topics" >
+	                <group col="6" colspan="4">
+	                    <field name="start_date" required="1"/>
+                         <field name="end_date" required="1"/>
+                         <newline/>
+                         <field name='is_5'/>
+                         <field name='is_6'/>
+                         <field name='is_7'/>
+                         <field name='is_8'/>
+                         <field name='is_9'/>
+                         <field name='is_10'/>
+                         <field name="jasper_output" required="1" />
+                         </group>
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_topics_list" model="ir.actions.act_window">
+	          <field name="name">List Of Akshaya Topics</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.topic.list</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_topics_list" parent="menu_ed_activity_reports" action="action_ed_topics_list" 
+		            name ='List Of Akshaya Topics' sequence="4"/>		
+
+
+      <!--  *********************************************************************************
+						Reports => Career graph Report  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_career_rpt" model='vw.ed.career' name="vw.ed.career" 
+				rml="Edumedia_India/reports/ed_career_rpt.jrxml" string="Career Graph Report" auto="False" header="False" />
+     
+       
+	  <record id="ed_career_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_career_rpt_view</field>
+	          <field name="model">ed.wiz.career</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Career Graph" >
+	                <group col="4" colspan="4">
+	                    <field name="department_id"/>
+                        
+                         <field name="jasper_output" required="1" />
+                         </group>
+                         <newline/>
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_career" model="ir.actions.act_window">
+	          <field name="name">Career Graph</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.career</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_career" parent="hr.menu_hr_reporting" action="action_ed_career" 
+		            name ='Career Graph Report' sequence="10"/>		
+
+
+<!--  *********************************************************************************
+						Reports => Allocation graph Report  
+	  *********************************************************************************	--> 
+	  
+         <report auto="False" id="rpt_allocation" model="vw.ed.allocation" name="vw.ed.allocation" 
+        	 rml="Edumedia_India/reports/ed_allocation.jrxml" string="Allocation Report"/>
+        	 
+        	        
+	 	 <record id="ed_allocation_rpt_view" model="ir.ui.view">
+	          <field name="name">ed_allocation_rpt_view</field>
+	          <field name="model">ed.wiz.allocation</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Allocation" >
+	                <group col="4" colspan="4">                         
+                         <field name="jasper_output" required="1" />
+                         </group>
+                         <newline/>
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_allocation" model="ir.actions.act_window">
+	          <field name="name">Allocation</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.allocation</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+	       
+	     <menuitem id="menu_ed_print_allocation" parent="hr.menu_hr_reporting" action="action_ed_allocation" 
+		            name ='Allocation Report' sequence="11"/>
+		            
+	         
+<!--  *********************************************************************************
+						Birthday  
+	  *********************************************************************************	--> 
+ 
+	  <record id="ed_vw_birthday_tree" model="ir.ui.view">
+          <field name="name">ed_vw_birthday_tree</field>
+          <field name="model">ed.vw.birthday</field>
+          <field name="type">tree</field> 
+          <field name="arch" type="xml">
+            <tree string="Birthdays" editable="top">	                 
+                  <field name="employee_id" readonly="1"/>                        
+                     <field name="birthday" readonly="1"/>
+            </tree>
+          </field>
+       </record>
+       
+       <record id="action_ed_birthday" model="ir.actions.act_window">
+          <field name="name">Birthday</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">ed.vw.birthday</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree</field>
+       </record> 
+       
+       
+       <!--  *********************************************************************************
+						HR Dashboard Holidays  
+	  *********************************************************************************	--> 
+ 
+	  <record id="ed_vw_holiday_tree" model="ir.ui.view">
+          <field name="name">ed_vw_holiday_tree</field>
+          <field name="model">ed.vw.holidays</field>
+          <field name="type">tree</field> 
+          <field name="arch" type="xml">
+            <tree string="holiday" editable="top">	                 
+                  <field name="holiday" readonly="1"/>                        
+                  <field name="h_date" readonly="1"/>
+                  <field name="h_year" invisible="1"/>
+                  <field name="city_id" invisible="1"/>   
+            </tree>
+          </field>
+       </record>
+       
+       <record id="action_ed_vw_holidays" model="ir.actions.act_window">
+          <field name="name">Holidays</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">ed.vw.holidays</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree</field>
+       </record>  
+       
+<!--   ==================================================================================================
+					Purchase Order => Reporting => Stock Register Report
+================================================================================================== -->
+       <report id="rpt_ed_stock_det_rpt" model="ed.view.stock.rpt1" name="ed.view.stock.rpt1" 
+    		string="Stock Register" rml="Edumedia_India/reports/ed_stock_detail.jrxml" auto="False" header="False" />      			
+      			      			
+		<record id="ed_stock_val_rpt" model="ir.ui.view">
+			<field name="name">Stock Register</field>
+			<field name="model">ed.wz.stock.rpt</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Stock Register"> 	
+				    <group colspan="4" col="6">
+					    <field name="start_dt" colspan="2" required="1"/>
+					    <field name="end_dt" colspan="2" required="1"/>	
+					    <newline/>
+				    	<field name="name" colspan = "2"/>
+						<field name="jasper_output" colspan = "2"/> 				    			      
+				    </group>
+					<button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+				</form>
+			</field>
+		</record>
+		<record id="action_stock_det_rpt" model="ir.actions.act_window">
+			<field name="name">Stock Register</field>
+			<field name="res_model">ed.wz.stock.rpt</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+        <menuitem name="Stock Register" id="menu_action_stock_det_rpt" sequence="17"
+            action="action_stock_det_rpt" parent="stock.next_id_61"
+  			icon="STOCK_PRINT"/>
+  			
+  			
+ <!--  *********************************************************************************
+						HR => Reporting  => Appraisal Score  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_appraisal_score" model='ed.vw.appraisal.score' name="ed.vw.appraisal.score" 
+				rml="Edumedia_India/reports/ed_appraisal_sr_rpt.jrxml" string="Appraisal Score" auto="False" header="False" />
+     
+       
+	  <record id="ed_appraisal_score_view" model="ir.ui.view">
+	          <field name="name">ed_appraisal_score_view</field>
+	          <field name="model">ed.wiz.appraisal.score</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="Appraisal Score" >
+	                <group col="4" colspan="4">
+	                    <field name="resource_id"/>                        
+                        <field name="jasper_output" required="1" />
+                    </group>
+                    <newline/>
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_appraisal_score" model="ir.actions.act_window">
+	          <field name="name">Appraisal Score</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.appraisal.score</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_appraisal_score" parent="hr.menu_hr_reporting" action="action_ed_appraisal_score" 
+		            name ='Appraisal Score' sequence="12"/>		
+
+<!--  *********************************************************************************
+						HR => Reporting  =>  
+	  *********************************************************************************	--> 
+
+	  <report id="ed_rpt_erp_impl_score" model='ed.vw.erp.implemantation' name="ed.vw.erp.implemantation" 
+				rml="Edumedia_India/reports/ed_erp_impl_rpt.jrxml" string="SC Consolidated" auto="False" header="False" />
+     
+       
+	  <record id="ed_erp_impl_view" model="ir.ui.view">
+	          <field name="name">ed_erp_impl_view</field>
+	          <field name="model">ed.wiz.erp.implemantation</field>
+	          <field name="type">form</field>
+	          <field name="priority">2</field>
+	          <field name="arch" type="xml">
+	            <form string="SC Consolidated" >
+	                <group col="4" colspan="4">
+	                    <field name="start_dt" required="1"/>                        
+	                    <field name="end_dt" required="1"/>
+	                    <field name="city_id"/>
+	                    <field name="user_id"/>
+                        <field name="jasper_output" required="1" />
+                    </group>
+                    <newline/>
+	                <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/> 
+					<button name="print_report" string="Print" type="object" icon="gtk-print"/>
+	                  
+	            </form>
+	          </field>
+	       </record>
+	       
+	       <record id="action_ed_erp_impl" model="ir.actions.act_window">
+	          <field name="name">SC Consolidated</field>
+	          <field name="type">ir.actions.act_window</field>
+	          <field name="res_model">ed.wiz.erp.implemantation</field>
+	          <field name="view_type">form</field>
+	          <field name="view_mode">form</field>
+	          <field name="target">new</field>
+	       </record>
+           <menuitem id="menu_ed_erp_impl" parent="menu_ed_reports" action="action_ed_erp_impl" 
+		            name ='SC Consolidated' sequence="12"/>		
+
+
+       
+       
+     </data>
+ </openerp>		   
+ 
+ 
+     
+          

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_appraisal_sub5" language="groovy" pageWidth="572" pageHeight="802" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;assess_ids&apos;]"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Out_Of-hr_outof" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Part_5-assess_ids/Out_Of-hr_outof]]></fieldDescription>
+	</field>
+	<field name="Question-hr_param" class="java.lang.String">
+		<fieldDescription><![CDATA[Part_5-assess_ids/Question-hr_param]]></fieldDescription>
+	</field>
+	<field name="Points-points" class="java.lang.Float">
+		<fieldDescription><![CDATA[Part_5-assess_ids/Points-points]]></fieldDescription>
+	</field>
+	<variable name="points" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{Points-points} == null ? 0 : $F{Points-points}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="20" backcolor="#FEFCA1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[PART V: HUMAN RESOURCE ASSESSMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="572" height="15"/>
+				<box topPadding="0" leftPadding="3" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[* to be filled by HR department based on facts after discussion with appraiser]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="472" height="15" backcolor="#CBCCD2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[HR Parameters]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="472" y="0" width="47" height="15" backcolor="#CBCCD2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Out of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="519" y="0" width="53" height="15" backcolor="#CBCCD2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Points]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="38" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="38" y="0" width="434" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Question-hr_param} == "" ? "" : $F{Question-hr_param}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="472" y="0" width="47" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Out_Of-hr_outof} == null ? 0 : $F{Out_Of-hr_outof}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="519" y="0" width="53" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{Points-points} == null ? 0 : $F{Points-points}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="519" height="15" backcolor="#CBCCD2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement mode="Opaque" x="519" y="0" width="53" height="15" backcolor="#CBCCD2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$V{points} == null ? 0 : $V{points}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

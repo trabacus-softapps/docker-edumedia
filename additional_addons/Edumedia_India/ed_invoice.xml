@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data> 
+   
+   
+   		 <record id="ed_invoice_form" model="ir.ui.view">   
+            <field name="name">ed_invoice_form</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            
+            <field name="number" position="attributes">
+                   <attribute name="readonly">0</attribute>                   
+            </field>
+             <page string="Other Info" position="after">
+                <page string="Terms &amp; Conditions">
+                   <field name="term_cond" string=""/>                
+                </page>
+             </page>
+             <field name="user_id" position="replace"/>
+             <field name='date_invoice' position="after">
+             	<field name='sale_id'/>
+             	<field name="user_id" string="Relationship Manager"/>
+             	<field name="write_uid" invisible="1"/>
+             </field>
+              <field name="tax_line" position="replace">
+             </field>
+                   
+
+             <!-- TO be uncommented  
+             <group col="4" colspan="2" position="replace">
+                    <group col="6"  >
+                               
+                               <field name="amount_untaxed" colspan="1"/>
+                               <button  name="button_reset_taxes" states="draft" string="Compute Taxes" type="object" groups="base.group_user" icon="terp-stock_format-scientific" />
+                                   
+                               
+                                 <label string="" colspan="2"/>
+                                 <field name="amount_tax"  colspan="1"/>
+                                 <field name="amount_total"  colspan="1"/>
+                                 <field name="reconciled"  colspan="1"/>
+								 <field name="residual"/>
+								 <field name="state"/>
+								 
+
+                                <group col="6" colspan="2"  groups="base.group_user">
+                                    <button name="invoice_cancel" states="draft,proforma2,sale,open" string="Cancel" icon="gtk-cancel"/>
+                                    <button name="action_cancel_draft" states="cancel" string="Reset to Draft" type="object" icon="terp-stock_effects-object-colorize"/>
+
+                                    <button name="211" type="action" string="Refund" states="open,paid" icon="gtk-execute"/>
+                                    <button name="227" type="action" string="Re-Open" states="paid" icon="gtk-convert" groups="base.group_no_one"/>
+                                    <button name="invoice_proforma2" states="draft" string="PRO-FORMA" icon="terp-gtk-media-pause" groups="account.group_account_user"/>
+                                    <button name="invoice_open" states="draft,proforma2" string="Validate" icon="gtk-go-forward"/>
+
+                                </group>
+                            </group>
+                            </group>-->
+   
+             
+            </field>
+               
+            </record>
+   
+   		<record id="ed_view_invoice_line_tree" model="ir.ui.view">
+		            <field name="name">ed_view_invoice_line_tree</field>
+		            <field name="type">tree</field>
+		            <field name="model">account.invoice.line</field>
+		            <field name="inherit_id" ref="account.view_invoice_line_tree"/>
+		            <field name="arch" type="xml">
+		           
+		            <field name="discount" groups="base.group_no_one" position="after">
+		            <field name="total_deposit" />
+		            </field>
+		            </field>
+		</record>
+   
+		<record id="ed_view_invoice_line_form" model="ir.ui.view">
+		            <field name="name">ed_view_invoice_line_form</field>
+		            <field name="type">form</field>
+		            <field name="model">account.invoice.line</field>
+		            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+		            <field name="arch" type="xml">
+		           
+		            <field name="discount" groups="base.group_no_one" position="after">
+		            <field name="product_details" invisible="1"/> 
+		            
+		            </field>
+		            </field>
+		          
+        </record>
+   </data>
+</openerp> 

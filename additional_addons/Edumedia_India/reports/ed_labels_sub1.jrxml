@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_labels_main_subr1" language="groovy" columnCount="3" printOrder="Horizontal" pageWidth="555" pageHeight="802" columnWidth="185" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;vw_partner_ids&apos;]"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Contact_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Contact_Name-name]]></fieldDescription>
+	</field>
+	<field name="Street-street" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Street-street]]></fieldDescription>
+	</field>
+	<field name="Street2-street2" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Street2-street2]]></fieldDescription>
+	</field>
+	<field name="city_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/City-ed_city_id/City-name]]></fieldDescription>
+	</field>
+	<field name="Zip-zip" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Zip-zip]]></fieldDescription>
+	</field>
+	<field name="State" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Fed._State-state_id/State_Name-name]]></fieldDescription>
+	</field>
+	<field name="Country-country" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Country-country/Country-name]]></fieldDescription>
+	</field>
+	<sortField name="State"/>
+	<sortField name="city_name"/>
+	<sortField name="Zip-zip"/>
+	<sortField name="Name-name"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25" splitType="Prevent">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="20"/>
+				<box leftPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Complimentary]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="92" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="180" height="92"/>
+				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TO\n"
++ ($F{Contact_Name-name} == "" ? "" : $F{Contact_Name-name})
++ ($F{Name-name} == "" ? "" : "\n" + $F{Name-name})
++ ($F{Street-street} == "" ? "" : ("\n" + $F{Street-street}))
++ ($F{Street2-street2} == "" ? "" :( "\n" +$F{Street2-street2}))
++ ($F{city_name} == "" ? "" : ("\n" + $F{city_name}))
++ ($F{Zip-zip} == "" ? "" : (" " + $F{Zip-zip}))
++ ($F{State} == "" ? "" : ("\n" + $F{State}))
++ ($F{Country-country} == "" ? "" : (" " + $F{Country-country}))]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

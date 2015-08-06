@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_payslip_rpt_sub1" language="groovy" pageWidth="277" pageHeight="802" columnWidth="277" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;line_ids&apos;]"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Category_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Payslip_Line-line_ids/Category-category_id/Category_Name-name]]></fieldDescription>
+	</field>
+	<field name="Sub_Total-total" class="java.lang.Float">
+		<fieldDescription><![CDATA[Payslip_Line-line_ids/Sub_Total-total]]></fieldDescription>
+	</field>
+	<field name="Type-type" class="java.lang.String">
+		<fieldDescription><![CDATA[Payslip_Line-line_ids/Type-type]]></fieldDescription>
+	</field>
+	<variable name="earn_total" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{Sub_Total-total}]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[$F{Type-type} == "allowance"]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="210" height="15"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Category_Name-name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement positionType="Float" x="210" y="0" width="67" height="15"/>
+				<box rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{Sub_Total-total} == null ? 0 : $F{Sub_Total-total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+  		
+  		<menuitem icon="terp-project" id="menu_schlcinema_root" name="School Cinema" sequence="3" 
+            	  web_icon="images/film1.png"
+            	  web_icon_hover="images/film.png"/>
+   		<menuitem id="menu_ed_saleorder_Pro" name="Sales" parent="menu_schlcinema_root" sequence="0"/>
+     	<menuitem id="menu_edumedia_customer" name="Database" parent="menu_schlcinema_root" sequence="3"/>
+   	   <menuitem icon="terp-project" id="menu_activity_root" name="Activity" sequence="3" 
+   		web_icon="images/activity_on.png"
+   		web_icon_hover="images/activity_off.png"/>
+   		<menuitem id="menu_ed_act_config" name="Configuration" parent="menu_activity_root" sequence="6"/>
+      
+            	<record id="view_ed_partner_form" model="ir.ui.view">
+	            <field name="name">view_ed_partner_form</field>
+	            <field name="model">res.partner</field> 
+	            <field name="type">form</field>
+	            <field name="arch" type="xml"> 
+	                <form string="Database" col='1'>
+		                   <group col="10" colspan="2">
+		                        <group colspan="2" col="4">
+		                            <field name="name" select="1"/>
+		                            <field name="ref" string="Code" select="1"/>
+		                            <field name="ed_state" invisible="1"/>
+	                            </group> 
+	                            <group colspan="2" col="6"> 
+		                            <field name="ed_sh_cinema" />
+		                            <field name="ed_sh_men" readonly="1"/>
+		                            <field name="customer" select="1"/> 
+		                            <field name="ed_sh_kr" readonly="1"/>
+		                            <field name="ed_sh_act" />
+		                            <field name="ed_sh_aksh"/>
+		                            <field name="supplier"/>
+	 	                        </group>
+		                   </group>
+		                   <notebook colspan="4">
+		                        <page string="General">
+		                            <field colspan="4"  name="child_ids" nolabel="1" select="1" height="260">
+			                            <!--<form string="Partner Contacts">
+			                                  <group colspan="4" col="6">
+			                                        <field name="name"/>
+			                                        <field name="ed_desig_id" widget="selection"/>
+			                                  </group>
+			                                  <newline/>
+			                                  <group colspan="2" col="4">
+			                                        <separator string="Postal Address" colspan="4" col="4" />
+			                                        <field name="type" string="Type" colspan="2"/>
+			                                        <field name="street" colspan="4"/>
+			                                        <field name="street2" colspan="4"/>
+			                                        <field name="zip"/>
+			                                        <field name="country_id" completion="1"/>
+			                                        <field name="state_id" domain="[('country_id','=',country_id)]"/>
+			                                        <field name="ed_city_id" domain="[('state_id','=',state_id)]" select="1"/>	                                        
+			                                  </group>
+			                                  <group colspan="2" col="2">
+			                                        <separator string="Communication" colspan="2" col="2" />
+			                                        <field name="phone"/>
+			                                        <field name="mobile"/>
+			                                        <field name="fax"/>
+			                                        <field name="email" widget="email"/>
+			                                        <field name="ed_birth" attrs="{'invisible':[('type', '!=','contact')]}"/>
+											  </group>
+			                            </form>
+			                            <tree string="Partner Contacts">
+			                                  <field name="name"/>
+			                                  <field name="zip"/>
+								 			  <field name="ed_city_id"/>
+		                                      <field name="country_id"/>
+			                                  <field name="phone"/>
+			                                  <field name="email"/>
+			                            </tree>-->
+		                            </field>
+		                            <group  groups="base.group_no_one">
+		                                <separator colspan="4" string="Categories"/>
+		                                <field  colspan="4" name="category_id" nolabel="1"/>
+		                            </group>
+		                        </page>
+		                        <page string="Other Info">
+			                        <group col="6" colspan="2">
+				                        <field name="ed_total_strg"/>
+				                        <field name="ed_co_ed"/>
+				                        <newline/>
+				                        <field name="ed_grade_off"/>
+				                        <field name="ed_board_id" widget="selection"/>
+				                        <field name="type" widget="selection"/>
+				                        <field name="time_from" />
+		                                <field name="time_to" />
+		                                <separator colspan="6" string="Class Details"/>
+		                                <field colspan="6" name="ed_cls_ids" string="" domain="[('partner_id','=',active_id)]" context="{'partner_id':active_id}"/>
+				                        <newline/>
+				                        <separator colspan="6" string="Events"/>
+			                            <field colspan="6"  name="ed_event_ids" string="" widget="one2many"/>
+				                        <separator colspan="6" string="Infrastucture"/>
+				                        <field colspan="6" name="ed_infra_ids" string=""/>
+				                        <separator colspan="6" string="Moral Science/Value Education"/>
+				                        <field colspan="6" name="ed_moral_ids" string=""/>
+			                        </group>
+		                        </page>
+		                        <page string="Sch Cinema" attrs="{'invisible':[('ed_state', '!=','True')]}">
+			                        <field colspan="6" name="sale_ids" string=""/>
+                                </page>
+		                        <page string="Mentor">
+		                        </page>
+		                        <page string="Krayon">
+		                        </page>
+		                        <page string="Activity">
+		                        <field colspan="6" name="ed_session_ids" string=""/>
+		                        </page>
+		                        <page string="Accounting">
+					                <group col="2" colspan="2">
+					                    <separator string="Customer Accounting Properties" colspan="2"/>
+					                    <field name="property_account_receivable" groups="base.group_no_one" />
+					                    <field name="property_account_position" widget="selection"/>
+					                    <field name="property_payment_term" widget="selection"/>
+					                </group>
+				                    <group col="2" colspan="2">
+				                        <separator string="Supplier Accounting Properties" colspan="2"/>
+				                        <field name="property_account_payable" groups="base.group_no_one"/>
+				                    </group>
+				                    <group col="2" colspan="2">
+				                        <separator string="Customer Credit" colspan="2"/>
+				                        <field name="credit"/>
+				                        <field name="credit_limit" groups="base.group_no_one"/>
+				                    </group>
+				                    <group col="2" colspan="2">
+				                        <separator string="Supplier Debit" colspan="2"/>
+				                        <field name="debit"/>
+				                    </group>
+				                    <group col="10" colspan="4">
+				                    	<separator colspan="10" string="Registration Info"/>
+					                    <field name="ed_ser_tax_no" />
+						                <field name="ed_pan_no" />
+						                <field name="ed_vat_no"/>
+						                <field name="ed_cin"/>
+				         		        <field name="ed_tin"/>
+				                    </group>
+				                    <field colspan="4" context="{'address': 'address'}" name="bank_ids" nolabel="1">
+				                        <form string="Bank account">
+					                          <field name="state"/>
+				                              <newline/>
+				                              <field name="acc_number" select="1"/>
+				                              <newline/>
+				                              <field name="bank"/>
+				                              <newline/>
+				                              <field name="sequence"/>
+				                              <field colspan="4" name="name"/>
+				                              <separator colspan="4" string="Bank account owner"/>
+				                              <field colspan="4" name="owner_name"/>
+				                              <field colspan="4" name="street"/>
+				                              <newline/>
+				                              <field name="zip"/>
+				                              <field name="city"/>
+				                              <newline/>
+				                              <field completion="1" name="country_id"/>
+				                              <field name="state_id"/>
+				                        </form>
+				                        <tree string="Bank Details">
+					                          <field name="state"/>
+					                          <field name="bank"/>
+					                          <field name="owner_name"/>
+					                          <field name="acc_number"/>
+				                        </tree>
+				                    </field>
+	               				</page>
+	                       		<page string="History" >
+				                    <field name="opportunity_ids" colspan="4" nolabel="1" context="{'default_partner_id': active_id}">
+			                            <!--<tree string="Leads and Opportunities"  colors="blue:state=='pending';gray:state=='cancel'">-->
+				                    	<tree string="Leads and Opportunities">
+				                    		  <field name="create_date"/>
+				                              <field name="name"/>
+				                              <field name="type"/>
+				                              <field name="stage_id"/>
+				                              <button name="stage_previous" string="Previous"
+				                                      states="open,pending" type="object" icon="gtk-go-back" />
+				                              <button name="stage_next" string="Next"
+				                                      states="open,pending" type="object"
+				                                      icon="gtk-go-forward" />
+				                              <field name="user_id" />
+				                              <!--<field name="state" />-->
+				                              <button name="case_cancel" string="Cancel"
+				                                      states="draft,open,pending" type="object"
+				                                      icon="gtk-cancel" />
+				                              <button name="case_open" string="Open"
+				                                      states="draft,pending" type="object"
+				                                      icon="gtk-go-forward" />
+				                              <button name="case_close" string="Close"
+				                                      states="open,draft,pending" type="object"
+				                                 	  icon="gtk-close" />
+				                              <button string="Convert to Opportunity"
+				                                      name="convert_opportunity"
+				                                      states="draft,open,pending" icon="gtk-index"
+				                                      type="object" attrs="{'invisible':[('type','=','opportunity')]}" />
+				                              <button name="case_escalate" string="Escalate"
+				                                      states="open,draft,pending" type="object"
+				                                      icon="gtk-go-up" />
+			                            </tree>
+				                    </field>
+				                    <field name="meeting_ids" colspan="4" nolabel="1"  context="{'default_partner_id': active_id}">
+				                        <tree string="Meetings" colors="gray:state in ('draft', 'cancel','done','pending')">
+			                            	  <field name="user_id" string="Responsible"/>
+				                              <field name="name" string="Subject" />
+				                             <!-- <field name="date" string="Start Date" />-->
+				                              <!--<field name="date_deadline" string="End Date"/>-->
+				                        </tree>
+				                    </field>
+				                    <field name="phonecall_ids" colspan="4" nolabel="1" context="{'default_partner_id': active_id}">
+				                        <tree string="Phone Calls" colors="gray:state in ('draft', 'cancel','done','pending')">
+				                              <field name="date" string="Date"/>
+				                              <field name="name" string="Call Summary"/>
+				                              <field name="categ_id" string="Type" widget="selection"/>
+				                              <field name="user_id"/>
+				                              <field name="state"/>
+				                              <button name="case_cancel" string="Cancel" states="draft,open,pending" type="object" icon="gtk-cancel"/>
+				                              <button name="case_open" string="Open" states="draft,pending" type="object" icon="gtk-go-forward"/>
+				                              <button name="case_close" string="Held" states="open,draft,pending" type="object" icon="gtk-jump-to"/>
+				                              <button name="case_pending" string="Not Held" states="open" type="object" icon="gtk-media-pause"/>
+				                        </tree>
+				            			<form string="Phone Call">
+							                  <group colspan="6" col="7">
+								                    <field name="name" required="1"/>
+								                    <field name="partner_phone"   attrs="{'required': [('categ_id.name', '=', 'Outbound')]}"/>
+								                    <field name="duration" widget="float_time" required="1"/>
+								                    <button string="Schedule a Meeting" name="action_make_meeting" icon="gtk-redo" type="object"/>
+								                    <field name="date" required="1"/>
+								                    <field name="user_id"/>
+								                    <field name="team_id" colspan="1" widget="selection" />
+								                   
+											  </group>
+				                              <group col="3" colspan="2">
+								                    <separator colspan="3" string="Contacts" />
+								                    <field name="partner_id"
+								                           on_change="onchange_partner_id(partner_id, email_from)" />
+								           
+								                    <field name="partner_mobile" />
+				                			  </group>
+							                  <group col="2" colspan="2">
+								                    <separator colspan="2" string="Categorization" />
+								                    <field name="categ_id" widget="selection"
+								                           domain="[('object_id.model', '=', 'crm.phonecall')]"
+								                           string="Type" />
+								                    <field name="priority"/>
+								                    <field name="opportunity_id"/>
+							                  </group>
+							                  <separator string="Description" colspan="4" />
+							                  <field name="description" nolabel="1" colspan="4" />
+							                  <separator colspan="4" />
+							                  <group col="8" colspan="4">
+								                    <field name="state" select="1" />
+								                    <button name="case_cancel" string="Cancel"
+								                            states="draft,open,pending" type="object"
+								                  		    icon="gtk-cancel" />
+								                    <button name="case_open" string="Open"
+								                        	states="draft,pending" type="object"
+								                        	icon="gtk-go-forward" />
+								                    <button name="case_pending" string="Not Held"
+								                        	states="open" type="object" icon="gtk-media-pause" />
+								                    <button name="case_close" string="Held"
+								                        	states="open,draft,pending" type="object"
+								                        	icon="gtk-jump-to" />
+								                    <button name="case_reset" string="Reset to Draft"
+								                        	states="done,cancel" type="object"
+								                        	icon="gtk-convert" />
+							                  </group>
+				            			</form>
+				                    </field>
+								</page>
+		                        <page string="Notes">
+		                          	<field name="ed_text" nolabel="1"/>
+		                        </page>
+		                   </notebook>
+	                </form>
+	            </field>
+        </record>
+	        
+   	    <record id="view_ed_partner_tree" model="ir.ui.view">
+		        <field name="name">ed_partner_tree</field>
+	            <field name="model">res.partner</field>
+	            <field name="type">tree</field>
+	            <field eval="8" name="priority"/>
+	            <field name="arch" type="xml">
+	                <tree string="Database">
+		                   <field name="name"/>
+		                   <field name="ref" string="Code"/>
+		                   <field name="phone"/>
+		                   <field name="email"/> 
+		                   <field name="ed_street_id" />
+		                   <field name="ed_street2_id" />
+		                   
+					       <field name="ed_city_id" />
+			               <field name="country_id" invisible="1"/>
+			               <field name="user_id" invisible="1"/> 
+	                </tree>
+		        </field>
+        </record>   
+	         
+        <record id="ed_view_res_partner_filter" model="ir.ui.view">
+	            <field name="name">ed.res.partner.select</field>
+	            <field name="model">res.partner</field>
+	            <field name="type">search</field>
+	            <field name="arch" type="xml">
+	                <search string="Database">
+	                   <group col='10' colspan='4'>
+<!-- 	                         <filter string="Customers" name="customer" icon="terp-personal" domain="[('customer','=',1)]" help="Customer Partners" /> -->
+<!-- 	                         <filter string="Suppliers" name="supplier" icon="terp-personal" domain="[('supplier','=',1)]" help="Supplier Partners" /> -->
+<!-- 	                         <separator orientation="vertical"/>                          -->
+	                         <filter string="School cinema" name="ed_sh_cinema" icon="terp-idea" domain="[('ed_sh_cinema','=',1)]" help="School cinema"/>
+	                         <filter string="Mentor" name="ed_sh_men" icon="terp-idea" domain="[('ed_sh_men','=',1)]" help="Mentor"/>
+	                         <filter string="Krayons" name="ed_sh_kr" icon="terp-idea" domain="[('ed_sh_kr','=',1)]" help="Krayons"/>
+	                         <filter string="Activity" name="ed_sh_act" icon="terp-idea" domain="[('ed_sh_act','=',1)]" help="Activity"/>
+	                         <filter string="Akshaya" name="ed_sh_aksh" icon="terp-idea" domain="[('ed_sh_aksh','=',1)]" help="Akshaya"/>
+	                         <separator orientation="vertical"/>
+	                         <field name="name" select="1"/>
+							 <field name="ed_city_id" />
+	                         <field name="ed_board_id" select="1"/>
+	                         <field name="category_id" select="1" groups="base.group_no_one"/> 
+					     	 <field name="type" /> 
+	                   </group>
+	                   <newline />
+	                   <group expand="0" string="Group By...">
+	                        <filter string="Salesman" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+	                   </group>
+	                </search>
+	            </field>
+        </record>
+          
+        <record id="action_ed_partner1" model="ir.actions.act_window">
+				<field name="name">Database</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">res.partner</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('customer','=',True)]</field>
+				<field name="context">{'search_default_customer':1}</field>
+		        <field name="search_view_id" ref="ed_view_res_partner_filter"/>
+		        <field name="view_id" ref="view_ed_partner_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_partner_tree1">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_partner_tree"/> 
+	            <field name="act_window_id" ref="action_ed_partner1"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_ed_partner_form1">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_partner_form"/>
+	            <field name="act_window_id" ref="action_ed_partner1"/>
+        </record> 
+     	<menuitem action="action_ed_partner1" id="menu_action_ed_partner1" name="Database" parent="menu_edumedia_customer" sequence="1"/>
+     
+<!-- ************************************************************************************************************
+ 								Activity Skills=>Training=>Customers
+*************************************************************************************************************  -->								
+ 
+  
+        <record id="action_ed_partner_activity" model="ir.actions.act_window">
+				<field name="name">Customers Profile</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">res.partner</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('ed_sh_act','=',1)]</field>
+				<field name="context">{'search_default_customer':1,'search_default_ed_sh_act':1}</field>
+		        <field name="search_view_id" ref="ed_view_res_partner_filter"/>
+		        <field name="view_id" ref="view_ed_partner_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_partner_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_partner_tree"/> 
+	            <field name="act_window_id" ref="action_ed_partner_activity"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_ed_partner_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_partner_form"/>
+	            <field name="act_window_id" ref="action_ed_partner_activity"/>
+        </record> 
+        
+      
+ <!-- ************************************************************************************************************
+ 								Akshaya Skills=>>Customers
+*************************************************************************************************************  -->								
+ 
+  
+        <record id="action_ed_partner_akshaya" model="ir.actions.act_window">
+				<field name="name">Customers Profile</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">res.partner</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('ed_sh_aksh','=',1)]</field>
+				<field name="context">{'search_default_customer':1,'search_default_ed_sh_aksh':1}</field>
+		        <field name="search_view_id" ref="ed_view_res_partner_filter"/>
+		        <field name="view_id" ref="view_ed_partner_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_partner_akshaya_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_partner_tree"/> 
+	            <field name="act_window_id" ref="action_ed_partner_akshaya"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_ed_partner_akshaya_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_partner_form"/>
+	            <field name="act_window_id" ref="action_ed_partner_akshaya"/>
+        </record> 
+        
+        
+ <!-- ************************************************************************************************************
+ 								Mentor => Database
+*************************************************************************************************************  -->								
+        <menuitem icon="terp-project" id="menu_mentor_root" name="Mentor" sequence="4"
+          		  web_icon="images/Mentor_off.png"
+            	  web_icon_hover="images/Mentor_on.png"/>
+         
+     	<menuitem id="menu_edumedia_mentor" name="Database" parent="menu_mentor_root" sequence="1"/>
+        
+         
+         <record id="ed_view_res_partner_mentor_filter" model="ir.ui.view">
+	            <field name="name">ed_view_res_partner_mentor_filter</field>
+	            <field name="model">res.partner</field>
+	            <field name="type">search</field>
+	            <field name="arch" type="xml">
+	                <search string="Database">
+	                   <group col='10' colspan='4'>
+	                         <filter string="Subscription" name="ed_sh_subscrip" icon="terp-idea" domain="[('ed_sh_subscrip','=',1)]" help="Subscription Records"/>
+	                         <filter string="Complimentry" name="ed_sh_complem" icon="terp-idea" domain="[('ed_sh_complem','=',1)]" help="Complimentry Records"/>
+	                         <separator orientation="vertical"/>
+	                         <field name="name" select="1"/>
+							 <field name="ed_city_id" />
+	                         <field name="ed_board_id" select="1"/>
+	                         <field name="category_id" select="1" groups="base.group_no_one"/> 
+					     	 <field name="type" /> 
+	                   </group>
+	                   <newline />
+	                   <group expand="0" string="Group By...">
+	                        <filter string="Salesman" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+	                   </group>
+	                </search>
+	            </field>
+        </record>
+         
+         <record id="view_ed_partner_mentor_tree" model="ir.ui.view">
+		        <field name="name">ed_partner_mentor_tree</field>
+	            <field name="model">res.partner</field>
+	            <field name="type">tree</field>
+	            <field eval="8" name="priority"/>
+	            <field name="arch" type="xml">
+	                <tree string="Database">
+		                   <field name="name"/>
+		                   <field name="ref" string="Code"/>
+		                   <field name="phone"/>
+		                   <field name="email"/> 
+		                   <field name="ed_street_id" />
+		                   <field name="ed_street2_id" />		                   
+					       <field name="ed_city_id" />
+			               <field name="country_id" invisible="1"/>
+			               <field name="user_id" invisible="1"/> 
+	                </tree>
+		        </field>
+        </record>   
+         
+         <record id="view_ed_mentor_partner_form" model="ir.ui.view">
+	            <field name="name">view_ed_mentor_partner_form</field>
+	            <field name="model">res.partner</field> 
+	            <field name="type">form</field>
+            	<field name="priority">2</field>
+	            <field name="arch" type="xml">
+	                <form string="Database" col='1'>
+<!--                          <button name="mark_Subscription" string="Mark Subscription" type="object" icon="gtk-confirm"/> -->
+	                
+		                   <group col="10" colspan="2">
+		                        <group colspan="2" col="4">
+		                            <field name="name" select="1"/>
+		                            <field name="ref" string="Code" select="1"/>
+	                            </group> 
+	                            <group colspan="2" col="6"> 
+		                            <field name="ed_sh_subscrip"/>
+		                            <field name="ed_sh_complem" attrs="{'invisible': [('ed_sh_subscrip', '=',True)]}"/>
+		                            <field name="ed_source" attrs="{'invisible': [('ed_sh_subscrip', '=',True)]}"/>
+		                         </group>
+		                   </group>
+		                   <notebook colspan="4">
+		                        <page string="General">
+		                            <field colspan="4"  name="child_ids" nolabel="1" select="1" height="260">
+		                            	<!--<form string="Partner Contacts">
+		                            		    <group colspan="4" col="6">
+			                                        <field name="name"/>
+			                                        <field name="ed_desig_id" widget="selection"/>
+			                                  </group>
+			                                  <newline/>
+			                                  <group colspan="2" col="4">
+			                                        <separator string="Postal Address" colspan="4" col="4" />
+			                                        <field name="type" string="Type" colspan="2"/>
+			                                        <field name="street" colspan="4"/>
+			                                        <field name="street2" colspan="4"/>
+			                                        <field name="zip"/>
+			                                        <field name="country_id" completion="1"/>
+			                                        <field name="state_id" domain="[('country_id','=',country_id)]"/>
+			                                        <field name="ed_city_id" domain="[('state_id','=',state_id)]" select="1"/>	                                        
+			                                  </group>
+			                                  <group colspan="2" col="2">
+			                                        <separator string="Communication" colspan="2" col="2" />
+			                                        <field name="phone"/>
+			                                        <field name="mobile"/>
+			                                        <field name="fax"/>
+			                                        <field name="email" widget="email"/>
+			                                        <field name="ed_birth" attrs="{'invisible':[('type', '!=','contact')]}"/>
+											  </group>
+			                            </form>
+			                            <tree string="Partner Contacts">
+			                                  <field name="name"/>
+			                                  <field name="zip"/>
+								 			  <field name="ed_city_id"/>
+		                                      <field name="country_id"/>
+			                                  <field name="phone"/>
+			                                  <field name="email"/>
+			                            </tree>-->
+		                            </field>
+		                            <group  groups="base.group_no_one">
+		                                <separator colspan="4" string="Categories"/>
+		                                <field  colspan="4" name="category_id" nolabel="1"/>
+		                            </group>
+		                        </page>
+		                        <page string="Other Info">
+			                        <group col="6" colspan="2">
+				                        <field name="ed_total_strg"/>
+				                        <field name="ed_co_ed"/>
+				                        <newline/>
+				                        <field name="ed_grade_off"/>
+				                        <field name="ed_board_id" widget="selection"/>
+				                        <field name="type" widget="selection"/>
+				                        <field name="time_from" />
+		                                <field name="time_to" />
+		                                <separator colspan="6" string="Class Details"/>
+		                                <field colspan="6" name="ed_cls_ids" string="" domain="[('partner_id','=',active_id)]" context="{'partner_id':active_id}" nolabel="1"/>
+				                        <newline/>
+				                        <separator colspan="6" string="Events"/>
+			                        	<field colspan="6"  name="ed_event_ids" widget="one2many" nolabel="1"/>
+				                        <separator colspan="6" string="Infrastucture"/>
+			                        	<field colspan="6" name="ed_infra_ids" nolabel="1"/>
+				                        <separator colspan="6" string="Moral Science/Value Education"/>
+			                        	<field colspan="6" name="ed_moral_ids" nolabel="1"/>
+			                        </group>
+		                        </page>		                        
+		                      
+		                        
+		                   </notebook>
+	                </form>
+	            </field>
+        </record>
+        
+     
+        
+        <record id="action_ed_mentor_partner2" model="ir.actions.act_window">
+				<field name="name">Database</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">res.partner</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[]</field>
+				<field name="context">{'mentor':1}</field>
+		        <field name="search_view_id" ref="ed_view_res_partner_mentor_filter"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_mentor_partner_tree2"> 
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+				<field name="domain">[]</field>
+	            <field name="view_id" ref="view_ed_partner_mentor_tree"/> 
+	            <field name="act_window_id" ref="action_ed_mentor_partner2"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_ed_mentor_partner_form2">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_mentor_partner_form"/>
+	            <field name="act_window_id" ref="action_ed_mentor_partner2"/> 
+        </record> 
+        
+     	<menuitem action="action_ed_mentor_partner2" id="menu_action_ed_mentor_partner2" name="Database" parent="menu_edumedia_mentor" sequence="1"/>
+        
+                
+<!--    ***************************tree view for partner.address *********************** 
+
+      	<record id="view_ed_partner_address_search" model="ir.ui.view">
+	            <field name="name">res.ed.partner.address.search</field>
+	            <field name="model">res.partner.address</field>
+	            <field name="type">search</field>
+	            <field name="arch" type="xml">
+	                <search string="Partner Addresses" >
+	                   <field name="ed_desig_id"/>
+	                   <field name="name"/>
+	                   <field name="mobile"/>
+	                   <field name="email"/> 
+					   <field name="ed_city_id"/>
+	                </search>
+	            </field>
+        </record>
+        <record id="view_ed_partner_address_tree" model="ir.ui.view">
+	            <field name="name">res.ed.partner.address.tree</field>
+	            <field name="model">res.partner.address</field>
+	            <field name="type">tree</field>
+	            <field name="arch" type="xml">
+	                <tree string="Contacts">
+	                   <field name="ed_desig_id"/>
+	                   <field name="name"/>
+	                   <field name="mobile"/>
+	                   <field name="email"/> 
+					   <field name="ed_city_id"/>
+	                </tree>
+	            </field>
+        </record>
+        
+        <record id="view_ed_partner_address_form" model="ir.ui.view">
+	            <field name="name">res.ed.partner.address.form</field>
+	           	<field name="model">res.partner.address</field>
+	           	<field name="type">form</field>
+	           	<field name="arch" type="xml">
+	        		<form string="Contacts">
+		                <group colspan="4" col="6">
+		                    <field name="partner_id" context="{'search_default_customer':1}"/>
+		                    <field name="name"/>
+		                    <field name="ed_desig_id" widget="selection"/>
+		                </group>
+	                	<newline/>
+	                    <group colspan="2" col="4">
+		                    <separator string="Postal Address" colspan="4" col="4" />
+		                    <field name="type" string="Type" colspan="2"/>
+		                    <field name="street" colspan="4"/>
+		                    <field name="street2" colspan="4"/>
+		                    <field name="zip"/>
+		                    <field name="country_id" completion="1"/>
+		                    <field name="state_id" domain="[('country_id','=',country_id)]"/>
+		                    <field name="ed_city_id" domain="[('state_id','=',state_id)]"/>	                                        
+	                 	</group>
+	                 	<group colspan="2" col="2">
+		                    <separator string="Communication" colspan="2" col="2" />
+		                    <field name="phone"/>
+		                    <field name="mobile"/>
+		                    <field name="fax"/>
+		                    <field name="email" widget="email"/>
+		                    <field name="ed_birth" attrs="{'invisible':[('type', '!=','contact')]}"/>
+		                    <field name="sch_email"  widget="email"/>
+		                    <field name="sch_phone"/>
+	                 	</group>
+	        		</form>
+	       		</field>
+        </record>
+        
+        <record id="action_ed_partneraddr" model="ir.actions.act_window">
+				<field name="name">Contacts</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">res.partner.address</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="context">{'search_default_customer':1}</field>
+	            <field name="search_view_id" ref="ed_view_res_partner_filter"/>
+	            <field name="view_id" ref="view_ed_partner_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_partner_address_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_partner_address_tree"/> 
+	            <field name="act_window_id" ref="action_ed_partneraddr"/>
+        </record>
+         
+        <record model="ir.actions.act_window.view" id="action_ed_partner_address_form">
+        	  	<field name="sequence" eval="2"/>
+          		<field name="view_mode">form</field>
+          		<field name="view_id" ref="view_ed_partner_address_form"/>
+          		<field name="act_window_id" ref="action_ed_partneraddr"/>
+        </record> 
+		 
+		<menuitem action="action_ed_partneraddr" id="menu_action_ed_partneraddr" name="Contacts" parent="menu_edumedia_customer" sequence="2"/>
+		
+		-->
+     
+     <record id="ed_view_users_form" model="ir.ui.view">
+            <field name="name">ed_view_users_form</field>
+            <field name="type">form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">       
+           
+            		<field name="email" position="after">
+             			<field name="city_id"/> 
+             		</field>
+            	
+            </field>
+        </record> 
+		    
+   </data>
+</openerp>

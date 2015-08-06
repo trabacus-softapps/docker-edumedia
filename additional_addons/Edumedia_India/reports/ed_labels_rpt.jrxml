@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_labels_rpt" language="groovy" columnCount="3" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="OPENERP_RELATIONS" value="[&apos;vw_partner_ids&apos;]"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/serveradmin/bin/packages/openerp-server-6.0.2/bin/addons/Edumedia_India/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subscription" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="complimentry" class="java.lang.Object" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Contact_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Contact_Name-name]]></fieldDescription>
+	</field>
+	<field name="Street-street" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Street-street]]></fieldDescription>
+	</field>
+	<field name="Street2-street2" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Street2-street2]]></fieldDescription>
+	</field>
+	<field name="city_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/City-ed_city_id/City-name]]></fieldDescription>
+	</field>
+	<field name="Zip-zip" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Zip-zip]]></fieldDescription>
+	</field>
+	<field name="State" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Contacts-address/Fed._State-state_id/State_Name-name]]></fieldDescription>
+	</field>
+	<field name="Country-country" class="java.lang.String">
+		<fieldDescription><![CDATA[Partner-vw_partner_ids/Partner-partner_id/Country-country/Country-name]]></fieldDescription>
+	</field>
+	<sortField name="State"/>
+	<sortField name="city_name"/>
+	<sortField name="Zip-zip"/>
+	<sortField name="Name-name"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="180" height="20"/>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="180" height="1"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+		<band height="20" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{Contact_Name-name}]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="0" width="180" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{Contact_Name-name}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Contact_Name-name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+		<band height="20" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{Name-name}]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="180" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{Name-name}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Name-name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+		<band height="20" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{Street-street}]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="180" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{Street-street}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Street-street}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+		<band height="20" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{Street2-street2}]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="180" height="20" isRemoveLineWhenBlank="true"/>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Street2-street2}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+		<band height="20" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{city_name} || $F{Zip-zip}]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="180" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{city_name} || $F{Zip-zip}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{city_name} + " " + $F{Zip-zip}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+		<band height="20" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{State} || $F{Country-country}]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="180" height="18" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{State} || $F{Country-country}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="4" rightPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{State} + " " + $F{Country-country}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="19" width="180" height="1"/>
+			</line>
+			<line>
+				<reportElement x="180" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="1" height="20"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

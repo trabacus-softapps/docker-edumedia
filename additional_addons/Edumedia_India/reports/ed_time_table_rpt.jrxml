@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_time_table_rpt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="OPENERP_RELATIONS" value="[&apos;lines&apos;]"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/serveradmin/bin/packages/openerp-server-6.0.2/bin/addons/Edumedia_India/reports/"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Fiscal_Year-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table-table_id/financial_Year-account_id/Fiscal_Year-name]]></fieldDescription>
+	</field>
+	<field name="MONTH-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Month-month_id/MONTH-name]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Month-month_id/id]]></fieldDescription>
+	</field>
+	<field name="Description-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table_Lines-table_ln_id/Day-day_id/Description-name]]></fieldDescription>
+	</field>
+	<field name="Date-ed_date" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table_Lines-table_ln_id/Date-ed_date]]></fieldDescription>
+	</field>
+	<field name="Fiscal_Year-name2" class="java.lang.String">
+		<fieldDescription><![CDATA[financial_Year-account_id/Fiscal_Year-name]]></fieldDescription>
+	</field>
+	<field name="City-name" class="java.lang.String">
+		<fieldDescription><![CDATA[City-city_id/City-name]]></fieldDescription>
+	</field>
+	<field name="Activity-ed_sh_act" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table_Lines-table_ln_id/School_Name-partner_id/Activity-ed_sh_act]]></fieldDescription>
+	</field>
+	<field name="PartnerName" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table_Lines-table_ln_id/School_Name-partner_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Type-ed_type" class="java.lang.String">
+		<fieldDescription><![CDATA[Type-ed_type]]></fieldDescription>
+	</field>
+	<field name="Time_From-time_from" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table_Lines-table_ln_id/Time_From-time_from]]></fieldDescription>
+	</field>
+	<field name="Time_To-time_to" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Time_Table_Lines-table_ln_id/Time_To-time_to]]></fieldDescription>
+	</field>
+	<sortField name="MONTH-name"/>
+	<sortField name="Date-ed_date"/>
+	<group name="month_id">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<printWhenExpression><![CDATA[$F{Activity-ed_sh_act} == true]]></printWhenExpression>
+				<frame>
+					<reportElement x="0" y="0" width="555" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+				</frame>
+				<textField>
+					<reportElement x="176" y="0" width="247" height="15"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{MONTH-name}== "m1" ? "January"
+ : $F{MONTH-name}== "m2" ? "February"
+ : $F{MONTH-name}== "m3" ? "March"
+ : $F{MONTH-name}== "m4" ? "April"
+ : $F{MONTH-name}== "m5" ? "May"
+ : $F{MONTH-name}== "m6" ? "June"
+ : $F{MONTH-name}== "m7" ? "July"
+ : $F{MONTH-name}== "m8" ? "August"
+ : $F{MONTH-name}== "m9" ? "September"
+ : $F{MONTH-name}== "m10" ? "October"
+ : $F{MONTH-name}== "m11" ? "November"
+ : $F{MONTH-name}== "m12" ? "December"
+ :"")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="63"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<image>
+					<reportElement x="11" y="3" width="144" height="50">
+						<printWhenExpression><![CDATA[$F{Type-ed_type} == "activity"]]></printWhenExpression>
+					</reportElement>
+					<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "akshpatra.png"]]></imageExpression>
+				</image>
+			</frame>
+			<textField>
+				<reportElement positionType="Float" x="438" y="13" width="83" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Fiscal_Year-name2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="274" y="13" width="164" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[SCHOOLS TIME TABLE OF]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="11" y="3" width="144" height="50">
+					<printWhenExpression><![CDATA[$F{Type-ed_type} == "akshaya"]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "akshalife.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="Float" x="274" y="33" width="247" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{City-name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15">
+			<staticText>
+				<reportElement positionType="Float" x="176" y="0" width="247" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[School Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="85" y="0" width="91" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="423" y="0" width="132" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Timings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="85" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{Activity-ed_sh_act} == true]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="85" y="0" width="91" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Description-name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="176" y="0" width="247" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PartnerName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="h.mm a" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="423" y="0" width="132" height="15"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Time_From-time_from} + " To " + $F{Time_To-time_to}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="85" height="15">
+					<printWhenExpression><![CDATA[$F{Date-ed_date}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new SimpleDateFormat("yyyy-MM-dd").parse($F{Date-ed_date})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="85" height="15">
+					<printWhenExpression><![CDATA[!$F{Date-ed_date}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="10">
+			<textField>
+				<reportElement x="0" y="2" width="278" height="8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="6" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="278" y="2" width="277" height="8"/>
+				<textElement>
+					<font fontName="Times New Roman" size="6" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

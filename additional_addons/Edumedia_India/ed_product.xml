@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   
+   
+      
+<!--    ***************************class ed_product ************************************ -->
+
+        <record id="view_ed_product_tree" model="ir.ui.view">
+				<field name="name">view_ed_product_tree</field>
+				<field name="model">ed.product</field>
+				<field name="type">tree</field>
+		        <field name="arch" type="xml">
+					<tree editable="top"  string="Products">				
+					 	<field name="product_id" />
+					 	<field name="ed_class" required="1"/>
+					 	<field name="ed_qty" />
+					 	<field name="ed_per_id"  widget="selection"/>
+					</tree>
+				</field>
+		</record>
+		
+<!-- 	***************************Inherited product_product**************************** -->
+
+        <record model="ir.ui.view" id="ed_product_inherit_form">
+	            <field name="name">ed_product_inherit_form</field>
+	            <field name="inherit_id" ref="product.product_normal_form_view"/>
+	            <field name="model">product.product</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml"> 
+		        <page string="Information" position="after">
+               		<page string="Inclusion">
+               		 <field name="ed_service_ok"/>
+               		   <field colspan="6" name="prod_ids" string="" />
+               		   <newline/>
+               		   <field colspan="6" name="sevice_ids" string="" attrs="{'invisible':[('ed_service_ok', '!=', True)]}"/>  
+               		</page>
+                </page>
+                <field name="uom_po_id" position="after">
+               		<field name="display_unit" required="1"/>	              
+                </field>
+                </field>
+        </record> 
+        
+   </data>
+</openerp>   

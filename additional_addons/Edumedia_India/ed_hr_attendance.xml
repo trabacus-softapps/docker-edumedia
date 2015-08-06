@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data> 
+   
+
+ <!-- ***********************************************************************	   
+				 		Human Resources-> Attendances-> Log		
+	  *********************************************************************** -->
+		 
+<!--       HR Tree View -->
+	  <record id="ed_view_log_tree" model="ir.ui.view">
+            <field name="name">ed_view_log_tree</field>
+            <field name="model">hr.attendance</field> 
+            <field name="inherit_id" ref="hr_attendance.view_attendance_who"/>
+            <field name="type">tree</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Employee attendances" position="attributes">
+                   <attribute name="string">Log</attribute>
+               </tree> 
+            </field>
+        </record>
+       <record id="ed_view_log_form" model="ir.ui.view">
+            <field name="name">ed_view_log_form</field>
+            <field name="model">hr.attendance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Employee attendance">
+                    <field name="employee_id" readonly="1" />
+                    <field name="name"  readonly="1"/>
+                    <field name="action"  readonly="1"/>
+                    <field name="action_desc"  readonly="1"/>
+                </form>
+            </field>
+        </record>
+          
+        
+<!-- 	   Overridden:-->
+<!--  	   <record id="hr_attendance.open_view_attendance" model="ir.actions.act_window"> -->
+<!--             <field name="name">Log</field> -->
+<!--             <field name="res_model">hr.attendance</field> -->
+<!--             <field name="view_type">form</field> -->
+<!--             <field name="view_mode">tree,form</field> -->
+<!--             <field name="context">{"search_default_today":1}</field> -->
+<!--             <field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter" /> -->
+<!--             <field name="help">The Time Tracking functionality aims to manage employee attendances from Sign in/Sign out actions. You can also link this feature to an attendance device using OpenERP's web service features.</field> -->
+<!--         </record> -->
+        
+       <record id="action_ed_view_log_form" model="ir.actions.act_window">
+            <field name="name">Employee Log</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_today":1}</field>
+            <field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter" />
+            <field name="help">The Time Tracking functionality aims to manage employee attendances from Sign in/Sign out actions. You can also link this feature to an attendance device using OpenERP's web service features.</field>
+        </record>
+
+    <record id="action_ed_log_tree_view" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_view_log_tree"/>
+          <field name="act_window_id" ref="action_ed_view_log_form"/>
+      </record>        
+      <record id="action_ed_log_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_view_log_form"/>
+          <field name="act_window_id" ref="action_ed_view_log_form"/>
+      </record>	
+   	  <menuitem action="action_ed_view_log_form" id="menu_log" parent="hr_attendance.menu_hr_attendance" name="Employee Log" sequence="22"/>
+  
+   <!--          My log form    -->
+   
+ 
+   <record id="action_ed_view_my_log_form" model="ir.actions.act_window">
+	         <field name="name">My Log</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">hr.attendance</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">[('employee_id.user_id','=',uid)]</field>	        
+	         <field name="context">{"search_default_today":1}</field>
+			<field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter" />	        
+  </record>        
+        
+      <record id="action_ed_my_log_tree_view" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_view_log_tree"/>
+          <field name="act_window_id" ref="action_ed_view_my_log_form"/>
+      </record>
+        
+      <record id="action_ed_my_log_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_view_log_form"/>
+          <field name="act_window_id" ref="action_ed_view_my_log_form"/>
+      </record>
+	
+ 	  <menuitem action="action_ed_view_my_log_form" id="menu_my_log" parent="hr_attendance.menu_hr_attendance" name="My Log" sequence="20"/>
+ 
+   <!--       Team log form    -->
+   
+      
+
+         <record id="action_ed_view_team_log_form" model="ir.actions.act_window">
+	         <field name="name">Team Log</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">hr.attendance</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">['|',('manager_id.user_id','=',uid),'|',('manager_id2.user_id','=',uid),'|',('manager_id3.user_id','=',uid)]</field>
+	         <field name="context">{"search_default_today":1}</field>
+			<field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter" />
+	        
+	     </record>        
+        
+      <record id="action_ed_team_log_tree_view" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_view_log_tree"/>
+          <field name="act_window_id" ref="action_ed_view_team_log_form"/>
+      </record>
+        
+      <record id="action_ed_team_log_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_view_log_form"/>
+          <field name="act_window_id" ref="action_ed_view_team_log_form"/>
+      </record>
+	
+ 	  <menuitem action="action_ed_view_team_log_form" id="menu_team_log" parent="hr_attendance.menu_hr_attendance" name="Team Log" sequence="21"/>
+
+
+					  	   
+<!-- *********************************************************************** 	   
+					 Human Resources-> Attendances-> Attendances (edu attendances)	
+	 *********************************************************************** -->  
+		
+		 <record id="ed_view_attendance_search" model="ir.ui.view">
+            <field name="name">ed_view_hr_attendance_search</field>
+            <field name="model">ed.attendance</field>
+            <field name="type">search</field> 
+            <field name="arch" type="xml">
+            <search string="Attendances">
+            	<filter icon="terp-check"
+	                    string="Current"
+	                    name="current" help="Draft and Leave Records"
+	                    domain="[('state','in',('present','leave'))]"/>
+	                    
+                <filter icon="terp-go-month" string=" Month "
+                            name="month"
+                            domain="[('log_date','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('log_date','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"
+                            help="Timesheet in current month"/>
+                
+            	 <field name="employee_id"  />
+            	 <field name="log_date"/>								 
+				 <field name="sign_in"  />
+	             <field name="sign_out" /> 
+               </search>
+            </field>
+		 </record>
+	
+	     <record id="ed_view_attendance_tree" model="ir.ui.view">
+			<field name="name">ed_view_attendance_tree</field>
+			<field name="model">ed.attendance</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+	        <tree colors="red:late_ok == True
+	        			  ;green:state in ('absent')
+	        			  ;pink:state == 'holiday'
+	        			  ;blue:state == 'paid'
+	        			  ;grey:state == 'unpaid'" string="Attendances">	        
+				 	<field name="manager_id" invisible="1"/>
+				 	<field name="employee_id" />
+				 	<field name="log_date"/>
+				 	<field name="sign_in" />
+				 	<field name="sign_out" />
+				 	<field name="no_days"  sum="Total" />
+				 	<field name="state" />
+				 	<field name="remarks" />
+				 	<field name="late_ok" invisible="1"/>
+				 	<button name="button_approve" states="absent" string="Approve" type="object" icon="gtk-execute"/>
+                    <button name="button_refuse" states="present" string="Refuse" type="object" icon="gtk-cancel"/> 
+			</tree>
+		</field>
+	</record> 
+		
+		
+		 <record id="ed_view_attendance_form" model="ir.ui.view">
+			<field name="name">"ed_view_attendance_form"</field>
+			<field name="model">ed.attendance</field>
+			<field name="type">form</field>
+			<field eval="5" name="priority"/>
+	        <field name="arch" type="xml">
+				<form string="Attendances">	
+					<group col="8" colspan="2">			
+				 		<field name="employee_id"  />
+				 		<field name="log_date"  />
+				 	    <field name="sign_in"  />
+				 	    <field name="sign_out" />
+					 	<field name="no_days" readonly="1"/>
+					 	<separator string="Remarks" colspan="8"/>
+					 	<field name="remarks" nolabel="1" colspan="8"/> 
+					 	<newline/>				 	  
+					 	<field name="state"/>
+	                    <button name="button_approve" states="absent" string="Approve" type="object" icon="gtk-execute"/>
+	                    <button name="button_refuse" states="present" string="Refuse" type="object" icon="gtk-cancel"/> 
+	            	 </group>
+	            </form>
+	       </field>
+		 </record>	
+                      <!-- 		 action for employee attendances -->
+		
+		 <record id="action_ed_hr_attendance_form" model="ir.actions.act_window">
+	         <field name="name">Employee Attendances</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.attendance</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="context">{'search_default_month':1}</field>
+	         <field name="search_view_id" ref="ed_view_attendance_search" />
+	     </record>        
+        
+      <record id="action_ed_hr_attendance_tree_view" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_view_attendance_tree"/>
+          <field name="act_window_id" ref="action_ed_hr_attendance_form"/>
+      </record>
+        
+      <record id="action_ed_hr_attendance_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_view_attendance_form"/>
+          <field name="act_window_id" ref="action_ed_hr_attendance_form"/>
+      </record>
+		 	
+		 
+		 
+<!-- 		 <record id="action_ed_hr_attendance_form" model="ir.actions.act_window"> -->
+<!-- 			<field name="name">Attendances</field> -->
+<!-- 			<field name="type">ir.actions.act_window</field> -->
+<!-- 			<field name="res_model">ed.attendance</field> -->
+<!-- 			<field name="view_type">form</field> -->
+<!-- 			<field name="view_mode">tree,form</field> -->
+<!-- 			<field name="context">{'search_default_current':1, 'search_default_currentmonth:1'}</field> -->
+<!-- 		 </record> -->
+		 <menuitem action="action_ed_hr_attendance_form" id="menu_action_ed_hr_attendance" name="Employee Attendances" parent="hr_attendance.menu_hr_attendance" sequence="6"/>
+
+                     <!-- 		 action for my attendances -->
+         
+         <record id="ed_view_my_attendance_tree" model="ir.ui.view">
+			<field name="name">ed_view_my_attendance_tree</field>
+			<field name="model">ed.attendance</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+	        <tree colors="red:late_ok == True
+	        			  ;green:state in ('absent')
+	        			  ;pink:state == 'holiday'
+	        			  ;blue:state == 'paid'
+	        			  ;grey:state == 'unpaid'" string="Attendances">	        
+				 	<field name="manager_id" invisible="1"/>
+				 	<field name="employee_id" />
+				 	<field name="log_date"/>
+				 	<field name="sign_in" />
+				 	<field name="sign_out" />
+				 	<field name="no_days"  sum="Total" />
+				 	<field name="state" />
+				 	<field name="remarks" />
+				 	<field name="late_ok" invisible="1"/>
+		<!-- 		 	<button name="button_setdraft" states="approved" string="Set Draft" type="object" icon="terp-stock_effects-object-colorize" />
+                    <button name="button_approve" states="draft" string="Approve" type="object" icon="gtk-execute"/>
+                    <button name="button_refuse" states="draft" string="Refuse" type="object" icon="gtk-cancel"/> --> 
+			</tree>
+		</field>
+	</record>
+		
+                     
+		 <record id="ed_view_hr_my_attendance_form" model="ir.ui.view">
+			<field name="name">"ed_view_hr_my_attendance_form"</field>
+			<field name="model">ed.attendance</field>
+			<field name="type">form</field>
+			<field eval="5" name="priority"/>
+	        <field name="arch" type="xml">
+				<form string="Attendances">	
+					<group col="8" colspan="2">			
+				 		<field name="employee_id"  readonly="1"/>
+				 		<field name="log_date" readonly="1" />
+				 	    <field name="sign_in"  readonly="1"/>
+				 	    <field name="sign_out" readonly="1"/>
+					 	<field name="no_days" readonly="1"/>
+					 	<separator string="Remarks" colspan="8"/>
+					 	<field name="remarks" readonly="1" nolabel="1" colspan="8"/> 
+					 	<newline/>				 	  
+					 	<field name="state"/>
+<!-- 	                    <button name="button_approve" states="draft" string="Approve" type="object" icon="gtk-execute"/> -->
+<!-- 	                    <button name="button_refuse" states="draft" string="Refuse" type="object" icon="gtk-cancel"/>  -->
+	            	 </group>
+	            </form>
+	       </field>
+		 </record>	
+                     
+                     
+                                     
+		
+		 <record id="action_ed_hr_my_attendance_form" model="ir.actions.act_window">
+	         <field name="name">My Attendances</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.attendance</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">[('employee_id.user_id','=',uid)]</field>	        
+			 <field name="context">{'search_default_month':1}</field>
+	         <field name="search_view_id" ref="ed_view_attendance_search" />	        
+	     </record>        
+        
+      <record id="action_ed_hr_my_attendance_tree_view" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_view_my_attendance_tree"/>
+          <field name="act_window_id" ref="action_ed_hr_my_attendance_form"/>
+      </record>
+        
+      <record id="action_ed_hr_my_attendance_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_view_hr_my_attendance_form"/>
+          <field name="act_window_id" ref="action_ed_hr_my_attendance_form"/>
+      </record>
+	
+	 <menuitem action="action_ed_hr_my_attendance_form" id="menu_action_ed_hr_my_attendance" name="My Attendances" parent="hr_attendance.menu_hr_attendance" sequence="4"/>
+
+
+                     <!-- 		 action for team attendances -->
+      <record id="ed_view_team_attendance_tree" model="ir.ui.view">
+			<field name="name">ed_view_team_attendance_tree</field>
+			<field name="model">ed.attendance</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+	        <tree colors="red:late_ok == True
+	        			  ;green:state in ('absent')
+	        			  ;pink:state == 'holiday'
+	        			  ;blue:state == 'paid'
+	        			  ;grey:state == 'unpaid'" string="Attendances">	        
+				 	<field name="manager_id" invisible="1"/>
+				 	<field name="manager_id2" invisible="1"/>
+				 	<field name="manager_id3" invisible="1"/>
+				 	<field name="employee_id" />
+				 	<field name="log_date"/>
+				 	<field name="sign_in" />
+				 	<field name="sign_out" />
+				 	<field name="no_days"  sum="Total" />
+				 	<field name="state" />
+				 	<field name="remarks" />
+				 	<field name="late_ok" invisible="1"/>				 	
+				 	<button name="button_approve" states="absent" string="Approve" type="object" icon="gtk-execute"/>
+                    <button name="button_refuse" states="present" string="Refuse" type="object" icon="gtk-cancel"/> 
+			</tree>
+		</field>
+	</record>
+                     
+                     
+		 <record id="ed_view_team_attendance_form" model="ir.ui.view">
+			<field name="name">"ed_view_team_attendance_form"</field>
+			<field name="model">ed.attendance</field>
+			<field name="type">form</field>
+			<field eval="5" name="priority"/>
+	        <field name="arch" type="xml">
+				<form string="Attendances">	
+					<group col="8" colspan="2">			
+				 		<field name="employee_id"  />
+				 		<field name="log_date"  />
+				 	    <field name="sign_in" />
+				 	    <field name="sign_out"/>
+					 	<field name="no_days" readonly="1"/>
+					 	<separator string="Remarks" colspan="8"/>
+					 	<field name="remarks"  nolabel="1" colspan="8"/> 
+					 	<newline/>				 	  
+					 	<field name="state"/>
+	                    <button name="button_approve" states="absent" string="Approve" type="object" icon="gtk-execute"/>
+	                    <button name="button_refuse" states="present" string="Refuse" type="object" icon="gtk-cancel"/> 
+	            	 </group>
+	            </form>
+	       </field>
+		 </record>	
+                       
+ 
+ <record id="action_ed_hr_team_attendance_form" model="ir.actions.act_window">
+	         <field name="name">Team Attendances</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.attendance</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">['|','|',('manager_id.user_id','=',uid),('manager_id2.user_id','=',uid),('manager_id3.user_id','=',uid)]</field>	        
+	         <field name="context">{'search_default_month':1}</field>
+	         <field name="search_view_id" ref="ed_view_attendance_search" />
+	     </record>        
+        
+      <record id="action_ed_hr_team_attendance_tree" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_view_team_attendance_tree"/>
+          <field name="act_window_id" ref="action_ed_hr_team_attendance_form"/>
+          <field name="domain">['|','|',('manager_id.user_id','=',uid),('manager_id2.user_id','=',uid),('manager_id3.user_id','=',uid)]</field>
+      </record>
+        
+      <record id="action_ed_hr_team_attendance_form_view" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_view_team_attendance_form"/>
+          <field name="act_window_id" ref="action_ed_hr_team_attendance_form"/>
+      </record>
+   																														 	  
+   	<menuitem action="action_ed_hr_team_attendance_form" id="menu_action_ed_hr_team_attendance_form" name="Team Attendances" parent="hr_attendance.menu_hr_attendance" sequence="5"/>
+
+
+
+<!-- *********************************************************************** 	   
+	                Human Resources-> configuration-> Attendances -> Grace Period
+     *********************************************************************** -->  
+					 
+		 <record id="ed_view_gracesignin_tree" model="ir.ui.view">
+			<field name="name">ed_view_gracesignin_tree</field>
+			<field name="model">ed.grace.signin</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+			<tree string="Sign In-Grace Period">				
+				 	<field name="grace" select="1"/> 
+			</tree>
+			</field>
+		 </record>
+		
+		
+		 <record id="ed_view_gracesignin_form" model="ir.ui.view">
+			<field name="name">"ed_view_gracesignin_form"</field>
+			<field name="model">ed.grace.signin</field>
+			<field name="type">form</field>
+			<field eval="5" name="priority"/>
+	        <field name="arch" type="xml">
+			<form string="Sign In-Grace Period">	
+				  <field name="grace"/> 
+			</form>
+	       </field>
+		 </record>	
+		
+	     <record id="action_ed_gracesignin_form" model="ir.actions.act_window">
+			<field name="name">Sign In-Grace Period</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.grace.signin</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		 </record>
+   	<menuitem action="action_ed_gracesignin_form" id="menu_action_ed_gracesign" name="Grace Period" parent="hr_attendance.menu_hr_attendance" sequence="3"/>
+		 
+	<!-- *********************************************************************** 	   
+	                Human Resources-> Attendances -> signin/signout
+     ***********************************************************************       
+	     <record id="ed_view_sign_in_out" model="ir.ui.view">
+            <field name="name">ed_view_sign_in_out</field>
+            <field name="model">hr.sign.in.out</field>
+            <field name="inherit_id" ref="hr_attendance.view_hr_attendance_sigh_in_out"/>
+            <field name="type">form</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+	          
+	           <xpath expr="//button[@string='Sign in']" position="replace">
+	           			<button icon="terp-gtk-jump-to-ltr" string="Sign in" states = "absent" name="check_sign_in" type="object"/>
+	           </xpath>     
+	           
+	           <xpath expr="//button[@string='Sign out']" position="replace">
+	           			<button icon="terp-gtk-jump-to-ltr" string="Sign out" states = "present" name="check_sign_out" type="object"/>
+	           </xpath>
+	         </field>
+	        </record>
+	--> 
+	        
+     </data>
+   </openerp>
+    
+   

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   	
+   	<menuitem icon="terp-project" id="menu_mentor_root" name="Mentor" sequence="4"
+   		web_icon="images/Mentor_off.png"
+   		web_icon_hover="images/Mentor_on.png"/>
+   	
+   	<menuitem id="menu_edumedia_mentor" name="Database" parent="menu_mentor_root" sequence="1"/>
+<menuitem id="menu_edumedia_subscrip" name="Subscription" parent="menu_mentor_root" sequence="2"/>
+<menuitem id="menu_edumedia_contributors" name="Contributors" parent="menu_mentor_root" sequence="3"/>
+<menuitem id="menu_edumedia_advertisers" name="Advertisers" parent="menu_mentor_root" sequence="4"/>
+<menuitem id="menu_edumedia_mnth_editons" name="Monthly Editions" parent="menu_mentor_root" sequence="5"/>
+
+
+   	
+   	<!-- ************************************************************************************************************
+ 								Mentor => Database
+*************************************************************************************************************  -->								
+   	<menuitem icon="terp-project" id="menu_mentor_root" name="Mentor" sequence="4"
+   		web_icon="images/Mentor_off.png"
+   		web_icon_hover="images/Mentor_on.png"/>
+   	
+   	<menuitem id="menu_edumedia_mentor" name="Database" parent="menu_mentor_root" sequence="1"/>
+   	
+   	
+   	<record id="ed_view_res_partner_mentor_filter" model="ir.ui.view">
+   		<field name="name">ed_view_res_partner_mentor_filter</field>
+   		<field name="model">res.partner</field>
+   		<field name="type">search</field>
+   		<field name="arch" type="xml">
+   			<search string="Database">
+   				<group col='10' colspan='4'>
+   					<filter string="Subscription" name="ed_sh_subscrip" icon="terp-idea" domain="[('ed_sh_subscrip','=',1)]" help="Subscription Records"/>
+   					<filter string="Complimentry" name="ed_sh_complem" icon="terp-idea" domain="[('ed_sh_complem','=',1)]" help="Complimentry Records"/>
+   					<separator orientation="vertical"/>
+   					<field name="name" select="1"/>
+   					<field name="ed_city_id" />
+   					<field name="ed_board_id" select="1"/>
+   					<field name="category_id" select="1" groups="base.group_no_one"/> 
+   					<field name="type" /> 
+   				</group>
+   				<newline />
+   				<group expand="0" string="Group By...">
+   					<filter string="Salesman" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+   				</group>
+   			</search>
+   		</field>
+   	</record>
+   	
+   	<record id="view_ed_partner_mentor_tree" model="ir.ui.view">
+   		<field name="name">ed_partner_mentor_tree</field>
+   		<field name="model">res.partner</field>
+   		<field name="type">tree</field>
+   		<field eval="8" name="priority"/>
+   		<field name="arch" type="xml">
+   			<tree string="Database">
+   				<field name="name"/>
+   				<field name="ref" string="Code"/>
+   				<field name="phone"/>
+   				<field name="email"/> 
+   				<field name="ed_street_id" />
+   				<field name="ed_street2_id" />		                   
+   				<field name="ed_city_id" />
+   				<field name="country_id" invisible="1"/>
+   				<field name="user_id" invisible="1"/> 
+   			</tree>
+   		</field>
+   	</record>   
+   	
+   	<record id="view_ed_mentor_partner_form" model="ir.ui.view">
+   		<field name="name">view_ed_mentor_partner_form</field>
+   		<field name="model">res.partner</field> 
+   		<field name="type">form</field>
+   		<field name="priority">2</field>
+   		<field name="arch" type="xml">
+   			<form string="Database" col='1'>
+   				<!--                          <button name="mark_Subscription" string="Mark Subscription" type="object" icon="gtk-confirm"/> -->
+   				
+   				<group col="10" colspan="2">
+   					<group colspan="2" col="4">
+   						<field name="name" select="1"/>
+   						<field name="ref" string="Code" select="1"/>
+   					</group> 
+   					<group colspan="2" col="6"> 
+   						<field name="ed_sh_subscrip"/>
+   						<field name="ed_sh_complem" attrs="{'invisible': [('ed_sh_subscrip', '=',True)]}"/>
+   						<field name="ed_source" attrs="{'invisible': [('ed_sh_subscrip', '=',True)]}"/>
+   					</group>
+   				</group>
+   				<notebook colspan="4">
+   					<page string="General">
+   						<field colspan="4"  name="child_ids" nolabel="1" select="1" height="260">
+   							<!--<form string="Partner Contacts">
+		                            		    <group colspan="4" col="6">
+			                                        <field name="name"/>
+			                                        <field name="ed_desig_id" widget="selection"/>
+			                                  </group>
+			                                  <newline/>
+			                                  <group colspan="2" col="4">
+			                                        <separator string="Postal Address" colspan="4" col="4" />
+			                                        <field name="type" string="Type" colspan="2"/>
+			                                        <field name="street" colspan="4"/>
+			                                        <field name="street2" colspan="4"/>
+			                                        <field name="zip"/>
+			                                        <field name="country_id" completion="1"/>
+			                                        <field name="state_id" domain="[('country_id','=',country_id)]"/>
+			                                        <field name="ed_city_id" domain="[('state_id','=',state_id)]" select="1"/>	                                        
+			                                  </group>
+			                                  <group colspan="2" col="2">
+			                                        <separator string="Communication" colspan="2" col="2" />
+			                                        <field name="phone"/>
+			                                        <field name="mobile"/>
+			                                        <field name="fax"/>
+			                                        <field name="email" widget="email"/>
+			                                        <field name="ed_birth" attrs="{'invisible':[('type', '!=','contact')]}"/>
+											  </group>
+			                            </form>
+			                            <tree string="Partner Contacts">
+			                                  <field name="name"/>
+			                                  <field name="zip"/>
+								 			  <field name="ed_city_id"/>
+		                                      <field name="country_id"/>
+			                                  <field name="phone"/>
+			                                  <field name="email"/>
+			                            </tree>-->
+   						</field>
+   						<group  groups="base.group_no_one">
+   							<separator colspan="4" string="Categories"/>
+   							<field  colspan="4" name="category_id" nolabel="1"/>
+   						</group>
+   					</page>
+   					<page string="Other Info">
+   						<group col="6" colspan="2">
+   							<field name="ed_total_strg"/>
+   							<field name="ed_co_ed"/>
+   							<newline/>
+   							<field name="ed_grade_off"/>
+   							<field name="ed_board_id" widget="selection"/>
+   							<field name="type" widget="selection"/>
+   							<field name="time_from" />
+   							<field name="time_to" />
+   							<separator colspan="6" string="Class Details"/>
+   							<field colspan="6" name="ed_cls_ids" string="" domain="[('partner_id','=',active_id)]" context="{'partner_id':active_id}" nolabel="1"/>
+   							<newline/>
+   							<separator colspan="6" string="Events"/>
+   							<field colspan="6"  name="ed_event_ids" widget="one2many" nolabel="1"/>
+   							<separator colspan="6" string="Infrastucture"/>
+   							<field colspan="6" name="ed_infra_ids" nolabel="1"/>
+   							<separator colspan="6" string="Moral Science/Value Education"/>
+   							<field colspan="6" name="ed_moral_ids" nolabel="1"/>
+   						</group>
+   					</page>		                        
+   					
+   					
+   				</notebook>
+   			</form>
+   		</field>
+   	</record>
+   	
+   	
+   	<!-- *********************************************************************** 	   
+				   Mentor->Subscription->Subscription
+	  *********************************************************************** --> 
+   	<record id="action_ed_mentor_partner2" model="ir.actions.act_window">
+   		<field name="name">Database</field>
+   		<field name="type">ir.actions.act_window</field>
+   		<field name="res_model">res.partner</field> 
+   		<field name="view_mode">tree,form</field>
+   		<field name="domain">[]</field>
+   		<field name="context">{'mentor':1}</field>
+   		<field name="search_view_id" ref="ed_view_res_partner_mentor_filter"/>
+   	</record> 
+   	
+   	<record model="ir.actions.act_window.view" id="action_ed_mentor_partner_tree2"> 
+   		<field name="sequence" eval="1"/>
+   		<field name="view_mode">tree</field>
+   		<field name="domain">[]</field>
+   		<field name="view_id" ref="view_ed_partner_mentor_tree"/> 
+   		<field name="act_window_id" ref="action_ed_mentor_partner2"/>
+   	</record> 
+   	<record model="ir.actions.act_window.view" id="action_ed_mentor_partner_form2">
+   		<field name="sequence" eval="2"/>
+   		<field name="view_mode">form</field>
+   		<field name="view_id" ref="view_ed_mentor_partner_form"/>
+   		<field name="act_window_id" ref="action_ed_mentor_partner2"/> 
+   	</record> 
+   	
+   	<menuitem action="action_ed_mentor_partner2" id="menu_action_ed_mentor_partner2" name="Database" parent="menu_edumedia_mentor" sequence="1"/>
+   	
+   	
+	
+<record id="view_ed_mentor_subsc_form" model="ir.ui.view">
+	            <field name="name">view_ed_mentor_form</field>
+	            <field name="model">ed.subscription</field> 
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	            	
+	                <form string="Subscription Form">
+	                	<header>
+	                		
+	                		<button name="action_confirm" states="pending" string="Confirm" type="object" icon="gtk-confirm" confirm="Are you sure you want to continue?"/>
+	                		<button name="button_cancel" states="confirmed,closed" string="Cancel" type="object" icon="gtk-cancel" />
+	                		<button name="button_set_to_draft" states="cancel,closed" string="Set to Draft" type="object" icon="terp-stock_effects-object-colorize" />
+	                		<field name="state" widget="statusbar" statusbar_visible="pending,confirmed,cancel,closed" />
+	                	</header>
+			  				 <group col='8' colspan='4'>
+	                           <group col='4' colspan='2'>
+		 							<field colspan='4' name="partner_id" context="{'mentor':1}" domain="[('ed_sh_complem','!=',True)]" on_change="onchange_Partner(partner_id)"/>
+	                           		<field name="term" on_change="onchange_Terms(start_date,term)" colspan='2'/>
+	                           		<field name="no_issues" colspan='2'/>
+	                           </group>
+	                           <group col='4' colspan='2'>
+			                		<field name="sub_no" readonly="1"/>
+		  							<field name="start_date" on_change="onchange_Terms(start_date,term)"/>
+		                            <field name="no_copies"/>
+		  							<field name="end_date"/>
+	                           </group>
+	                       </group>
+	                       <group col="4">
+	                        <notebook>
+			                  <page string="Personal Information">
+					            <group col='4' colspan='2'>                 
+			                    <field name="name" required="1"/> 
+			                    <field name="dob"/>
+			                    <field name="tenure"/>
+			                    <field name="resi_add"/>
+			                    <field name="contact_no"/>
+			                    <field name="email"/>
+			                    <field name="edu_bkgrnd"/>
+			                    <field name='receive_addr' required="1" on_change="onchange_ReceiveType(receive_addr,partner_id)"/>
+	                            </group>
+			                    
+			                  </page>  
+			                  <page string="Payment Details">
+			                  	<group col="4" colspan="2">
+			                  	  <field name="amount" />
+			                  	  <field name="bank" />
+			                  	  <field name="paymnt_date" />
+			                  	  <field name="payment_type"/>
+			                  	  <field name="chck_num" />
+			                  	</group>
+			                  </page>
+			                  </notebook>
+			               </group>   
+			            
+	                	
+		              </form>
+		              
+		        </field>
+</record>
+
+<record id="view_ed_mentor_subsc_tree" model="ir.ui.view">
+		        <field name="name">view_ed_mentor_tree</field>
+	            <field name="model">ed.subscription</field>
+	            <field name="type">tree</field>
+	            <field eval="8" name="priority"/>
+	            <field name="arch" type="xml">
+	                <tree string="Subscription Form" >
+		                   <field name="partner_id" select="1"/>
+		                   <field name="start_date" select="1"/>
+						   <field name="end_date" select="1"/>
+		                   <field name="term" select="1"/>
+		                   <field name="no_issues" />
+                    	   <field name ="state"/>
+						   
+		            </tree>
+		        </field>
+</record>
+
+        <record id="action_ed_mentor_subsc" model="ir.actions.act_window">
+				<field name="name">Subscription</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">ed.subscription</field> 
+				<field name="view_mode">tree,form</field>
+		        <field name="view_id" ref="view_ed_mentor_subsc_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_partner_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_mentor_subsc_tree"/> 
+	            <field name="act_window_id" ref="action_ed_mentor_subsc"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_ed_partner_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_mentor_subsc_form"/>
+	            <field name="act_window_id" ref="action_ed_mentor_subsc"/>
+        </record> 
+     	<menuitem action="action_ed_mentor_subsc" id="menu_action_ed_mentor_subsc" name="Subscription" parent="menu_edumedia_subscrip" sequence="1"/>
+  
+  
+    <!-- *********************************************************************** 	   
+				   Mentor->Contributors->Contributors
+			       ******************************************************************** -->
+   
+	
+		<record id="view_ed_contri_form" model="ir.ui.view">
+	            <field name="name">view_ed_contri_form</field>
+	            <field name="model">ed.contributors</field> 
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	           
+	                <form string="Contributors" col='1'>
+	                	<sheet>
+			                <group col="4" colspan="4">
+				                <field name ="section_id" required="1"/>
+				                <field name ="article_title" />
+								<field name ="contributors_id" required="1"/>
+								<field name ="monthly_id" required="1"/>
+			                </group>
+	                	</sheet>
+					</form>
+		    </field>
+	  	</record>
+	  	
+	  	<record id="view_ed_contri_tree" model="ir.ui.view">
+			<field name="name">view_ed_contri_tree</field>
+			<field name="model">ed.contributors</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Contributors" editable="top">
+					<field name ="section_id" select="1"/>
+					<field name ="article_title" select="1"/>
+					<field name ="contributors_id" select="1"/>					
+					<field name="monthly_id" select="1"/>
+				</tree>
+		    </field>
+	  	</record>
+	  	
+	  	<record id="action_ed_contri_form" model="ir.actions.act_window">
+			<field name="name">Contributors</field>
+			
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.contributors</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_contri_form" id="menu_action_ed_contri_form" name="Contributors" parent="menu_edumedia_contributors" sequence="1"/>
+	  	
+  
+    <!-- *********************************************************************** 	   
+				   Mentor->Advertisers->Advertisers
+			       ******************************************************************** -->
+   
+	
+		<record id="view_ed_advert_form" model="ir.ui.view">
+	            <field name="name">view_ed_advert_form</field>
+	            <field name="model">ed.advertisers</field> 
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Advertisers" col='1'>
+	                	<header>
+	                		<button colspan="2" name="action_confirm" states="pending" string="Confirm" type="object" icon="gtk-confirm" confirm="Are you sure you want to continue?"/>
+	                		<button  colspan="2" name="button_cancel" states="confirmed,closed" string="Cancel" type="object" icon="gtk-cancel"/>
+	                		<button colspan="2" name="button_set_to_draft" states="cancel,closed" string="Set to Draft" type="object" icon="terp-stock_effects-object-colorize"/>
+	                	</header>
+	                 <sheet>
+		                  <group col="4" colspan="2">
+			                <field name="advert_det_id" required="1"/>
+			                <newline/>	
+			                <field name="st_date" required="1"/>
+			                <field name="ed_date" required="1"/>
+							<field name="position_id"/>
+							<field name="price"/>                                                
+							<field name="state"/>                         					
+	                    </group>
+	                 </sheet>
+				</form>
+		    </field>
+	  	</record>
+	  	
+	  	<record id="view_ed_advert_tree" model="ir.ui.view">
+			<field name="name">view_ed_advert_tree</field>
+			<field name="model">ed.advertisers</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml" >
+				<tree string="Advertisers" >
+					<field name="advert_det_id" select="1"/>
+					<field name = 'st_date' select ='1'/>
+					<field name = 'ed_date' select ='1'/> 
+					<field name='position_id'/>
+					<field name='price'/>
+					<field name='state'/>
+				</tree>
+		    </field>
+	  	</record>
+	  	
+	  	<record id="action_ed_advert_form" model="ir.actions.act_window">
+			<field name="name">Advertisers</field>			
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.advertisers</field> 
+			<field name="view_type">form</field>			
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_advert_form" id="menu_action_ed_advert_form" name="Advertisers" parent="menu_edumedia_advertisers" sequence="1"/>
+					
+	                
+  
+    <!-- *********************************************************************** 	   
+				   Mentor->Monthly Edition->Monthly Edition
+			       ******************************************************************** -->
+   
+	
+		<record id="view_ed_mon_edit_form" model="ir.ui.view">
+	            <field name="name">view_ed_mon_edit_form</field>
+	            <field name="model">ed.monthly.edition</field> 
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Monthly Edition" col='1'>
+	                	<header>
+	                		<button name="create_delivery_order" string="Confirm" states="draft" type="object" icon="gtk-confirm" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/>
+	                		<button name="button_cancel" string="Cancel" states="confirmed" type="object" icon="gtk-cancel" />
+	                		<button name="button_set_to_draft" string="Set to Draft" states="cancel" type="object" icon="terp-stock_effects-object-colorize" />
+	                		<field name ="state" widget="statusbar" statusbar_visible="draft,confirmed,cancel"/>
+	                	</header>
+	                	<sheet>
+		                <group col="6" colspan="4">
+		                <field name ="month" required="1"/>
+		                <field name ="year" required="1" widget='selection'/>
+		                
+		                <button name="button_populate" states="draft" string="Refresh/Populate" type="object" icon="gtk-confirm" />
+		                </group>
+		                <notebook>
+		                <page string="Subscription">
+		                <field name ="subscriber_ids"  nolabel="1" readonly="1" context="{'mentor':1}">
+		                <tree string="Subscription">
+		                	 <field name="partner_id"/>
+		                	 <field name="name"/>
+		                	 <field name="address" />	                 
+			                 <field name="contact_no"/>
+			                 <field name="email"/>		               
+		                </tree>
+		                </field>
+		                </page> 
+		                <page string="Complimentary">
+		                <field name ="compliment_ids" nolabel="1" domain="[('ed_sh_subscrip','!=',True)]" context="{'mentor':1}">
+		                <tree string="Complimentary">
+		                	 <field name="name"/>
+		                	 <field name="ed_cont_name"/>
+		                	 <field name="ed_street_id" />
+			                 <field name="ed_street2_id" />	
+			                 <field name="ed_city_id" />
+				             <field name="country_id" invisible="1"/>	                 
+			                 <field name="phone"/>
+			                 <field name="email"/>
+			                 <field name="mobile"/>
+			                 <field name="ed_source"/>		               
+		                </tree> 
+		                </field>
+		                </page>
+		                <page string="Contributors">
+		                <field colspan="4" name="contribu_ids" nolabel="1" select="1" >
+		                	<tree string="Contributors" editable="top">
+		                		<field name="section_id"/>
+		                		<field name="article_title"/>
+		                		<field name="contributors_id"/>
+		                	</tree>
+		                </field>
+	                    </page>
+	                    <page string="Advertisers">
+		                <field colspan="4" name="adverti_ids" nolabel="1" select="1" readonly="1">
+		                </field>
+	                    </page> 
+	                    <page string="Directors">
+		                <field colspan="4"  name="director_ids" nolabel="1" select="1" readonly="1"/>	                
+	                    </page>
+	                    </notebook>
+	                </sheet>
+                   
+				</form>
+		    </field>
+	  	</record>
+	  	
+	  	<record id="view_ed_mon_edit_tree" model="ir.ui.view">
+			<field name="name">view_ed_mon_edit_tree</field>
+			<field name="model">ed.monthly.edition</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Monthly Edition">
+	                <field name ="month" select='1'/>
+	                <field name='year' select='1'/>
+	                <field name ="subscriber_ids" />
+	                <field name ="compliment_ids" />
+	                <field name ="adverti_ids" />
+	                <field name ="director_ids" />
+                    <field name ="state" select='1'/>
+	                
+				</tree>
+		    </field>
+	  	</record>
+	  	
+	  	<record id="action_ed_mon_edit_form" model="ir.actions.act_window">
+			<field name="name">Monthly Edition</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.monthly.edition</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	
+      	<menuitem action="action_ed_mon_edit_form" id="menu_action_ed_mon_edit_form" name="Monthly Edition" parent="menu_edumedia_mnth_editons" sequence="1"/>
+					
+   
+   
+</data>
+</openerp>
+		                 
+		       	         
+		                        
+		  				
+   		

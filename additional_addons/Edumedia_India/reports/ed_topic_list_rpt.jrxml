@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_topic_list_rpt" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/serveradmin/bin/packages/openerp-server-6.0.2/bin/addons/Edumedia_India/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="primary" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="high_school" class="java.lang.Object" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="school_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Partner-partner_id/id]]></fieldDescription>
+	</field>
+	<field name="school_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Partner-partner_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Status-status" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Status-status]]></fieldDescription>
+	</field>
+	<field name="Topic-topic" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Topic-topic]]></fieldDescription>
+	</field>
+	<field name="Total_Sessions-tot_sessions" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Total_Sessions-tot_sessions]]></fieldDescription>
+	</field>
+	<field name="Class-ed_class" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Class-ed_class]]></fieldDescription>
+	</field>
+	<field name="Start_Date-start_date" class="java.lang.String">
+		<fieldDescription><![CDATA[Start_Date-start_date]]></fieldDescription>
+	</field>
+	<field name="End_Date-end_date" class="java.lang.String">
+		<fieldDescription><![CDATA[End_Date-end_date]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="1" y="0" width="800" height="24"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="18" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[EDUMEDIA INDIA PRIVATE LIMITED]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="1" y="24" width="156" height="50"/>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "akshalife.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement positionType="Float" x="219" y="24" width="582" height="25">
+					<printWhenExpression><![CDATA[$F{Start_Date-start_date}]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new SimpleDateFormat("yyyy-MM-dd").parse($F{Start_Date-start_date})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement positionType="Float" x="219" y="49" width="582" height="25">
+					<printWhenExpression><![CDATA[$F{End_Date-end_date}]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new SimpleDateFormat("yyyy-MM-dd").parse($F{End_Date-end_date})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="157" y="24" width="62" height="25"/>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Start Date ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="157" y="49" width="62" height="25"/>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[End Date ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="26">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="0" width="802" height="26"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<dataSourceExpression><![CDATA[$P{primary}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_topic_list_subrpt1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="26" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="0" width="802" height="26"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<dataSourceExpression><![CDATA[$P{high_school}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_topic_list_subrpt2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="10">
+			<textField>
+				<reportElement positionType="Float" x="0" y="0" width="401" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement positionType="Float" x="401" y="0" width="401" height="10"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

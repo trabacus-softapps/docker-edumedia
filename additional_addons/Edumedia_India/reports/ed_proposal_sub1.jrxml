@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_proposal_sub1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="OPENERP_RELATIONS" value="[&apos;ed_pod_ids&apos;]"/>
+	<parameter name="Category" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="product_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/Product-product_id/Name-name_template]]></fieldDescription>
+	</field>
+	<field name="Quantity-ed_qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/Quantity-ed_qty]]></fieldDescription>
+	</field>
+	<field name="PER-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/PER-ed_per_id/PER-name]]></fieldDescription>
+	</field>
+	<field name="Product_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/id]]></fieldDescription>
+	</field>
+	<field name="Category_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/Product-product_id/Product_Template-product_tmpl_id/Category-categ_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Total_Class" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Total_Classes-tot_class]]></fieldDescription>
+	</field>
+	<field name="Lowest_Standard" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lowest_Standard-low_std]]></fieldDescription>
+	</field>
+	<field name="Highest_Standard" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Highest_Standard-high_std]]></fieldDescription>
+	</field>
+	<field name="Display_unit" class="java.lang.String">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/Display_Units-display_unit]]></fieldDescription>
+	</field>
+	<field name="Total_Quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Product-ed_pod_ids/Total_Quantity-tot_quantity]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[$P{Category} == $F{Category_name}]]></filterExpression>
+	<title>
+		<band height="31">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="276" height="31"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="true" pdfFontName="Times-BoldItalic"/>
+				</textElement>
+				<text><![CDATA[Components for School Cinema]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="276" y="0" width="116" height="31"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="true" pdfFontName="Times-BoldItalic"/>
+				</textElement>
+				<text><![CDATA[Quantity Per Module]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="392" y="0" width="163" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-BoldItalic" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Complete Programme \n"
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="137" y="0" width="139" height="17"/>
+				<box topPadding="2" leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="276" y="0" width="116" height="17"/>
+				<box topPadding="2" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Quantity-ed_qty} == null ? 0 : $F{Quantity-ed_qty}  + " Films"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="392" y="0" width="163" height="17"/>
+				<box topPadding="2" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Total_Quantity} == null ? 0
+: $F{Total_Quantity} + " " + $F{Display_unit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

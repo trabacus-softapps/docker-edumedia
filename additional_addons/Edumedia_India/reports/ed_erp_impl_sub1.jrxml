@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_erp_impl_sub1" language="groovy" pageWidth="163" pageHeight="572" orientation="Landscape" columnWidth="163" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;lines/sale_id/payment_ids&apos;]"/>
+	<parameter name="sale" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="REWIND" class="java.lang.Object" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{REPORT_DATA_SOURCE}.moveFirst()]]></defaultValueExpression>
+	</parameter>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Amount-ed_amt" class="java.lang.Float">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/ed.payment-payment_ids/Amount-ed_amt]]></fieldDescription>
+	</field>
+	<field name="Total-amount_total" class="java.lang.Float">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/Total-amount_total]]></fieldDescription>
+	</field>
+	<field name="sale_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/id]]></fieldDescription>
+	</field>
+	<field name="Rate-ed_rate" class="java.lang.Float">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/Rate-ed_rate]]></fieldDescription>
+	</field>
+	<variable name="payment_total" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{Amount-ed_amt}]]></variableExpression>
+	</variable>
+	<filterExpression><![CDATA[$P{sale} == $F{sale_id}]]></filterExpression>
+	<group name="sale">
+		<groupExpression><![CDATA[$F{sale_id}]]></groupExpression>
+		<groupFooter>
+			<band height="15">
+				<textField isStretchWithOverflow="true" pattern="###0.00">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="58" height="15"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Float"><![CDATA[($F{Total-amount_total} == null ? 0.00 : $F{Total-amount_total})
++ ($F{Rate-ed_rate} == null ? 0.00 : $F{Rate-ed_rate})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="58" y="0" width="55" height="15"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Float"><![CDATA[$V{payment_total} == null ? 0.00 : $V{payment_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="113" y="0" width="50" height="15"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="2">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Float"><![CDATA[(($F{Total-amount_total} == null ? 0.00 : $F{Total-amount_total}) + ($F{Rate-ed_rate} == null ? 0.00 : $F{Rate-ed_rate}))
+-($V{payment_total} == null ? 0.00 : $V{payment_total})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

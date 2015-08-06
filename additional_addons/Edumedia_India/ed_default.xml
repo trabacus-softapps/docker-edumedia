@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data noupdate="1">
+   
+   <!--	*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+						Scheduler to create Attendance
+		*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. -->
+		
+	  <record forcecreate="True" id="ed_run_scheduler" model="ir.cron">
+			<field name="name">Create Attendance</field>
+			<field eval="True" name="active" />
+			<field name="user_id" ref="base.user_root" />
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field eval="True" name="doall" />
+			<field eval="'hr.employee'" name="model" />
+			<field eval="'do_create_attendance'" name="function" />
+			<field eval="'()'" name="args" />
+		</record>
+		
+		<!-- <record forcecreate="True" id="ed_run_partner_scheduler" model="ir.cron">
+			<field name="name">Mark Subscription</field>
+			<field eval="True" name="active" />
+			<field name="user_id" ref="base.user_root" />
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field eval="True" name="doall" />
+			<field eval="'res.partner'" name="model" />
+			<field eval="'mark_Subscription'" name="function" />
+			<field eval="'()'" name="args" />
+		</record> -->
+		
+   
+   
+   
+   
+<!--	***************************Resource: product.uom.categ *************************-->
+
+        <record id="schcni" model="product.category">
+	        <field name="name">School Cinema</field>
+        	<field name="parent_id" ref="product.product_category_1"/>
+        </record> 
+        
+        <record id="schprod" model="product.category">
+	            <field name="name">Product</field>
+		        <field name="parent_id" ref="schcni"/>
+        </record> 
+        
+        <record id="schhdd" model="product.category">
+	            <field name="name">HDD</field>
+		        <field name="parent_id" ref="schcni"/>
+        </record> 
+        
+        <record id="schcdd" model="product.category">
+	            <field name="name">CDD</field>
+		        <field name="parent_id" ref="schcni"/>
+        </record> 
+        
+<!--    ***************************Default values for PER ******************************-->
+
+        <record id="per_na_view" model="ed.per">	        
+	            <field name="name">NA</field>
+        </record>
+              
+       	<record model="ed.per" id="per_sec_view">
+	    	    <field name="name">Section</field> 
+	    </record>
+	    
+	    <record model="ed.per" id="per_cl_view">
+	        	<field name="name">Class</field> 
+	    </record>
+	    
+	    <record model="ed.per" id="per_st_view">
+	    	    <field name="name">Student</field> 
+	    </record>
+    
+<!--    ***************************Default values for session type *********************-->
+
+        <record id="session_type_view" model="ed.type.session">	        
+        	    <field name="name">MODULE</field>
+        </record>
+        
+        <record model="ed.type.session" id="session_type1_view" >	        
+           		<field name="name">PARENTS SESSION</field>
+        </record>
+        
+        <record model="ed.type.session" id="session_type2_view" >	        
+           		<field name="name">TEACHERS SESSION</field>
+        </record>
+        
+        <!--    ***************************Default values for PER ******************************-->
+
+        <record id="ed_status1_view" model="ed.status">	        
+	            <field name="name">covered</field>
+        </record>
+              
+       	<record model="ed.status" id="ed_status2_view">
+	    	    <field name="name">inprogress</field> 
+	    </record>
+	    
+	  <!--    ***************************Default values for Document Directory ******************************-->  
+	    <record model="document.directory" id="dir_ed_hr">
+            <field name="name">HR</field>
+       	    <field name="user_id" eval="False"/>
+	    	<field name="storage_id" ref="document.dir_root"/>
+            <field name="ressource_id">0</field>
+    </record>
+          
+     <!--    ***************************Default values for Leads ******************************-->
+
+        <record id="ed_crm_lead_stage1" model="crm.stage">	        
+	            <field name="name">Qualified Assigned</field>
+	            <field name="type">opportunity</field>
+        </record>
+        
+        <record id="ed_crm_lead_stage2" model="crm.stage">	        
+	            <field name="name">Raw</field>
+	            <field name="type">opportunity</field>
+        </record>
+        
+        <record id="ed_crm_lead_stage3" model="crm.stage">	        
+	            <field name="name">Meeting/Proposal</field>
+	            <field name="type">opportunity</field>
+        </record>
+        
+        <record id="ed_crm_lead_stage4" model="crm.stage">	        
+	            <field name="name">Moved TO CRM</field>
+	            <field name="type">opportunity</field>
+        </record> 
+        
+<!--         <record id="ed_crm_lead_stage5" model="crm.case.stage">	         -->
+<!-- 	            <field name="name">Qualified</field> -->
+<!-- 	            <field name="type">opportunity</field> -->
+<!--         </record>      -->
+
+<!-- Holiday security rules -->
+		<record model="ir.rule" id="holiday_view_rule">
+           <field name="name">Holidays Dashboard</field>
+           <field name="model_id" search="[('model','=','ed.vw.holidays')]" model="ir.model"/>
+           <field name="domain_force">[('city_id','=',user.wrkcity_id.id),('h_year','=',time.strftime('%Y'))]</field>
+       </record>
+     
+   </data>
+</openerp>  
+   

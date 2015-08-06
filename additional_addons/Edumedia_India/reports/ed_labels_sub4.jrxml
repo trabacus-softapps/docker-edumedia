@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_labels_sub4" language="groovy" columnCount="3" printOrder="Horizontal" pageWidth="555" pageHeight="802" columnWidth="185" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;monthly_id/vw_director_ids&apos;]"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Address-address" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/Address-address]]></fieldDescription>
+	</field>
+	<field name="City" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/City-city_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Contact_No.-contact" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/Contact_No.-contact]]></fieldDescription>
+	</field>
+	<field name="Country" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/Country-country_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Email-email" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/Email-email]]></fieldDescription>
+	</field>
+	<field name="Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="State" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/State-state_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Zip-zip" class="java.lang.String">
+		<fieldDescription><![CDATA[Monthly_Edition-monthly_id/View_Director-vw_director_ids/Advertisers-director_id/Zip-zip]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="20"/>
+				<box leftPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Directors]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="80" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="180" height="79"/>
+				<box topPadding="2" leftPadding="4" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TO\n"
++ ($F{Name-name} == "" ? "" : " " + $F{Name-name})
++ ($F{Address-address} == "" ? "" : ("\n" + $F{Address-address}))
++ ($F{City} == "" ? "" : ("\n" + $F{City}))
++ ($F{Zip-zip} == "" ? "" : (" " + $F{Zip-zip}))
++ ($F{State} == "" ? "" : ("\n" + $F{State}))
++ ($F{Country} == "" ? "" : (" " + $F{Country}))]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

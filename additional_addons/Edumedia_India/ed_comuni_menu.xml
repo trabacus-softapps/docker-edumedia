@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   
+<!--    *************************** submenus of communication menu ***********************  -->
+
+		<menuitem id="menu_ed_comun" name="Communication" parent="menu_schlcinema_root" sequence="3"/>
+      
+        <menuitem name="Phone Calls" id="ed_menu_crm_case_phone"
+		          groups="base.group_no_one,base.group_sale_salesman"
+		          parent="menu_ed_comun" sequence="2" />
+         
+        <menuitem name="Meetings" id="ed_menu_meeting_sale"
+        		  parent="menu_ed_comun" sequence="0"/>
+
+    	<menuitem name="Meetings" id="ed_menu_crm_case_categ_meet"
+    		action="calendar.action_calendar_event" parent="ed_menu_meeting_sale"
+		          sequence="1" />
+<!--    *************************** submenus of Repositary menu ***********************  -->        
+        
+        <menuitem id="menu_ed_repositary" name="Repositary" parent="menu_schlcinema_root" sequence="4"/>
+    
+        <record id="ed_school_cinema_attach" model="ir.actions.act_window">
+           		<field name="name">Attachments</field>
+	            <field name="type">ir.actions.act_window</field>
+	            <field name="res_model">ir.attachment</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,form</field>
+	            <field name="view_id" eval="False"/>	            
+	            <field name="domain">[('parent_id.name','=','Documents')]</field>
+	            <field name="context">{"default_parent_id":1}</field>
+	            <field name="search_view_id" ref="base.view_attachment_search"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_ed_sch_doc_tree">
+		        <field name="sequence" eval="1"/>
+		        <field name="view_mode">tree</field>
+		        <field name="view_id" ref="document.view_document_file_tree"/>	            
+	            <field name="domain">[('parent_id.name','=','Documents')]</field>
+		        <field name="act_window_id" ref="ed_school_cinema_attach"/>
+	    </record>  
+
+	    <record model="ir.actions.act_window.view" id="action_ed_sch_doc_form">
+		        <field name="sequence" eval="3"/>
+		        <field name="view_mode">form</field>
+		        <field name="view_id" ref="document.view_document_file_form"/>
+		        <field name="act_window_id" ref="ed_school_cinema_attach"/>
+	    </record>   
+          
+	    <menuitem name="Documents"
+		          action="ed_school_cinema_attach"
+		          id="ed_menu_document_files"
+		          parent="menu_ed_repositary"/>
+	        
+<!--    ***************************PHONECALLS ****************************************** -->
+        
+<!--    ***************************Phonecalls form View ******************************** -->
+        
+        <record id="ed_view_case_phone_form_form" model="ir.ui.view">
+	            <field name="name">ed_view_case_phone_form_form</field>
+	            <field name="type">form</field>
+	            <field name="model">crm.phonecall</field>
+	            <field name="inherit_id" ref="crm.crm_case_phone_form_view"/>
+	            <field name="arch" type="xml">
+	            	<field name="user_id" position="attributes">
+	                   <attribute name="string">Eduvisor</attribute>                   
+	                </field>
+	               <!-- <group col="3" colspan="2" position="replace">
+	                </group>-->
+	                <!--<group col="2" colspan="2" position="replace">-->
+	            	<group col="4" position="replace">
+	                   <group col="6" >
+		                    <separator colspan="12" string="Categorization" />
+		                    <field name="categ_id" widget="selection"
+		                        domain="[('object_id.model', '=', 'crm.phonecall')]"
+		                        string="Type" />
+		                    <field name="priority"/>
+		                    <field name="opportunity_id"/>
+	                   </group>
+	                </group>
+	            </field>
+        </record> 
+                       
+				
+<!--    ***************************Phonecalls Search View ****************************** -->
+
+    	<record id="ed_view_crm_case_phonecalls_filter" model="ir.ui.view">
+		        <field name="name">ed_view_crm_case_phonecalls_filter</field>
+		        <field name="model">crm.phonecall</field>
+		        <field name="inherit_id" ref="crm.view_crm_case_phonecalls_filter"/>
+		        <field name="type">search</field>
+		        <field name="arch" type="xml">
+	            <field name="user_id" position="attributes">
+	                   <attribute name="string">Eduvisor</attribute>      
+	            </field>
+		        <field name="team_id" position="replace"/>
+		        </field>
+    	</record>
+    
+	    <record id="ed_view_crm_case_phonecalls_tree" model="ir.ui.view">
+		        <field name="name">ed_view_crm_case_phonecalls_tree</field>
+		        <field name="model">crm.phonecall</field>
+		        <field name="inherit_id" ref="crm.crm_case_phone_tree_view"/>
+		        <field name="type">search</field>
+		        <field name="arch" type="xml">
+				<field name="user_id" position="attributes">
+	                   <attribute name="string">Eduvisor</attribute>      
+	            </field>
+	            <field name="partner_id" position="replace"/>
+<!--                <field name="partner_contact" position="replace"/>
+                <field name="partner_phone" position="replace"/>-->
+	            </field>	
+        </record> 
+       
+        <record model="ir.actions.act_window" id="action_ed_crm_outbound">
+		        <field name="name">Outbound</field>
+		        <field name="res_model">crm.phonecall</field>
+		        <field name="view_type">form</field>
+		        <field name="view_mode">tree,calendar</field>
+		        <field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+		        <field name="domain">[('user_id','=',uid),('categ_id.name','=','Outbound')]</field>
+<!-- 		        <field name="context" eval="'{\'search_default_section_id\':section_id, \'default_state\':\'open\', \'search_default_current\':1, \'default_categ_id\': ' + str(ref('categ_phone2')) +'}'"/> -->
+		        <field name="search_view_id" ref="crm.view_crm_case_phonecalls_filter"/>
+		        <field name="help">Outbound Calls list all the calls to be done by your sales team. A salesman can record the information about the call in the form view. This information will be stored in the partner form to trace every contact you have with a customer. You can also import a .CSV file with a list of calls to be done by your sales team.</field>
+	    </record>
+
+	    <record model="ir.actions.act_window.view" id="action_ed_crm_outbound_tree">
+		        <field name="sequence" eval="1"/>
+		        <field name="view_mode">tree</field>
+		        <field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+		        <field name="act_window_id" ref="action_ed_crm_outbound"/>
+	    </record>
+
+	    <record model="ir.actions.act_window.view" id="action_ed_crm_outbound_calender">
+		        <field name="sequence" eval="2"/>
+		        <field name="view_mode">calendar</field>
+		        <field name="view_id" ref="crm.crm_case_phone_calendar_view"/>
+		        <field name="act_window_id" ref="action_ed_crm_outbound"/>
+	    </record>
+
+	    <record model="ir.actions.act_window.view" id="action_ed_crm_outbound_form">
+		        <field name="sequence" eval="3"/>
+		        <field name="view_mode">form</field>
+		        <field name="view_id" ref="crm.crm_case_phone_form_view"/>
+		        <field name="act_window_id" ref="action_ed_crm_outbound"/>
+	    </record>
+    
+        <menuitem name="Outbound" id="ed_menu_crm_case_phone_outbound"
+		          parent="ed_menu_crm_case_phone"
+		          action="action_ed_crm_outbound" sequence="2" />
+       
+<!--    ***************************Tree view for inbound phone calls *******************-->
+     
+        <record id="ed_view_crm_inbound_tree" model="ir.ui.view">
+		        <field name="name">ed_view_crm_inbound_tree</field>
+		        <field name="model">crm.phonecall</field>
+		        <field name="inherit_id" ref="crm.crm_case_inbound_phone_tree_view"/>
+		        <field name="type">tree</field>
+		        <field name="arch" type="xml">
+				<field name="user_id" position="attributes">
+	                   <attribute name="string">Eduvisor</attribute>      
+	            </field>
+	            <field name="partner_id" position="replace"/>
+               <!-- <field name="partner_address_id" position="replace"/>
+                <field name="partner_phone" position="replace"/>-->
+		        </field>	
+        </record> 
+       
+<!--    ***************************From view for inbound phone calls *******************
+       Commented by mani
+        <record id="ed_view_inbound_phone_form" model="ir.ui.view">
+	            <field name="name">ed_view_inbound_phone_form</field>
+	            <field name="type">form</field>
+	            <field name="model">crm.phonecall</field>
+	            <field name="inherit_id" ref="crm.crm_case_inbound_phone_form_view"/>
+	            <field name="arch" type="xml">
+	            <field name="user_id" position="attributes">
+	                   <attribute name="string">Eduvisor</attribute>                   
+	            </field>
+	            <group col="3" colspan="2" position="replace">
+	            </group>
+	            <group col="2" colspan="2" position="replace">
+	                   <group col="6" >
+	                   		 <separator colspan="12" string="Categorization" />
+		                     <field name="categ_id" widget="selection"
+		                            domain="[('object_id.model', '=', 'crm.phonecall')]"
+		                            string="Type" />
+		                     <field name="priority"/>
+		                     <field name="opportunity_id"/>
+	                   </group>
+	            </group>
+	            </field>
+        </record>    
+          
+        <record model="ir.actions.act_window" id="action_ed_incoming0">
+		        <field name="name">Inbound</field>
+		        <field name="res_model">crm.phonecall</field>
+		        <field name="view_type">form</field>
+		        <field name="view_mode">tree,calendar</field>
+		        <field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+		        <field name="domain">[('user_id','=',uid),('categ_id.name','=','Inbound')]</field>
+		        <field name="search_view_id" ref="crm.view_crm_case_phonecalls_filter"/>
+		        <field name="help">The Inbound Calls tool allows you to log your inbound calls on the fly. Each call you get will appear on the partner form to trace every contact you have with a partner. From the phone call form, you can trigger a request for another call, a meeting or an opportunity.</field>
+
+    	</record>
+
+	    <record model="ir.actions.act_window.view" id="action_ed_incoming0_tree">
+		        <field name="sequence" eval="1"/>
+		        <field name="view_mode">tree</field>
+		        <field name="view_id" ref="crm.crm_case_inbound_phone_tree_view"/>
+		        <field name="act_window_id" ref="action_ed_incoming0"/>
+	    </record>
+
+   
+   
+
+	    <record model="ir.actions.act_window.view" id="action_ed_incoming0_form">
+		        <field name="sequence" eval="3"/>
+		        <field name="view_mode">form</field>
+		        <field name="view_id" ref="crm.crm_case_inbound_phone_form_view"/>
+		        <field name="act_window_id" ref="action_ed_incoming0"/>
+	    </record>
+
+	    <menuitem name="Inbound" id="ed_menu_crm_case_phone_inbound"
+       			  parent="ed_menu_crm_case_phone"
+	        	  action="action_ed_incoming0" sequence="1"/>
+   	-->
+	        	  
+<!--    ***************************MEETINGS ********************************************-->
+       
+<!--    ***************************CRM Meeting Search View ***************************** 
+Commented by mani
+	    <record id="ed_view_crm_case_meetings_filter" model="ir.ui.view">
+		        <field name="name">ed_view_crm_case_meetings_filter</field>
+		        <field name="model">crm.meeting</field>
+		        <field name="inherit_id" ref="crm.view_crm_case_meetings_filter"/>
+		        <field name="type">search</field>
+		        <field name="arch" type="xml">
+		        <field name="user_id" position="replace">
+		       <field name="user_id" string="Eduvisor"/>
+		       </field>
+		        </field>
+        </record>-->
+
+<!--    ***************************CRM Meeting Tree View ******************************* 
+
+	    <record model="ir.ui.view" id="ed_crm_case_tree_view_meet">
+		        <field name="name">ed_crm_case_tree_view_meet</field>
+		        <field name="model">crm.meeting</field>
+		        <field name="inherit_id" ref="crm.crm_case_tree_view_meet"/>
+		        <field name="type">tree</field>
+		        <field name="arch" type="xml">
+		              <field name="user_id" string="Eduvisor"/>
+		        </field>
+	        </record>-->
+
+<!--    ***************************CRM Meetings Form View ******************************
+
+	    <record model="ir.ui.view" id="ed_crm_case_form_view_meet">
+		        <field name="name">ed_crm_case_form_view_meet</field>
+		        <field name="model">crm.meeting</field>
+		        <field name="inherit_id" ref="crm.crm_case_form_view_meet"/>
+		        <field name="type">form</field>
+		        <field name="arch" type="xml">
+	            <page string="Meeting" position="replace">       
+		               <page string="Meeting">
+		                    <group col="6" > 
+		                            <separator  string="Assignment" colspan="24"/>
+		                            <newline/>
+		                            <field name="user_id"  string="Eduvisor"/>
+		                            <field name="organizer" groups="base.group_no_one"/>
+		                            <field name="section_id" widget="selection"
+		                                   groups="base.group_no_one"/> 
+		                    </group>
+		                   	<separator string="Description" colspan="4" />
+	                       	<field name="description" nolabel="1" colspan="4" />
+	                       	<separator colspan="4"/>
+	                       	<group col="8" colspan="4" groups="base.group_no_one">
+			                        <field name="state" />
+			                        <button name="case_close" string="Done"
+			                                states="open" type="object"
+			                                icon="gtk-jump-to" />
+			                        <button name="case_reset" string="Reset to Unconfirmed"
+			                                states="open,done" type="object"
+			                                icon="gtk-convert" />
+			                        <button name="case_open" string="Confirm"
+			                                states="draft" type="object"
+			                                icon="gtk-go-forward" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/> 
+	                        </group>
+                       </page>
+                </page>
+	            <page string="Invitation Detail" position="replace"/>
+				</field>
+		</record>   
+   
+   	<record model="ir.actions.act_window" id="calendar.action_calendar_event">
+		        <field name="name">Meetings</field>
+		        <field name="res_model">crm.meeting</field>
+		        <field name="view_mode">calendar,tree,form,gantt</field>
+		        <field name="view_id" ref="crm.crm_case_calendar_view_meet"/>
+		         <field name="domain">[('user_id','=',uid)]</field>
+		        <field name="context">{"search_default_user_id":uid, 'search_default_section_id': section_id}</field>
+		        <field name="search_view_id" ref="crm.view_crm_case_meetings_filter"/>
+		        <field name="help">The meeting calendar is shared between the sales teams and fully integrated with other applications such as the employee holidays or the business opportunities. You can also synchronize meetings with your mobile phone using the caldav interface.
+		        </field>
+    	</record>-->
+	   
+   
+   </data>
+</openerp>
+        

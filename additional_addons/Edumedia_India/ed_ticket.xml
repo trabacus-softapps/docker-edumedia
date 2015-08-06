@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data>  
+   
+<!--   *****************  Inherited: Project Issue	*****************	-->
+
+           <record id="ed_project_issue_form_view" model="ir.ui.view">
+	            <field name="name">ed_project_issue_form_view</field>
+	            <field name="type">form</field>
+	            <field name="model">project.issue</field>
+	            <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
+	            <field name="arch" type="xml"> 
+	             
+                   <field name="name" position="replace">
+                   		<field name="name" string="Description"/>
+                   		<field name="ticket_no" required="1"/>
+                   </field>	                    
+                   <field name="project_id" position="replace"/>
+                   
+                   <field name="user_id" position="replace">
+                   		<field name="user_id" string="Raised By"/> 
+                   </field>	 
+                   
+<!--                   <field name="create_date" position="replace"/>
+-->                   
+   <!--                <field name="type_id" position="replace">
+                   		<field name="create_date"/>
+                   </field>
+                 
+                  
+                  
+	               <xpath expr="//button[@name='prev_type']" position="replace"/>
+	               <xpath expr="//button[@name='next_type']" position="replace"/>
+	             	
+                   <field name="version_id" position="replace"/>
+                   <field name="task_id" position="replace"/>
+	               <xpath expr="//button[@name='convert_issue_task']" position="replace"/>-->
+                   <field name="progress" position="replace">
+                   		<field name="ed_status_id" widget="selection"/>
+                   		 <field name="ed_date"/>
+                   </field>                   
+                   
+           <!--       <separator string= "Description" position="replace">
+                       <separator string= "Additional Information" colspan="4"/>
+                  </separator>-->
+                   
+	            </field>
+           </record>  
+				
+	    
+        <record model="ir.ui.view" id="ed_project_issue_tree">
+            <field name="name">ed_project_issue_tree_view</field>
+            <field name="model">project.issue</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Issue Tracker Tree" colors="black:state=='open';blue:state=='pending';grey:state in ('cancel', 'done')"> 
+                    <field name="create_date"/>
+                   	<field name="ticket_no" />
+                    <field name="name"/>
+                    <field name="partner_id" /> 
+                    <field name="user_id" string="Raised by"/>
+                    <!--<field name="assigned_to"/>-->
+                    <field name="priority" string="Priority"/>                    
+                    <field name="ed_status_id"/>
+                    <field name="ed_date"/>
+                 <!--   <field name="state"/> -->        
+                </tree>
+            </field>
+        </record>			
+        
+      <record model="ir.actions.act_window" id="action_ed_project_issue">
+         <field name="name">Ticket</field>
+         <field name="res_model">project.issue</field>
+         <field name="view_mode">tree,form</field>  
+         <field name="view_id" ref="ed_project_issue_tree"/> 
+     </record> 
+     <record model="ir.actions.act_window.view" id="action_ed_project_issue_tree">
+          <field name="sequence" eval="1"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_project_issue_tree"/> 
+          <field name="act_window_id" ref="action_ed_project_issue"/>
+     </record> 
+     <record model="ir.actions.act_window.view" id="action_ed_project_issue_form">
+          <field name="sequence" eval="2"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="project_issue.project_issue_form_view"/>
+          <field name="act_window_id" ref="action_ed_project_issue"/>
+     </record>  
+   
+     <menuitem name="Ticket" id="menu_action_ed_project_issue"
+         parent="menu_ed_saleorder_Pro" action="action_ed_project_issue"
+         sequence="6" /> 
+         
+       
+                  
+         	        
+   </data>
+</openerp>   

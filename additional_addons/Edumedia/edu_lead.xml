@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_edu_crm_leads_form">
+            <field name="name">CRM - Leads Form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_name']" position="attributes">
+                    <attribute name="string">School Name</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_edu_crm_case_form_view_oppor">
+            <field name="name">CRM - Opportunity Form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                    <attribute name="domain">[('parent_id','=', False)]</attribute>
+                </xpath>
+                
+                <xpath expr="//page[@string='Lead']//field[@name='partner_name']" position="attributes">
+                    <attribute name="string">School Name</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_edu_crm_lead2opportunity_partner" model="ir.ui.view">
+            <field name="name">edu.crm.lead2opportunity.partner.form</field>
+            <field name="model">crm.lead2opportunity.partner</field>
+            <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='action']/field[@name='action']" position="attributes">
+                    <attribute name="string">Related School</attribute>
+                </xpath>
+                <xpath expr="//group[@name='action']/field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_edu_crm_make_sale" model="ir.ui.view">
+            <field name="name">edu.crm.make.sale.form</field>
+            <field name="model">crm.make.sale</field>
+            <field name="inherit_id" ref="sale_crm.view_crm_make_sale"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="crm_edu_case_tree_view_oppor">
+            <field name="name">Opportunities Tree</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_edu_crm_case_opportunities_filter" model="ir.ui.view">
+            <field name="name">CRM - Opportunities Search</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+                <xpath expr="//group[@string='Group By']//filter[@string='Company']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="edu_crm_case_tree_view_leads">
+            <field name="name">Leads</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contact_name']" position="before">
+                    <field name="partner_name" string="School Name"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="edu_view_crm_case_leads_filter" model="ir.ui.view">
+            <field name="name">CRM - Leads Search</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="before">
+                    <field name="partner_name" string="School Name"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        
+    </data>
+</openerp>

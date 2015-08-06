@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_activity_sessions_sponsors" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Type-ed_type" class="java.lang.String">
+		<fieldDescription><![CDATA[Type-ed_type]]></fieldDescription>
+	</field>
+	<field name="school_city" class="java.lang.Integer">
+		<fieldDescription><![CDATA[School-partner_id/City-ed_city_id/id]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[User-User/Company-company_id/Sponsors-sponsor_ids/id]]></fieldDescription>
+	</field>
+	<field name="City-scity_id" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sponser-sponser_id/City-scity_id]]></fieldDescription>
+	</field>
+	<field name="Sponsor1-sponsor12" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sponser-sponser_id/Sponsor1-sponsor1]]></fieldDescription>
+	</field>
+	<field name="Sponsor2-sponsor22" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sponser-sponser_id/Sponsor2-sponsor2]]></fieldDescription>
+	</field>
+	<field name="Sponsor3-sponsor32" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sponser-sponser_id/Sponsor3-sponsor3]]></fieldDescription>
+	</field>
+	<field name="Skills-ed_skills2" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sponser-sponser_id/Skills-ed_skills]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[$F{Type-ed_type} == $F{Skills-ed_skills2} &&
+$F{school_city} == $F{City-scity_id}]]></filterExpression>
+	<pageFooter>
+		<band height="104" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement positionType="FixRelativeToBottom" x="270" y="96" width="285" height="8"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="6" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="96" width="270" height="8"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="6" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="10" y="2" width="94" height="94">
+					<printWhenExpression><![CDATA[$F{Sponsor1-sponsor12}]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$F{Sponsor1-sponsor12}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" hAlign="Center">
+				<reportElement x="451" y="2" width="94" height="94">
+					<printWhenExpression><![CDATA[$F{Sponsor2-sponsor22}]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$F{Sponsor2-sponsor22}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="236" y="2" width="94" height="94">
+					<printWhenExpression><![CDATA[$F{Sponsor3-sponsor32}]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA[$F{Sponsor3-sponsor32}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

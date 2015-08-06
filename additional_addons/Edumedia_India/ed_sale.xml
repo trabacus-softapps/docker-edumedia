@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   
+      	<menuitem id="menu_ed_saleorder_Pro" name="Sales" parent="menu_schlcinema_root" sequence="0"/>
+                      
+      
+<!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+									 	  SALE ORDER	 
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->       
+              
+               <!-- 	Sale order search view		 -->
+	
+		<record id="ed_view_sales_order_filter_inherit" model="ir.ui.view">  
+            <field name="name">ed_view_sales_order_filter_inherit</field>					
+            <field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="type">search</field> 
+	            <field name="arch" type="xml">
+	            <field name="user_id" position="attributes">
+	                   <attribute name="string">Eduvisor</attribute>       
+	            </field>
+	           
+	            <field name="team_id" position="replace">
+	                   <field name="hub_id" widget="selection"/>
+	            </field>   
+            </field>
+        </record>            
+            
+	          <!-- 	Sale order tree view		 -->	          
+	          	
+		<record id="view_ed_sale_tree" model="ir.ui.view">
+		            <field name="name">view_ed_sale_tree</field>
+		            <field name="model">sale.order</field>
+		            <field name="type">tree</field>
+		            <field name="priority">2</field>
+		            <field name="arch" type="xml">
+		                <tree string="CRM &amp; Proposal Order" colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
+		                    <field name="name"/>
+		                    <field name="date_order"/>
+		                    <field name="client_order_ref" groups="base.group_no_one"/>
+			                <field name="partner_id"/>
+		                    <field name="user_id" string="Eduvisor"/>
+		                    <field name="amount_untaxed" sum="Total Tax Excluded"/>
+	                    	<field name="hub_id" widget="selection"/>
+	                    	<field name="amount_total" sum="Total Tax Included"/>
+	                    	<field name="state"/>
+	               	 	</tree>
+	            </field>
+        </record>
+        		        
+		<!-- Sale order form view -->
+		        
+	  	<record id="view_ed_sale_form" model="ir.ui.view">
+	            <field name="name">view_ed_sale_form</field>
+	            <field name="model">sale.order</field>
+	            <field name="type">form</field>
+		        <field name="priority">2</field>
+	            <field name="arch" type="xml">
+		                <form string="CRM &amp; Proposal Order"> 
+		                      <group col="8" colspan="4">
+		                        <field name="name"/>
+		                        <field name="date_order"/>
+		                        <field name="invoiced" invisible="1"/>
+		                        <field name="shipped" invisible="1"/>
+		                      	<field name="warehouse_id" on_change="onchange_warehouse_id(warehouse_id)" options="{'no_create': True}" widget="selection" string="Company" invisible="1"/>
+		                        <field name="client_order_ref" attrs="{'readonly':[('state','!=','draft')]}"/>
+		                        <field name="hub_id" widget="selection"/>
+		                      </group>
+                                 <group col='6' colspan='2'>
+                                        <field name="ed_type" invisible="1"/>
+		                        <field name="tot_class" invisible="1"/>
+		                        <field name="low_std" invisible="1"/>
+		                        <field name="high_std" invisible="1"/>
+		                        <field name="tot_student" invisible="1"/>
+		                        <field name="tot_sectn" invisible="1"/>
+		                        <field name="ed_proj" invisible="1"/>
+                                 </group>
+	                        <notebook colspan="5">  
+		                        <page string="Sales Order">
+			                        <group col="4" colspan="4">
+				                        <group col="2" colspan="2">
+				                            <field name="partner_id" on_change="onchange_partner_id(partner_id)" domain="[('customer','=',True)]" context="{'search_default_customer':1}" required="1" />
+				                            <group col="3" colspan="2">
+					                            <field name="product_id" required="True" domain="[('categ_id.name','=','School Cinema')]" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+					                            <button name="button_2populateLines" states="draft" string="" type="object" icon="gtk-go-forward" confirm="Are you sure you want to continue?"/>
+					                            <newline/>
+					                            <field name="films_only"/>
+				                            </group>
+		                            	</group>
+			                            <group col="2" colspan="2"> 
+				                            <!--<field domain="[('partner_id','=',partner_id)]" name="partner_order_id"/>-->
+			                            	<field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" groups="base.group_no_one" />
+			                            	<field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" groups="base.group_no_one" />
+			                            </group>
+		                            </group>
+			                        <newline/>
+			                        <field domain="[('type','=','sale')]" name="pricelist_id" groups="base.group_no_one" invisible="1"/>
+			                        <newline/>
+			                        <field name="partner_default_id" invisible="1"/>
+			                        
+			                        <field name="class_ids" colspan="6" string=""  attrs="{'readonly':[('state', '!=', 'draft')]}">
+			                        	<tree string="Class Details" editable="top">
+			                        		<field name ="ed_class" />
+			                        		<field name="ed_sec" />
+			                        		<field name="ed_students" />
+			                        		<field name="ed_boys" />
+			                        		<field name="ed_girls" />
+			                        		<field name='wrk_bk_rate' on_change="onchange_rate(wrk_bk_rate,films_rate)"/>
+			                        		<field name='films_rate' on_change="onchange_rate(wrk_bk_rate,films_rate)" />
+			                        		<field name="rate" />			                        		
+			                        	</tree>
+			                        </field>
+			                        <field name='ed_cdd'/>
+			                        <field name='ed_rate'/> 
+			                        <separator string="License Fee"/>
+			                        <field name="licen_stdate" required="1"/>
+			                        <field name="licen_eddate" required="1"/>			                        
+			                        <field name='license_rate'/>
+			                        <newline/>
+			                        <field name='ed_license' invisible="1"/>
+			                         <separator string="Relationship Manager Remarks"/>
+		                        	 <newline/>
+		                        		<field colspan="4" name="rsn_reject" nolabel="1"/>
+			                        
+			                        <field colspan="4" mode="tree,form,graph" name="order_line" nolabel="1" widget="one2many_list" context="{'sale_id':active_id}" invisible="1">
+				                    <form string="Sales Order Lines">
+					                    <notebook>
+				                            <page string="Order Line">
+	                                            <field colspan="4" name="product_id" required="True" context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.warehouse_id,uom=product_uom"
+	                                                   on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False)"
+	                                            /> 
+					                            <field context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.warehouse_id,uom=product_uom "
+					                                   name="product_uom_qty" string="No.Of.Students"
+					                                   on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, True)"
+	                                            />
+	                                            <field groups="product.group_uos" name="product_uos_qty"/>
+	                                            <field groups="product.group_uos" name="product_uos"/>
+	                                            <field name="product_uom"
+	                                                   on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)"/>
+					                            <field colspan="4" name="name"/>
+	                                            <field name="price_unit"/>
+	                                            <field name="discount"/>
+	                                            <field name="ed_units" required="1"/>
+	                                            <field name="ed_per_depo" required="1"/>
+	                                            <field name="delay" groups="base.group_no_one"/>
+<!--	                                            <field name="ed_total" required="1" on_change="onchange_subtotal(price_unit,ed_total)"/>-->
+	                                            <newline/>
+	                                            <separator colspan="5" string="Taxes"/>
+	                                            <field colspan="4" name="tax_id" nolabel="1" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]"/>
+	                                            <group colspan="4" col="5" groups="base.group_no_one">
+	                                                <separator colspan="5" string="States"/>
+	                                                <field name="state"/>
+	                                                <field name="invoiced"/>
+	                                                <group attrs="{'invisible':[('invoiced','=',True)]}">
+		                                                <button colspan="1"
+		                                                    	name="%(sale.action_view_sale_order_line_make_invoice)d"
+		                                                    	states="confirmed"
+		                                                    	string="Make Invoices"
+		                                                    	type="action"
+		                                                    	icon="terp-document-new" />
+	                                                </group>
+	                                            </group>
+	                            			</page>
+				                            <page groups="base.group_no_one" string="Extra Info">
+	                                            <field name="th_weight"/>
+	                                            <field name="address_allotment_id"/>
+	                                            <field name="property_ids" colspan="4"/>
+	                                        </page>
+	                                        <page string="Notes">
+	                                            <field colspan="4" name="notes" nolabel="1"/>
+	                                        </page>
+	                                        <page string="History" groups="base.group_no_one">
+	                                            <separator colspan="4" string="Invoice Lines"/>
+	                                            <field colspan="4" name="invoice_lines" nolabel="1"/>
+	                                            <separator colspan="4" string="Stock Moves"/>
+	                                            <!--<field colspan="4" name="move_ids" nolabel="1" widget="many2many"/>-->
+	                                        </page>
+	                                    </notebook>
+                                	</form>
+	                                <tree string="Sales Order Lines">
+	                                    <field colspan="4" name="name"/>
+	                                    <field name="product_uom_qty" string="NO.OF.STUDENTS"/>
+	                                    <field name="price_unit"/>
+	                                    <field name="discount"/>
+	                                    <field name="price_subtotal"/>
+	                                </tree>
+                              		</field>
+	                           	    <group col="10" colspan="5">
+	                                	<field name="ed_pod_ids" string="" mode="tree" widget="one2many" attrs="{'readonly':[('state', '!=', 'draft')]}" invisible="1">
+                                		<tree editable="top"  string="Products">				
+											 	<field name="product_id" on_change="onchange_product(product_id)"/>
+											 	<field name="ed_qty"/>
+											 	<field name="ed_per_id" widget="selection"/>			
+											 	<field name="tot_quantity" />
+											 	<field name="display_unit" />
+										</tree>
+	                                	</field> 
+                                    </group>
+		                            <newline/>
+		                            <group col="13" colspan="10">
+		                                <field name="amount_untaxed" sum="Untaxed amount"/>
+		                                <field name="amount_tax"/>
+		                                <field name="amount_total"/>
+		                                <field name="state" readonly="1"/>
+		                            </group>
+		                            <group col="15" colspan="4">
+		                                <button name="button_dummy" states="draft,proposal_sent,proposal_accept" string="Compute" type="object" icon="gtk-execute"/>
+<!-- 		                                <button name="button_proposal_sent" states="draft,progress" string="Proposal Sent" type="object" icon="gtk-go-forward"/> -->
+<!-- 		                                <button name="button_proposal_accepted" states="proposal_sent" string="Proposal Accepted" type="object" icon="gtk-go-forward"/> -->
+		                                <button name="order_confirm" states="draft" string="Confirm" icon="gtk-apply" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/> 
+<!-- 		                                <button name="print_proposal_report" states="draft,proposal_sent,proposal_accept,manual,progress" string="Print Proposal Report" icon="gtk-print" type="object"/> -->
+		                                <button name="manual_invoice" states="manual" string="Send SCM &amp; Accounts" icon="gtk-go-forward" type="object" />
+		                                <button name="action_cancel" states="manual,progress" string="Cancel Order" type="object" icon="gtk-cancel"/>
+		                                <button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-convert"/>
+		                                <button name="cancel" states="draft" string="Cancel Order" icon="gtk-cancel"/>
+		                                <button name="print_order_report" states="manual,progress" string="Print Dispatch Order" icon="gtk-print" type="object"/>
+		                            </group>
+		                        </page>
+		                        <page string="Co Ordinator Details">
+		                       		<field name="address_ids" string="" ref="view_ed_partner_address_tree" domain="[('partner_id','=',partner_id)]" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+		                        </page>
+		                        <!-- <page string="Other Details">
+		                       		<field name="class_ids" string="" domain="[('partner_id','=',partner_id)]" context="{'partner_id':partner_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+		                        </page> -->
+		                        <page string="Proposal Content" invisible="1">
+		                            <field colspan ="6" name="cap1_terms" />
+		                            <field colspan ="6" name="cap1_text" string=""/>
+		                            <field colspan ="6" name="cap2_terms" />
+		                            <field colspan ="6" name="cap2_text" string=""/>
+		                            <field colspan ="6" name="cap3_terms" />
+		                            <field colspan ="6" name="cap3_text" string=""/>
+		                            <field colspan ="6" name="cap4_terms" />
+		                            <field colspan ="6" name="cap4_text" string=""/>
+		                        </page>
+		                        <page string="Payment Details">
+		                         	<field name="nxt_payment_date"/>
+		                            <field name="invoice_id"/>
+		                          	<group col="6" colspan="6">
+				                        <field  mode="tree,form" name="payment_ids" nolabel="1" widget="one2many_list" >
+			                       	    <form string="Payment">	
+				                 	   		<group colspan="4">
+						                 	   	<field name="payment_type" widget="selection"/>
+						                 	    <field name="ed_dd" />
+					                            <field name="ed_date"/>
+					                            <field name="ed_amt"/>
+						                        <field name="ed_bank"/>
+				                      		</group>
+					               		</form>
+			                       		<tree string="Payment">
+		                       	 			<field name="payment_type"/>
+			                       			<field name="ed_dd"/>
+				                            <field name="ed_date"/>
+				                            <field name="ed_amt" sum="ed amt"/>
+					                        <field name="ed_bank"/>
+			                        	</tree>
+					              		</field>
+			                 		</group>
+		                        </page>
+		                        
+		                        <page string="Training" >
+                     			<field name="training_ids" colspan="5" nolabel="1"/>
+                     		</page>
+                    		
+                    		<page string="Feedback" >
+                      			<field name="feedback_ids" string=""/>
+                    		</page>
+                    		
+		                       	<page string="History" groups="base.group_no_one" invisible="1">
+		                            <separator colspan="4" string="Invoices"/>
+		                            <field colspan="4" name="invoice_ids" nolabel="1" context="{'form_view_ref':'account.invoice_form'}"/>
+		                            <separator colspan="4" string="Packings"/>
+		                            <field colspan="4" name="picking_ids" nolabel="1"/>
+		                            <field name="message_ids" colspan="4" nolabel="1" mode="tree,form">
+	                    			<!--<tree string="History">
+	                        			<field name="display_text" string="History Information"/>
+	                        			<field name="history" invisible="1"/>
+	                        			
+	                    			</tree> -->
+	                    			<!--<form string="History">
+		                        		<group col="4" colspan="4">
+		                            		<field name="email_from"/>
+		                            		<field name="date"/>
+		                            		<field name="email_to" widget="char" size="512"/>
+		                            		<field name="email_cc" widget="char" size="512"/>
+		                            		<field name="name" colspan="4" widget="char" size="512"/>	
+		                            		<field name="history" invisible="1"/>
+		                        		</group>
+		                        		<notebook colspan="4">
+		                            		<page string="Details">
+		                               			<group attrs="{'invisible': [('history', '!=', True)]}">
+		                                    		<field name="description" colspan="4" nolabel="1" height="250"/>
+		                                    		
+		                                		</group>
+		                                	<group attrs="{'invisible': [('history', '=', True)]}">
+		                                    		<field name="display_text" colspan="4" nolabel="1"  height="250"/>
+		                                		</group>
+	                            		</page>
+	                            		<page string="Attachments">
+	                                		<field name="attachment_ids" colspan="4" readonly="1" nolabel="1"/>
+	                            		</page>
+	                        		</notebook>
+                    			</form>-->
+                				</field>
+                				
+              	
+		                        </page>
+		                        <page string="Delivery">
+		                         	<field name="delivery_ids"  nolabel="1"/>
+		                        
+		                        </page>
+		                    </notebook>
+		                </form>
+	            </field>
+        </record>
+		      
+		<record id="action_ed_sale_manager" model="ir.actions.act_window">
+				<field name="name">CRM and Proposal Order</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">sale.order</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[("ed_type","in",("so","crm"))]</field>
+			    <field name="context">{"default_ed_type":"so"}</field>
+	            <field name="view_id" ref="view_ed_sale_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_sale_manager_tree">
+		        <field name="sequence" eval="1"/>
+		        <field name="view_mode">tree</field>
+		        <field name="view_id" ref="view_ed_sale_tree"/> 
+	  			<field name="act_window_id" ref="action_ed_sale_manager"/>
+        </record> 
+        
+        <record model="ir.actions.act_window.view" id="action_ed_sale_manager_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_sale_form"/>
+	            <field name="act_window_id" ref="action_ed_sale_manager"/>
+        </record>
+         
+     	<menuitem action="action_ed_sale_manager" id="menu_action_ed_sale_manager" name="CRM &amp; Proposal Order" parent="menu_ed_saleorder_Pro" sequence="3"/>
+     	
+     	<record id="action_ed_sale_user" model="ir.actions.act_window">
+				<field name="name">CRM and Proposal Order</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">sale.order</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[("ed_type","in",("so","crm")),('create_uid','=',uid)]</field>
+			    <field name="context">{"default_ed_type":"so"}</field>
+	            <field name="view_id" ref="view_ed_sale_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_sale_user_tree">
+		        <field name="sequence" eval="1"/>
+		        <field name="view_mode">tree</field>
+		        <field name="view_id" ref="view_ed_sale_tree"/> 
+	  			<field name="act_window_id" ref="action_ed_sale_user"/>
+        </record> 
+        
+        <record model="ir.actions.act_window.view" id="action_ed_sale_user_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_sale_form"/>
+	            <field name="act_window_id" ref="action_ed_sale_user"/>
+        </record>
+         
+     	<menuitem action="action_ed_sale_user" id="menu_action_ed_sale_user" name="CRM &amp; Proposal Order" parent="menu_ed_saleorder_Pro" sequence="4"/>	
+<!--    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+									 	  CRM	 
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --><!--	
+	
+	    <record id="view_ed_sale_crm_form" model="ir.ui.view">
+            	<field name="name">view_ed_sale_crm_form</field>
+            	<field name="model">sale.order</field>
+            	<field name="type">form</field>
+            	<field name="arch" type="xml">
+                	<form string="CRM">
+                    	<group col="6" colspan="4">
+	                        <field colspan="1" name="name"/> 
+	                        <field name="date_order"/>
+	                        <field name="invoiced" />
+	                        <field name="shop_id" on_change="onchange_shop_id(shop_id)" widget="selection" string="Company"/>
+	                        <field name="client_order_ref" />
+	                        <field name="shipped" />
+	                        <field name="hub_id" widget="selection"/>
+                            <field name="ed_proj" invisible="1"/>
+                        	<field name="ed_type" invisible="1"/>
+                        </group>
+                      	<notebook colspan="5">  
+                        	<page string="CRM">
+                        		<group col="3" colspan="4">
+                        			<group col="2" colspan="1">
+			                            <field name="partner_id" on_change="onchange_partner_id(partner_id)" domain="[('customer','=',True)]" context="{'search_default_customer':1}" required="1" />
+			                            <group col="3" colspan="2">
+			                            <field name="product_id" required="True" readonly="True"/>
+			                            <button name="button_2populateLines" states="draft" string="" type="object" icon="gtk-go-forward" confirm="Are you sure you want to continue?"/>
+			                            </group>
+                            		</group>
+                            
+                             		<group col="2" colspan="1"> 
+			                            <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" />
+			                            <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" groups="base.group_no_one" />
+                            		</group>
+                            		<group col="2" colspan="1">
+                            			<field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" groups="base.group_no_one" />
+                          			</group>
+                           		</group>
+                           		<newline/>
+                            	<field domain="[('type','=','sale')]" name="pricelist_id" groups="base.group_no_one" invisible="1"/>
+                            	<newline/>
+                           		<field name="partner_default_id" invisible="1"/>
+                             	<field colspan="4" mode="tree,form,graph" name="order_line" nolabel="1" widget="one2many_list" context="{'sale_id':active_id}" >
+	                            	<form string="Sales Order Lines">
+                                    	<notebook>
+                                        	<page string="Order Line">
+                                            	<field colspan="4" name="product_id" required="True" context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom" 
+                                           			   on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False)"
+                                                /> 
+												<field
+	                                                context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom "
+	                                                name="product_uom_qty" string="No.Of.Students"
+	                                                on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, True)"
+                                                />
+	                                            <field groups="product.group_uos" name="product_uos_qty"/>
+	                                            <field groups="product.group_uos" name="product_uos"/>
+	                                            <field name="product_uom"
+                                                	   on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)"/>
+	                                           	<field colspan="4" name="name"/>
+	                                            <field name="price_unit"/>
+	                                            <field name="discount"/>
+	                                            <field name="ed_units" required="1" on_change="onchange_Total(ed_per_depo,ed_units)"/>
+	                                            <field name="ed_per_depo" required="1"  on_change="onchange_Total(ed_per_depo,ed_units)"/>
+	                                            <field name="delay" groups="base.group_no_one"/>
+	                                            <field name="ed_total" required="1" on_change="onchange_subtotal(price_unit,ed_total)"/>
+	                                            <newline/>
+	                                            <separator colspan="5" string="Taxes"/>
+	                                            <field colspan="4" name="tax_id" nolabel="1" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]"/>
+	                                            <group colspan="4" col="5" groups="base.group_no_one">
+	                                                <separator colspan="5" string="States"/>
+	                                                <field name="state"/>
+	                                                <field name="invoiced"/>
+	                                                <group attrs="{'invisible':[('invoiced','=',True)]}">
+		                                                <button colspan="1"
+		                                                    	name="%(sale.action_view_sale_order_line_make_invoice)d"
+		                                                   		states="confirmed"
+		                                                    	string="Make Invoices"
+		                                                    	type="action"
+		                                                    	icon="terp-document-new" />
+                                                 	</group>
+	                                            </group>
+	                                        </page>
+	                                        
+	                                        <page groups="base.group_no_one" string="Extra Info">
+	                                            <field name="th_weight"/>
+	                                            <field name="address_allotment_id"/>
+	                                            <field name="property_ids" colspan="4"/>
+	                                        </page>
+	                                        <page string="Notes">
+	                                            <field colspan="4" name="notes" nolabel="1"/>
+	                                        </page>
+	                                        <page string="History" groups="base.group_no_one">
+	                                            <separator colspan="4" string="Invoice Lines"/>
+	                                            <field colspan="4" name="invoice_lines" nolabel="1"/>
+	                                            <separator colspan="4" string="Stock Moves"/>
+	                                            <field colspan="4" name="move_ids" nolabel="1" widget="many2many"/>
+	                                        </page>
+	                                    </notebook>
+	                                </form>
+	                                <tree string="Sales Order Lines">
+	                                    <field colspan="4" name="name"/>
+	                                    <field name="product_uom_qty" string="NO.OF.STUDENTS"/>
+	                                    <field name="price_unit"/>
+	                                    <field name="discount"/>
+	                                    <field name="ed_per_depo"/>
+	                                    <field name="price_subtotal"/>
+	                                </tree>
+                                </field>
+                       		    <group col="10" colspan="5">
+	                                <field  name="ed_pod_ids" mode="tree" string="" widget="one2many" attrs="{'readonly':[('state', '!=', 'draft')]}">
+                               		<tree editable="top"  string="Products">				
+									 	<field name="product_id" on_change="onchange_product(product_id)"/>
+									 	<field name="ed_qty"/>
+									 	<field name="ed_per_id" widget="selection"/>			
+									 	<field name="tot_quantity" />
+									 	<field name="display_unit" />
+									</tree>
+	                                </field>
+	                           	</group>
+                       			<newline/>
+		                        <group col="13" colspan="10">
+		                            <field name="amount_untaxed" sum="Untaxed amount"/>
+		                            <field name="amount_tax"/>
+		                            <field name="amount_total"/>
+		                            <field name="state"/>
+		                        </group>
+                        		<group col="15" colspan="4">
+		                            <button name="button_dummy" states="draft" string="Compute" type="object" icon="gtk-execute"/>
+		                            <button name="invoice_recreate" states="invoice_except" string="Recreate Invoice" icon="gtk-go-forward"/>
+		                            <button name="invoice_corrected" states="invoice_except" string="Ignore Exception" icon="gtk-apply"/>
+		                            <button name="ship_recreate" states="shipping_except" string="Recreate Packing" icon="gtk-ok"/>
+		                            <button name="ship_corrected" states="shipping_except" string="Ignore Exception" icon="gtk-apply"/>
+		                            <button name="action_cancel" states="manual,progress" string="Cancel Order" type="object" icon="gtk-cancel"/>
+		                            <button name="print_proposal_report" states="manual,progress" string="Print Proposal Report" icon="gtk-print" type="object"/>
+		                            <button name="manual_invoice" states="manual" string="Create Final Invoice" icon="gtk-go-forward" type="object" />
+		                            <button name="ship_cancel" states="shipping_except" string="Cancel Order" icon="gtk-cancel"/>
+		                            <button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="gtk-convert"/>
+		                            <button name="cancel" states="draft" string="Cancel Order" icon="gtk-cancel"/>
+		                            <button name="invoice_cancel" states="invoice_except" string="Cancel Order" icon="gtk-cancel"/>
+		                            <button name="print_order_report" states="draft,proposal_sent,manual,proposal_accept,progress" string="Print Order Report" icon="gtk-print" type="object"/>
+                        		</group>
+                    		</page>
+                    
+                    		<page string="Co-ordinator Details">
+                     			<field name="address_ids" string="" ref="view_ed_partner_address_tree" domain="[('partner_id','=',partner_id)]"/>
+                     		</page>
+                     		<page string="Payment Details">
+                       			<field name="nxt_payment_date"/>
+                        		<field name="invoice_id"/>
+                       			<group col="6" colspan="6">
+                      				<field   mode="tree,form" name="payment_ids" nolabel="1" widget="one2many_list" >
+                     				<form string="Payment">	
+               	   						<group colspan="4">
+               	   							<field name="payment_type" widget="selection"/>
+               	   							<field name="ed_dd"/>
+                         					<field name="ed_date"/>
+                         					<field name="ed_amt"/>
+                      						<field name="ed_bank"/>
+                    					</group>
+              						</form>
+                    				<tree string="Payment">
+                    	  				<field name="payment_type"/>
+				                        <field name="ed_dd"/>
+				                        <field name="ed_date"/>
+				                        <field name="ed_amt"/>
+                                        <field name="ed_bank"/>
+                     				</tree>
+             						</field>
+           						</group>
+                    		</page>
+                     		<page string="Other Details">
+                   		 		<field name="class_ids" string="" domain="[('partner_id','=',partner_id)]" context="{'partner_id':partner_id" />
+                     		</page>
+                   
+                    		<page string="Training" >
+                     			<field name="training_ids" colspan="5" nolabel="1"/>
+                     		</page>
+                    		
+                    		<page string="Feedback" >
+                      			<field name="feedback_ids" string=""/>
+                    		</page>
+                    		<page string="History" groups="base.group_no_one" >
+                  				<field name="message_ids" colspan="4" nolabel="1" mode="tree,form">
+                    			<tree string="History">
+                        			<field name="display_text" string="History Information"/>
+                        			<field name="history" invisible="1"/>
+                        			<button
+                            			string="Reply" attrs="{'invisible': [('history', '!=', True)]}"
+                            			name="%(crm.action_crm_send_mail)d"
+                            			context="{'mail':'reply', 'model': 'sale.order', 'include_original' : True}"
+                            			icon="terp-mail-replied" type="action" />
+                    			</tree> 
+                    			<form string="History">
+	                        		<group col="4" colspan="4">
+	                            		<field name="email_from"/>
+	                            		<field name="date"/>
+	                            		<field name="email_to" widget="char" size="512"/>
+	                            		<field name="email_cc" widget="char" size="512"/>
+	                            		<field name="name" colspan="4" widget="char" size="512"/>	
+	                            		<field name="history" invisible="1"/>
+	                        		</group>
+	                        		<notebook colspan="4">
+	                            		<page string="Details">
+	                               			<group attrs="{'invisible': [('history', '!=', True)]}">
+	                                    		<field name="description" colspan="4" nolabel="1" height="250"/>
+	                                    		<button colspan="4"
+	                                        			string="Reply"
+	                                        			name="%(crm.action_crm_send_mail)d"
+	                                        			context="{'mail':'reply', 'model': 'sale.order', 'include_original' : True}"
+	                                        			icon="terp-mail-replied" type="action" />
+	                                		</group>
+	                                		<group attrs="{'invisible': [('history', '=', True)]}">
+	                                    		<field name="display_text" colspan="4" nolabel="1"  height="250"/>
+	                                		</group>
+	                            		</page>
+	                            		<page string="Attachments">
+	                                		<field name="attachment_ids" colspan="4" readonly="1" nolabel="1"/>
+	                            		</page>
+	                        		</notebook>
+                    			</form>
+                				</field>
+                				<button string="Add Internal Note"
+                    					name="%(crm.action_crm_add_note)d"
+                    					context="{'model': 'sale.order' }"
+                    					icon="terp-document-new" type="action" />
+              				</page>
+           				</notebook>
+            		</form>
+        		</field>
+    	</record>
+		      
+		<record id="action_ed_sale_crm" model="ir.actions.act_window">
+				<field name="name">CRM</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">sale.order</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[("ed_type","=","crm")]</field>
+			    <field name="context">{"default_ed_type":"crm"}</field>
+	            <field name="view_id" ref="view_ed_sale_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_sale_crm_tree">
+	            <field name="sequence" eval="1"/>
+         	    <field name="view_mode">tree</field>
+		        <field name="view_id" ref="view_ed_sale_tree"/> 
+		        <field name="act_window_id" ref="action_ed_sale_crm"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_ed_sale_crm_form">
+		        <field name="sequence" eval="2"/>
+		        <field name="view_mode">form</field>
+		        <field name="view_id" ref="view_ed_sale_crm_form"/>
+		        <field name="act_window_id" ref="action_ed_sale_crm"/>
+        </record> 
+     	<menuitem action="action_ed_sale_crm" id="menu_action_ed_sale_crm" name="CRM" parent="menu_ed_saleorder_Pro" sequence="4"/>
+	
+
+   --></data>
+</openerp>	        

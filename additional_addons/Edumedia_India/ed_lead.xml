@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   
+                  <!--************************CRM LEAD************************* -->
+
+    <record id="ed_crm_case_leads_filter" model="ir.ui.view">
+        <field name="name">ed_crm_case_leads_filter</field>
+        <field name="model">crm.lead</field>        
+            <field name="priority">2</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+         <search string="Leads">
+	           
+         	   <filter icon="terp-check"
+	                   string="Raw"  help="Leads which are in raw state"
+	                   domain="[('stage_id','=','Raw')]"/>  
+          
+      		   <filter icon="terp-check"
+	                   string="Qualified Assigned"  help="Assigned and Active Leads" 
+	                   name="current"
+	                   domain="[('stage_id','=','Qualified Assigned')]"/>      
+	           
+	           <separator orientation="vertical"/>     
+	        	              
+	           <filter icon="terp-camera_test"
+		               string="Activated"  help="Activated Leads"
+		               domain="[('stage_id','=','Activated')]" />
+		                 
+	           <filter icon="terp-gtk-media-pause"
+	                   string="Meeting/Proposal"  help="Leads in Meeting/Proposal"
+	                   domain="[('stage_id','=','Meeting/Proposal')]"/>
+	                   
+	           <separator orientation="vertical"/>
+	           
+	           <filter icon="terp-camera_test"
+         			   string="Moved To Crm"  help="Completed Leads" 
+         			   domain="[('stage_id','=','Moved TO CRM')]"/> 
+         			   
+         	   <filter icon="terp-dialog-close"
+                       string="Rejected"
+                       domain="[('stage_id','=','Rejected')]"
+                       help="Leads/Opportunities which are in Cancelled State"/>
+                	         
+	           <field name="partner_id" string="School"/>
+	           <field name="city"/>
+               <field name="con_person"/>
+               <newline/>
+               <field name="con_phone"/>
+               <field name="priority" />
+	           <field name="title_action" colspan="2"/>
+	           <field name="date_action" />
+	           <field name="user_id" string ="Assigned To"/>
+	                  
+         </search>   
+        </field>
+     </record>
+     
+     
+   
+                      <!--******************* CRM  Lead Tree View************************* -->
+   
+        <record model="ir.ui.view" id="ed_crm_case_tree_view_oppor">
+            <field name="name">ed.crm_case_tree_view_oppor</field>
+            <field name="model">crm.lead</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml"> 
+               <tree position="attributes">
+                   <attribute name="string">Leads</attribute>
+               </tree>
+         
+                <field name="create_date" position="replace"/>
+                <field name="name" string="Opportunity" position="replace"/>
+                <field name="partner_id" position="attributes">
+                      <attribute name="string">School</attribute>      
+                </field>  
+                <field name="priority" position="replace"/> 
+                <field name="partner_id"  position="after">
+                      <field name="city"/>
+                      <field name="con_person"/>
+                      <field name="con_phone"/>
+                      <field name="priority" position="attributes">
+                     <attribute name="invisible">0</attribute>                     
+                </field>
+                </field> 
+                 
+                 <field name="stage_id" position="replace"/>
+               
+                <field name="user_id" position="attributes">
+                     <attribute name="string">Assigned To</attribute>      
+                </field>
+
+                <!--
+                <button name="case_open" position="replace"/>
+                <button name="case_pending" position="replace"/>
+                <button name="case_close" position="replace"/>
+                <button name="stage_previous" string="Previous Stage"
+                            states="open,pending" type="object" icon="gtk-go-back" position="replace"/>
+                <button name="stage_next" string="Next Stage"
+                            states="open,pending" type="object"
+                            icon="gtk-go-forward" position="replace"/> 
+                  <field name="state" position="replace">
+                   <field name ="stage_id"/>
+                  </field>
+	            <field name="planned_revenue" sum="Expected Revenues" position="replace"/>
+	            <field name="probability" widget="progressbar" avg="Avg. of Probability" position="replace"/>-->
+               
+            </field>
+        </record>
+        
+     
+                       <!--******************* Create Lead Search View********************** -->
+     
+		    <record id="ed_view_crm_case_create_leads_search" model="ir.ui.view">
+		        <field name="name">ed_view_crm_case_create_leads_search</field>
+		        <field name="model">crm.lead</field>
+		        <field name="type">search</field>
+				<field name="arch" type="xml">
+			    <search string="Create Leads">
+		            <field name="partner_id" string="Customer"/>
+		            <field name="user_id" string="Assigned To"/>     
+		
+		        </search>     
+		        </field>
+		     </record>
+     
+   
+                        <!--******************* create Lead Tree************************  -->
+   
+        <record model="ir.ui.view" id="ed_create_lead_tree_view">
+            <field name="name">ed_create_lead_tree_view</field>
+            <field name="model">crm.lead</field>
+            <field name="priority">1</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml"> 
+                    <tree string="Opportunities" colors="blue:state=='pending' and not(date_deadline and (date_deadline &lt; current_date));gray:state in ('cancel', 'done');red:date_deadline and (date_deadline &lt; current_date)">
+                        <field name="date_deadline" invisible="1"/>
+                        <field name="create_date"/>
+                        <field name="partner_id" string="School"/>
+                        <field name="country_id" invisible="context.get('invisible_country', True)" />
+                        <field name="city"/>
+                        <field name="con_person"/>
+                        <field name="con_phone"/>
+                        <field name="priority" />
+                        <field name="user_id" string="Assigned To"/>
+                        <field name="stage_id"/>
+                        <field name="chanel_id" invisible="1"/>
+                        <!--<field name="type_id" invisible="1"/>-->
+<!--                        <field name="categ_id" invisible="1"/>
+-->                    </tree>
+               </field>
+      </record>
+         
+
+      <record model="ir.ui.view" id="ed_crm_case_form_view_leads">
+                <field name="name">ed_crm_case_form_view_leads</field>
+                <field name="model">crm.lead</field>
+                <field name="type">form</field>
+                <field name="priority">2</field>
+                <field name="arch" type="xml">                
+	            <form string="Leads">
+	              <group col="8" colspan="4">
+                     <group  colspan="2">
+                           <field name="partner_id" select="1" 
+                                  on_change="onchange_partner_id(partner_id, email_from)" string="School"/>
+                 
+                     
+                     </group>
+                          <field name="partner_address_id"
+                           string="Address"
+                           on_change="onchange_partner_address_id(partner_address_id, email_from)"
+                           colspan="4" />
+                   <newline/>
+	                    <field name="email_from" string="Email" />
+	                    <field name="phone"/>
+	                    <field name="con_person"/>
+	                    <field name="con_email"/>
+	                    <field name="con_phone"/>
+		                <field name='priority'/>
+		                <field name="user_id" string='Assigned To'/>
+		                <field name="chanel_id" widget="selection"/>
+		                <field name="rmks" colspan="6"/>
+                </group>
+                <notebook colspan="6">
+                <page string="Data" attrs="{'invisible': [('state', '=','draft')]}">
+                	   <field name="propsal_no" />	
+	                   <field name="modules"/>
+	                   <field name="prop_stu"/>
+	                   <field name="rate_child"/>
+	                   <field name="exp_bill"/> 
+	                   <field name="title_action"/>
+	                   <field name="date_action"/>
+	                   <separator colspan="6" string="School Background"/>
+	                   <field colspan="6" name="background" nolabel ="1"/>
+	                   <separator colspan="6" string="Relationship Manager Remarks"/>
+	                   <field colspan="6" name="rsn_reject" nolabel="1"/>
+	                   <separator colspan="6" string="Regional Head Remarks"/>
+	                   <field colspan="6" name="rgn_rmks" nolabel="1"/>
+                </page>
+                
+                <page string="Case History"  attrs="{'invisible': [('state', '=','draft')]}">
+                            <group colspan="4">
+                                <field colspan="4" name="email_cc" string="Global CC" widget="char" size="512"/>
+                            </group>
+                            <field name="message_ids" colspan="4" nolabel="1" mode="tree,form">
+                                <!--<tree string="History">
+                                    <field name="display_text" string="History Information"/>
+                                    <field name="history" invisible="1"/>
+                                    
+                                </tree>
+                                <form string="History">
+                                    <group col="4" colspan="4">
+                                        <field name="email_from"/>
+                                        <field name="date"/>
+                                        <field name="email_to" size="512"/>
+                                        <field name="email_cc" size="512"/>
+                                        <field name="name" colspan="4"/>
+                                        <field name="history" invisible="1"/>
+                                    </group>
+                                    <notebook colspan="4">
+                                        <page string="Details">
+                                            <group attrs="{'invisible': [('history', '!=', True)]}">
+                                                <field name="description" colspan="4" nolabel="1" height="250"/>
+                                                
+                                            </group>
+                                            <group attrs="{'invisible': [('history', '=', True)]}">
+                                                <field name="display_text" colspan="4" nolabel="1"  height="250"/>
+                                            </group>
+           	                             </page>
+                                        <page string="Attachments">
+                                            <field name="attachment_ids" colspan="4" readonly="1" nolabel="1"/>
+                                        </page>
+                                    </notebook>
+                                </form>-->
+                            </field>
+                           
+                    
+                            
+                </page>
+               <page string="Qualification Parameters">
+                    <group col = "6" colspan="3">
+	                	<field name="curriculum_id" domain="[('type','=','curriculum')]" widget="selection" required ="1"/>
+	                	<field name="strength_id" domain="[('type','=','schl_strength')]" widget="selection" required ="1"/>
+	                	<field name="time_id" domain="[('type','=','time_span')]" widget="selection" required ="1"/>
+	                	<field name="economic_id" domain="[('type','=','socio_eco')]" widget="selection" required ="1"/>
+	                	
+	                	<field name="grades"/>
+	                	<field name="grades_desc"/>
+	                	<field name="annual_fees"/>
+                	</group>
+<!--                 	<separator colspan="4" string="What section of the society do your majority of your students belong to?"/> -->
+<!--                 		<field name="society" nolabel="1"/> -->
+                	
+                	<separator colspan="4" string="Are you the sole decision maker in your school?"/>
+                	  	<field name="sole_dsc" nolabel="1"/>
+                        <newline/>
+	                	<group col="6" colspan="2" attrs="{'invisible': [('sole_dsc', '!=', 'no')]}">
+		                	<separator colspan="2" string="if not"/>
+		                	<newline/>
+		                	<field name="sl_dsc_maker" attrs="{'invisible': [('sole_dsc', '!=', 'no')]}"/>
+		                	<field name="sl_dsign" attrs="{'invisible': [('sole_dsc', '!=', 'no')]}"/>
+		                	<field name="sl_contact" attrs="{'invisible': [('sole_dsc', '!=', 'no')]}" colspan="4"/>
+	                	</group>
+                	
+                	<separator colspan="4" string="Does your school offer any of the following?"/>
+                	  <group col="12" colspan="2">
+                		<field name="msc" />
+                		<field name="vec" />
+                		<field name="lssc" />
+                		<field name="con" />
+                		<field name="none" />
+                		<field name="others" />
+                	  </group>
+                	
+                	<separator colspan="4" string="Do you think School Cinema is an effective medium for imparting values and life skills?"/>
+                		<field name="effec_med" nolabel="1"/>
+                	
+                	<separator colspan="4" string="Would you consider implementing School Cinema in your school?"/>
+	                	<field name="implement" nolabel="1"/>
+	                    <newline/>
+	                	<group col="2" colspan="2" attrs="{'invisible': [('implement', '!=', 'no')]}">
+		                	<separator colspan="2" string="If No, please tell us why."/>
+		                	<field colspan="4" name="remks1" nolabel="1"/>
+	                	</group>
+	                    <newline/>
+	                	<group col="2" colspan="2" attrs="{'invisible': [('implement', '!=', 'yes')]}">
+		                	<separator colspan="2" string="If Yes, are you willing to meet a School Cinema Representative for a detailed presentation?"/>
+		                	<field  colspan="4" name="remks2" nolabel="1"/>
+	                	</group>
+                       
+                	<separator colspan="4" string="When do you want to hear from us?"/>
+                    	<newline/>
+                        <group col="6" colspan="2">
+		                	<field name="time_span" nolabel="1"/>
+		                	<field name="oth_days" attrs="{'invisible': [('time_span', '!=', 'other')]}"/>
+		                	<field name="time_date" nolabel="1"/>
+	                	</group>
+
+                	<separator colspan="4" string="Please list some references (other branches, Schools) that would be interested in School Cinema"/>
+                	<field colspan="6" name="text1" nolabel="1"/>
+                	
+                	<separator colspan="4" string="Would it be okay if we quote your reference for these calls?"/>
+                	<field colspan="6" name="text2" nolabel="1"/>
+                	
+                	<separator colspan="4" string="RM COMMENTS"/>
+                	<field colspan="6" name="text3" nolabel="1"/>		                        	               
+		        </page>
+               </notebook>             
+               <group col="10" colspan="4">
+                      <field name="state" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                      <button name="case_mark_lost" string="Reject"
+                              states="draft,qualified,activate,open" type="object"
+                              icon="gtk-cancel" />
+                      <button name="case_reset" string="Reset to Draft"
+                              states="cancel" type="object"
+                              icon="gtk-convert" />
+                      <button name="button_assign" string="Assign"
+                              states="draft" type="object"
+                             icon="gtk-go-forward" />
+					  <button name="button_activate" string="Activate"
+                              states="qualified" type="object"
+                             icon="gtk-go-forward" />
+                      <button name="button_prospect" string="Meeting/Proposal"
+                              states="activate" type="object"
+                             icon="gtk-go-forward" />	                             
+                      <button name="case_close" string="Move to CRM"
+                              states="open" type="object"
+                              icon="gtk-apply" />
+                </group>
+             </form>
+            </field>
+           
+                </record>
+              
+     <!--      ______________________Create Lead__________________________-->
+     <record id="ed_crm_case_category_act_leads" model="ir.actions.act_window">
+	         <field name="name">Create Leads</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">crm.lead</field>
+	         <field name="view_mode">tree,form,graph,calendar</field>
+             <field name="domain">[('type','=','opportunity'),('state','=','draft')]</field>
+             <field name="context">{'default_type': 'opportunity','vw_type':'crt_leads'}</field>
+          	 <field name="search_view_id" ref="ed_view_crm_case_create_leads_search"/>       
+	     </record>   
+	     
+    
+	   	<record id="ed_crm_manager_tree_view_oppor" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="ed_create_lead_tree_view"/>
+          <field name="act_window_id" ref="ed_crm_case_category_act_leads"/>
+          <field name="search_view_id" ref="ed_view_crm_case_create_leads_search"/>  
+      	</record>
+        
+      <record id="ed_crm_manager_form_view_oppor" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_crm_case_form_view_leads"/>
+          <field name="act_window_id" ref="ed_crm_case_category_act_leads"/>
+      </record>
+      
+      <record id="ed_crm_manager_graph_view_oppor" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">graph</field>
+          <field name="view_id" ref="crm.crm_case_graph_view_leads"/>
+          <field name="act_window_id" ref="ed_crm_case_category_act_leads"/>
+      </record>
+      
+      	
+	  <menuitem id="menu_ed_case_leads" string='Create Leads'
+         parent="menu_ed_saleorder_Pro" action="ed_crm_case_category_act_leads"
+         sequence="0" />
+         
+<!--      ______________________Lead -User__________________________-->
+
+       <record id="ed_crm_user_category_act_oppor11" model="ir.actions.act_window">
+	         <field name="name">Leads</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">crm.lead</field>
+	         <field name="view_mode">tree,form,graph,calendar</field>
+             <field name="domain">[('type','=','opportunity'),('state','in',('qualified','activate','open','cancel','done')),('user_id','=',uid)]</field>
+             <field name="context">{'search_default_user_id':uid,'search_default_customer':1,'search_default_section_id':section_id, 'stage_type': 'opportunity', 'default_type': 'opportunity','vw_type':'leads'}</field>
+          	 <field name="search_view_id" ref="ed_crm_case_leads_filter"/>       
+	     </record>        
+        
+      	<record id="ed_crm_user_tree_view_oppor" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+          <field name="act_window_id" ref="ed_crm_user_category_act_oppor11"/>
+          <field name="search_view_id" ref="ed_crm_case_leads_filter"/> 
+      	</record>
+        
+      <record id="ed_crm_user_form_view_oppor" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_crm_case_form_view_leads"/>
+          <field name="act_window_id" ref="ed_crm_user_category_act_oppor11"/>
+          
+      </record>
+      
+      <record id="ed_crm_user_graph_view_oppor" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">graph</field>
+          <field name="view_id" ref="crm.crm_case_graph_view_leads"/>
+          <field name="act_window_id" ref="ed_crm_user_category_act_oppor11"/>
+          <field name="search_view_id" ref="ed_crm_case_leads_filter"/>
+      </record>
+      
+      	
+	  <menuitem name="Leads" id="menu_ed_user_opp"
+         parent="menu_ed_saleorder_Pro" action="ed_crm_user_category_act_oppor11"
+         sequence="2" />
+         
+     <!--      ______________________Lead -Manager__________________________-->
+
+       <record id="ed_crm_manager_category_act_oppor11" model="ir.actions.act_window">
+	         <field name="name">Leads</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">crm.lead</field>
+	         <field name="view_mode">tree,form,graph,calendar</field>
+             <field name="domain">[('type','=','opportunity'),('state','in',('qualified','activate','open','cancel','done'))]</field>
+             <field name="context">{'search_default_user_id':uid,'search_default_customer':1,'search_default_section_id':section_id, 'stage_type': 'opportunity', 'default_type': 'opportunity','vw_type':'leads'}</field>
+          	 <field name="search_view_id" ref="ed_crm_case_leads_filter"/>       
+	     </record>        
+        
+      	<record id="ed_crm_manager_tree_view_oppor" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+          <field name="act_window_id" ref="ed_crm_manager_category_act_oppor11"/>
+          <field name="search_view_id" ref="ed_crm_case_leads_filter"/> 
+      	</record>
+        
+      <record id="ed_crm_manager_form_view_oppor" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="ed_crm_case_form_view_leads"/>
+          <field name="act_window_id" ref="ed_crm_manager_category_act_oppor11"/>
+          
+      </record>
+      
+      <record id="ed_crm_manager_graph_view_oppor" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">graph</field>
+          <field name="view_id" ref="crm.crm_case_graph_view_leads"/>
+          <field name="act_window_id" ref="ed_crm_manager_category_act_oppor11"/>
+          <field name="search_view_id" ref="ed_crm_case_leads_filter"/>
+      </record>
+      
+      	
+	  <menuitem name="Leads" id="menu_ed_manager_opp"
+         parent="menu_ed_saleorder_Pro" action="ed_crm_manager_category_act_oppor11"
+         sequence="1" />
+         
+  
+	
+	</data>
+	</openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data>
+   
+<!--   Inherited: Convert to Quote	-->
+       <record id="ed_view_crm_make_sale" model="ir.ui.view">
+          <field name="name">crm.make.sale.form</field>
+          <field name="model">crm.make.sale</field>
+            <field name="inherit_id" ref="sale_crm.view_crm_make_sale"/>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+                <field name="close" position="replace">
+                    <field name="close" invisible="1"/>
+                </field>
+          </field>
+      </record>    
+
+   </data>
+</openerp>   

@@ -1,0 +1,1836 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data> 
+   
+   	<!--        <menuitem id="menu_ed_config" name="Configuration" parent="menu_schlcinema_root" sequence="6"/>-->
+        <menuitem id="menu_ed_mentor_config" name="Configuration" parent="menu_mentor_root" sequence="6"/>
+        
+        
+<!--         ******************class ed_board*********************** -->
+   
+        <record id="view_ed_board_tree" model="ir.ui.view">
+			<field name="name">view_ed_board_tree</field>
+			<field name="model">ed.board</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Board">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+    
+        <record id="view_ed_board_form" model="ir.ui.view">
+	            <field name="name">ed_board_form</field>
+	            <field name="model">ed.board</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Name Of Board" col='1'> 
+                     <field name="name"/>
+                    </form>
+                </field>
+        </record>
+        
+        <record id="action_ed_board_form" model="ir.actions.act_window">
+			<field name="name">Name Of Board</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.board</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      <menuitem action="action_ed_board_form" id="menu_action_ed_board" name="Board" parent="menu_ed_config" sequence="1"/>-->
+      
+<!--       *****************************class ed_events******************** -->
+      <record id="view_ed_events_tree" model="ir.ui.view">
+			<field name="name">view_ed_events_tree</field>
+			<field name="model">ed.events</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Events">				
+				 	<field name="ed_type" select="1"/>
+				 	<field name="ed_descp" select="1"/>
+				 	<field name="ed_evnt_dt" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_events_form" model="ir.ui.view">
+	            <field name="name">ed_events_form</field>
+	            <field name="model">ed.events</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Events" col='1'>
+	                 <group col="4" colspan="2"> 
+                     <field name="ed_type" widget="selection"/>
+                     <field name="ed_descp"/>
+                 	 <field name="ed_evnt_dt"/>
+                 	 </group>
+                    </form>
+                </field>
+        </record>
+        
+        <record id="action_ed_events_form" model="ir.actions.act_window">
+			<field name="name">Events</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.events</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+	          
+	    
+	     <!--         ******************class ed_type1*********************** -->
+   
+        <record id="view_ed_type1" model="ir.ui.view">
+			<field name="name">view_ed_type1_tree</field>
+			<field name="model">ed.type1</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Type">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_type1_form" model="ir.ui.view">
+	            <field name="name">ed_board_form</field>
+	            <field name="model">ed.type1</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Type">
+                     <field name="name"/>
+                    </form>
+                </field>
+        </record>
+        
+        <record id="action_ed_type1_form" model="ir.actions.act_window">
+			<field name="name">Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.type1</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--        <menuitem action="action_ed_type1_form" id="menu_action_ed_type1" name="Event Type" parent="menu_ed_config" sequence="3"/>
+-->	     
+<!-- 	     *******************************class ed_infrastructure******************************** -->
+	     
+        <record id="view_ed_infrastucture_tree" model="ir.ui.view">
+			<field name="name">view_ed_infrastucture_tree</field>
+			<field name="model">ed.infrastucture</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Infrastucture">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_infrastucture_form" model="ir.ui.view">
+	            <field name="name">ed_infrastucture_form</field>
+	            <field name="model">ed.infrastucture</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Infrastucture" col='1'>
+                     <field name="name"/>
+                    </form>
+                </field>
+        </record>
+        
+        <record id="action_ed_infrastucture_form" model="ir.actions.act_window">
+			<field name="name">Infrastucture</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.infrastucture</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--        <menuitem action="action_ed_infrastucture_form" id="menu_action_ed_infrastucture" name="Infrastucture" parent="menu_ed_config" sequence="3"/>
+-->         
+<!--          **************************************class ed_moral_edu************************** -->
+		<record id="view_ed_moral_edu_tree" model="ir.ui.view">
+			<field name="name">view_ed_moral_edu_tree</field>
+			<field name="model">ed.moral.edu</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Moral Science/Value Education">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_moral_edu_form" model="ir.ui.view">
+	        <field name="name">ed_moral_edu_form</field>
+	        <field name="model">ed.moral.edu</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	        	<form string="Moral Science/Value Education" col='1'>
+                     <field name="name"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_moral_edu_form" model="ir.actions.act_window">
+			<field name="name">Moral Science/Value Education</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.moral.edu</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_moral_edu_form" id="menu_action_ed_moral_edu" name="Moral Science" parent="menu_ed_config" sequence="3"/>
+-->         
+
+<!--          ***********************************class ed_designation******************************* -->
+        <record id="view_ed_designation_tree" model="ir.ui.view">
+			<field name="name">view_ed_designation_tree</field>
+			<field name="model">ed.designation</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Designation">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_designation_form" model="ir.ui.view">
+	        <field name="name">ed_designation_form</field>
+	        <field name="model">ed.designation</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Designation" col='1'>
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_designation_form" model="ir.actions.act_window">
+			<field name="name">Designation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.designation</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_designation_form" id="menu_action_ed_designation" name="Designation" parent="menu_ed_config" sequence="1"/>
+-->      
+<!--       ************************************************************************************
+									 ed_class_details 
+		   ************************************************************************************ -->
+		   
+        <record id="view_ed_class_details_tree" model="ir.ui.view">
+			<field name="name">view_ed_class_details_tree</field>
+			<field name="model">ed.class.details</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Class Details">
+				    <field name="partner_id" invisible="1"/>	
+				 	<field name="ed_class" select="1"/>
+				 	<field name="ed_sec" select="1"/>
+				 	<field name="ed_students" select="1" sum="No.Of.Students" />
+				 	<field name="ed_boys" select="1" sum="No.Of.Boys"/>
+				 	<field name="ed_girls" select="1" sum="No.Of.Girls"/>
+		<!-- 		 	<field name="ed_sc" select="1"/>
+					<field name="ed_st" select="1"/>
+					<field name="ed_obc" select="1"/>
+					<field name="ed_gm" select="1"/> -->
+					<field name="ed_total" select="1"/>
+			    </tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_class_details_form" model="ir.ui.view">
+	        <field name="name">ed_class_details_form</field>
+	        <field name="model">ed.class.details</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Class Details" col='1'>
+		            <group col="4" colspan="2"> 
+		                <field name="partner_id" invisible="1"/>
+		                <field name="ed_class"/>
+		                <field name="ed_sec" />
+		                <field name="ed_students" />
+		                <field name="ed_boys"/>
+		   				<field name="ed_girls"/>
+		   				<!-- <field name="ed_sc" select="1"/>
+						<field name="ed_st" select="1"/>
+						<field name="ed_obc" select="1"/>
+						<field name="ed_gm" select="1"/> -->
+						<field name="ed_total" select="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_class_details_form" model="ir.actions.act_window">
+			<field name="name">Class Details</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.class.details</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>     
+          
+        <record id="view_ed_per_tree" model="ir.ui.view">
+			<field name="name">view_ed_per_tree</field>
+			<field name="model">ed.per</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Per">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_per_form" model="ir.ui.view">
+	         <field name="name">ed_per_form</field>
+	         <field name="model">ed.per</field>
+	         <field name="type">form</field>
+	         <field name="arch" type="xml">
+	             <form string="Per" col='1'>
+                     <field name="name"/>
+                 </form>
+             </field>
+        </record>
+        
+        <record id="action_ed_per_form" model="ir.actions.act_window">
+			<field name="name">Per</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.per</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--        <menuitem action="action_ed_per_form" id="menu_action_ed_per" name="PER" parent="menu_ed_config" sequence="1"/>
+-->
+<!--       *************************************class ed_service***************************** -->
+
+        <record id="view_eed_type_sessioned_type_sessiond_service_tree" model="ir.ui.view">
+			<field name="name">view_ed_service_tree</field>
+			<field name="model">ed.service</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree editable="top" string="Services">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>	   
+      
+<!--       *********************************class ed_city******************************* -->
+
+		<record id="view_ed_city_tree" model="ir.ui.view">
+			<field name="name">view_ed_city_tree</field>
+			<field name="model">ed.city</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="City">				
+				 	<field name="name" select="1"/>
+				 	<field name="state_id" select="1"/>
+				 	<field name="code" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_city_form" model="ir.ui.view">
+	        <field name="name">ed_city_form</field>
+	        <field name="model">ed.city</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="City" col='1'>
+	                <group col="4" colspan="2"> 
+                       <field name="name" required="1" />
+                       <field name="code" required="1" />
+                       <field name="state_id" required="1" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_city_form" model="ir.actions.act_window">
+			<field name="name">City</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.city</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+        <menuitem action="action_ed_city_form" id="menu_action_ed_city" name="City" parent="base.menu_localisation" sequence="3"/>      
+      
+<!--       *********************************class ed_training_grid******************************** -->
+
+        <record id="view_ed_training_grid_tree" model="ir.ui.view">
+			<field name="name">view_ed_training_grid_tree</field>
+			<field name="model">ed.training.grid</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Training Grid">				
+				 	<field name="name" select="1"/>
+				 	<field name="sch_date" select="1"/>
+				 	<field name="user_id" select="1"/>
+				 	<field name="ed_stat" select="1"/>
+				 	<field name="ed_complt" select="1"/>
+				 	<field name="complt_date"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_training_grid_form" model="ir.ui.view">
+	        <field name="name">ed_training_grid_form</field>
+	        <field name="model">ed.training.grid</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Training Grid" col='1'>
+	                <group col="4" colspan="2"> 
+                        <field name="name"/>
+                        <field name="sch_date"/>
+                        <field name="user_id"/>
+                        <field name="ed_stat"/>
+                        <field name="ed_complt"/>
+                        <field name="complt_date"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_training_grid_form" model="ir.actions.act_window">
+			<field name="name">Training Grid</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.training.grid</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      
+<!--       *********************************class ed_type_sessions******************************** -->
+     
+        <record id="view_ed_type_session_tree" model="ir.ui.view">
+			<field name="name">view_ed_type_session_tree</field>
+			<field name="model">ed.type.session</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Session Type">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_type_session_form" model="ir.ui.view">
+	        <field name="name">ed_type_session_form</field>
+	        <field name="model">ed.type.session</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Session Type" col='1'>
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_type_session_form" model="ir.actions.act_window">
+			<field name="name">Session Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.type.session</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--        <menuitem action="action_ed_type_session_form" id="menu_action_ed_type_session" name="Session Type" parent="menu_ed_config" sequence="5"/>
+-->      
+<!--       *********************************************class ed_sessions****************************** -->
+        <record id="view_ed_class_sessions_tree" model="ir.ui.view">
+			<field name="name">view_ed_class_sessions_tree</field>
+			<field name="model">ed.class.sessions</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Class">
+				    <field name="type" select="1"/>			
+				 	<field name="ed_class" select="1"/>
+				 	<field name="month_id" select="1"/>
+				 	<field name="ed_no_seion" select="1"/>
+				</tree>
+			</field>
+		</record>		
+		   
+        <record id="view_ed_class_sessions_form" model="ir.ui.view">
+	        <field name="name">ed_class_sessions_form</field>
+	        <field name="model">ed.class.sessions</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Class" col='1'>
+	                <field name="type" widget="selection"/>			
+	                <field name="ed_class" />
+                    <field name="month_id" widget="selection"/>
+                    <field name="ed_no_seion" widget="selection"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_class_sessions_form" model="ir.actions.act_window">
+			<field name="name">Class</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.class.sessions</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>     
+      
+<!--       ******************************************class ed_month********************************************** -->
+
+		<record id="view_ed_month_tree" model="ir.ui.view">
+			<field name="name">view_ed_month_tree</field>
+			<field name="model">ed.month</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Month">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_month_form" model="ir.ui.view">
+            <field name="name">ed_month_form</field>
+            <field name="model">ed.month</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Month" col='1'>
+                    <field name="name" required="1"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_month_form" model="ir.actions.act_window">
+			<field name="name">Month</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.month</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_month_form" id="menu_action_ed_month" name="Month" parent="menu_ed_config" sequence="8"/>      
+-->
+<!--       **************************************class no_of_sessions******************************** -->
+      
+      	<record id="view_ed_month_tree" model="ir.ui.view">
+			<field name="name">view_no_of_sessions_tree</field>
+			<field name="model">no.of.sessions</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="No.Of.Sessions">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_no_of_sessions_form" model="ir.ui.view">
+            <field name="name">no_of_sessions_form</field>
+            <field name="model">no.of.sessions</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="No.Of.Sessions" col='1'>
+                    <field name="name" required="1"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_no_of_sessions_form" model="ir.actions.act_window">
+			<field name="name">No.Of.Sessions</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">no.of.sessions</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_no_of_sessions_form" id="menu_action_no_of_sessions" name="No.Of.Sessions" parent="menu_ed_config" sequence="9"/>      
+-->      
+      <!-- **************************************class ed_sessions************************************ -->
+      
+		<record id="view_ed_sessions_tree" model="ir.ui.view">
+			<field name="name">view_ed_sessions_tree</field>
+			<field name="model">ed.sessions</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Sessions">				
+			 	 	<field name="ed_school" select="1"/>
+                    <field name="ed_so" select="1"/>
+                    <field name="session_ids" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_sessions_form" model="ir.ui.view">
+            <field name="name">ed_sessions_form</field>
+            <field name="model">ed.sessions</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sessions" col='1'>
+                 	<group col="4" colspan="1"> 
+                    	 <field name="ed_school"/>
+                		 <field name="ed_so"/>
+                     	 <field colspan="4" name="session_ids" nolabel="1"/>
+                	</group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_sessions_form" model="ir.actions.act_window">
+			<field name="name">Sessions</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.sessions</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_sessions_form" id="menu_action_ed_sessions" name="Sessions" parent="menu_ed_saleorder_Pro" sequence="5"/>
+-->      
+      <!--       *************************************class ed_Payment***************************** -->
+      
+        <record id="view_ed_payment_type_tree" model="ir.ui.view">
+			<field name="name">view_ed_payment_type_tree</field>
+			<field name="model">ed.payment.type</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Payment Type">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_payment_type_form" model="ir.ui.view">
+            <field name="name">ed_payment_type_form</field>
+	            <field name="model">ed.payment.type</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Payment Type" col='1'>
+                     	<field name="name" required="1"/>
+                    </form>
+                </field>
+        </record>
+        
+        <record id="action_ed_payment_type_form" model="ir.actions.act_window">
+			<field name="name">Payment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.payment.type</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_payment_type_form" id="menu_action_ed_payment_type" name="Payment Type" parent="menu_ed_config" sequence="10"/>      
+-->      
+      <!--       *************************************Status ***************************** -->
+
+        <record id="view_ed_tkt_status_tree" model="ir.ui.view">
+			<field name="name">view_ed_tkt_status_tree</field>
+			<field name="model">ed.ticket.status</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Ticket Status">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_tkt_status_form" model="ir.ui.view">
+	        <field name="name">view_ed_tkt_status_form</field>
+	        <field name="model">ed.ticket.status</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Ticket Status" col='1'>
+                    <field name="name" required="1"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_tkt_status_form" model="ir.actions.act_window">
+			<field name="name">Ticket Status</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.ticket.status</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_tkt_status_form" id="menu_action_ed_tkt_status" name="Ticket Status" parent="menu_ed_config" sequence="11"/> 
+--> 
+<!--         ******************class ed_type(field in Customer form)*********************** -->
+   
+        <record id="view_ed_type_tree" model="ir.ui.view">
+			<field name="name">view_ed_type_tree</field>
+			<field name="model">ed.type</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Type">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_type_form" model="ir.ui.view">
+	        <field name="name">ed_type_form</field>
+	        <field name="model">ed.type</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Type">				
+				    <field name="name" select="1"/>
+		        </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_type_form" model="ir.actions.act_window">
+			<field name="name">Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.type</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--        <menuitem action="action_ed_type_form" id="menu_action_ed_type" name="School Type" parent="menu_ed_config" sequence="13"/>
+-->
+<!--         ******************class ed_channel*********************** -->
+   
+        <record id="view_ed_channel_tree" model="ir.ui.view">
+			<field name="name">view_ed_channel_tree</field>
+			<field name="model">ed.channel</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Channel">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>
+   
+        <record id="view_ed_channel_form" model="ir.ui.view">
+            <field name="name">ed_channel_form</field>
+            <field name="model">ed.channel</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Channel">				
+			 	    <field name="name" select="1"/>
+	       		</form>
+            </field>
+        </record>
+        
+        <record id="action_ed_channel_form" model="ir.actions.act_window">
+			<field name="name">Channel</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.channel</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+	    
+<!--       	<menuitem action="action_ed_channel_form" id="menu_action_ed_channel_form" name="Channel" parent="menu_ed_config" sequence="14"/>
+-->      
+ <!--         ******************class ed_hub*********************** -->
+   
+        <record id="view_ed_hub_tree" model="ir.ui.view">
+			<field name="name">view_ed_hub_tree</field>
+			<field name="model">ed.hub</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="HUB">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_hub_form" model="ir.ui.view">
+            <field name="name">view_ed_hub_form</field>
+            <field name="model">ed.hub</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+             	<form string="HUB">				
+			 		<field name="name" select="1"/>
+	    	    </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_hub_form" model="ir.actions.act_window">
+			<field name="name">HUB</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.hub</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_hub_form" id="menu_action_ed_hub" name="HUB" parent="menu_ed_config" sequence="15"/>    
+-->      
+<!--       ************************************feedback******************************** -->
+
+      	<record id="view_ed_feedback_tree" model="ir.ui.view">
+			<field name="name">view_ed_feedback_tree</field>
+			<field name="model">ed.feedback</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Feedback">				
+				 	<field name="school" select="1"/>
+				 	<field name="participant" select="1"/>
+				 	<field name="film_name" select="1"/>
+				 	<field name="facilitator" select="1"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_ed_feedback_form" model="ir.ui.view">
+			<field name="name">view_ed_feedback_form</field>
+			<field name="model">ed.feedback</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Feedback">
+				<group col="8" colspan="4">
+					<field name="school" required="1"/>
+				 	<field name="participant"/>
+                    <newline/>
+				 	<field name="film_name"/>
+				 	<field name="facilitator"/>
+			    </group>	
+			    <newline/>
+				<field colspan="8" name="feedback_ids" string=""/>
+                <newline/>
+				<notebook colspan="8">
+				     <page string="Question 1">
+					     <separator string="Highlights of the Film (scenes/dialogues etc)"/>
+							<field colspan="8" name="qutn1" string=""/>
+					 </page>
+      				 <page string="Question 2">	
+					    <separator string="Have they experienced a similar situation in their life?"/>
+					 	<field colspan="8" name="qutn2" string=""/>
+					 </page>
+					 <page string="Question 3">
+					    <separator string="Would the audience like to change the story line or ending of the film? How and why? "/>
+					 	<field colspan="8" name="qutn3" string=""/>
+					 </page>
+					 <page string="Question 4">
+					 	<separator string="Which character in the film did the audience like and relate to the most? Why?"/>
+					 	<field colspan="8" name="qutn4" string=""/>
+					 </page>
+	                 <page string="Question 5">
+					  	<separator string="Did they dislike anything about the film?"/>
+					 	<field colspan="8" name="qutn5" string=""/>
+					 </page>
+					 <page string="Question 6">
+					  	<separator string="What were the different learnings / understanding of the student? "/>	
+					 	<field colspan="8" name="qutn6" string=""/>
+					 </page>
+					 <page string="Question 7">
+					 	<separator string="Did they enjoy doing the workbook activities?"/>
+					 	<field  name="qutn7" string=""/>
+					 </page>
+					 <page string="Question 8">
+					 	<separator string="Which activities in the workbook did they enjoy the most? Name a few they found meaningful and insightful"/>
+					 	<field colspan="8" name="qutn8" string=""/>
+					 </page>
+					 <page string="Question 9">
+					  	<separator string="Is there any workbook activity that they did not like and why?"/>
+					 	<field colspan="8" name="qutn9" string=""/>
+					 </page>
+					 <page string="Question 10">
+					  	<separator string="Facilitator Notes (any other information obtained)"/>
+					 	<field colspan="8" name="qutn10" string=""/>
+					 </page>
+			    </notebook>
+					
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_ed_feedback_form" model="ir.actions.act_window">
+			<field name="name">Feedback</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.feedback</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+	    
+<!-- 	    *************************************Rating***************************************** -->
+	   						
+		<record id="view_ed_rating_tree" model="ir.ui.view">
+			<field name="name">view_ed_rating_tree</field>
+			<field name="model">ed.rating.film</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Rating">
+					<field name="ed_rating" select="1"/>
+					<field name="ed_story" select="1"/>
+					<field name="ed_comp" select="1"/>
+					<field name="ed_entatin" select="1"/>
+					<field name="ed_relavance" select="1"/>
+				</tree>
+			</field>
+		</record>
+			
+		<record id="view_ed_rating_form" model="ir.ui.view">
+			<field name="name">view_ed_rating_form</field>
+			<field name="model">ed.rating.film</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Rating">
+					<field name="ed_rating"/>
+					<field name="ed_story"/>
+					<field name="ed_comp"/>
+					<field name="ed_entatin"/>
+					<field name="ed_relavance"/>
+				</form>
+			</field>
+		</record>
+		
+      	<record id="action_ed_rating_form" model="ir.actions.act_window">
+			<field name="name">Rating</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.rating.film</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+	    <!-- 	    *************************************res.company***************************************** -->
+	    
+        <record model="ir.ui.view" id="ed_company_inherit_form">
+            <field name="name">ed_company_inherit_form</field>
+            <field name="inherit_id" ref="account.view_company_inherit_form"/>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">                 
+                  <page string="Overdue Payments" position="after">
+                  		<page string="School Cinema Terms &amp; Conditions">
+                  		    <field name="sch_terms" colspan="4" string=""/>
+                  		</page>
+                  		<page string="Sponsors">
+                  			<field name="sponsor_ids"  mode="tree,form" widget="one2many_list" nolabel="1" >
+	                  			<tree string="Sponsors">	
+									<field name="ed_skills"/>
+									<field name="scity_id" />							
+								</tree>							
+								<form  string="Sponsors" >
+									<group col="5"	colspan="2">
+										<field name="ed_skills" />
+										<field name="scity_id" />
+										<field name="sponsor1" widget="image" />
+										<field name="sponsor2" widget="image" />
+										<field name="sponsor3" widget="image" />							
+									</group>
+								</form>
+							</field>	                  		    
+                  		</page>                  		            
+                  </page>               
+            </field>
+        </record>
+  
+	<!-- 	    *************************************School Strength***************************************** -->
+	   						
+		<record id="view_ed_school_strength_tree" model="ir.ui.view">
+			<field name="name">view_ed_school_strength_tree</field>
+			<field name="model">ed.school.strength</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="School Strength">
+					<field name="ed_class" select="1"/>
+					<field name="ed_sec" select="1"/>
+					<field name="ed_students" select="1"/>
+					<field name="ed_boys" select="1"/>
+					<field name="ed_girls" select="1"/>					
+				</tree>
+			</field>
+		</record>
+			
+		<record id="view_ed_school_strength_form" model="ir.ui.view">
+			<field name="name">view_ed_school_strength_form</field>
+			<field name="model">ed.school.strength</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="School Strength">
+					<field name="ed_class" />
+					<field name="ed_sec"/>
+					<field name="ed_students"/>
+					<field name="ed_boys" />
+					<field name="ed_girls" />				
+				</form>
+			</field>
+		</record>
+		
+      	<record id="action_ed_school_strength_form" model="ir.actions.act_window">
+			<field name="name">School Strength</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.school.strength</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>    
+	    
+	<!--         ******************class ed_day*********************** -->
+   
+        <record id="view_ed_day_tree" model="ir.ui.view">
+			<field name="name">view_ed_day_tree</field>
+			<field name="model">ed.day</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Day">	
+				    <field name="ed_seq" select="1"/>			
+				 	<field name="name" select="1" string="Day"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_day_form" model="ir.ui.view">
+            <field name="name">view_ed_day_form</field>
+            <field name="model">ed.day</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	             <form string="Day">				
+			 		<field name="ed_seq" required="1"/>			
+				 	<field name="name" required="1" string="Day"/>
+		         </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_day_form" model="ir.actions.act_window">
+			<field name="name">Day</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.day</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_day_form" id="menu_action_ed_day" name="Day" parent="menu_ed_act_config" sequence="2"/>
+-->      
+      <!--         ******************class ed_content*********************** -->
+   
+        <record id="view_ed_content_tree" model="ir.ui.view">
+			<field name="name">view_ed_content_tree</field>
+			<field name="model">ed.content</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Content">	
+				   	<field name="name" select="1"/>
+				   	<field name="seq" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_content_form" model="ir.ui.view">
+	        <field name="name">view_ed_content_form</field>
+            <field name="model">ed.content</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	             <form string="Content">				
+				 	<group col="6" colspan="2">	
+				 	    <field name="name" required="1"/>
+				 	    <field name="seq" required="1"/>
+				 	</group>
+		       </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_content_form" model="ir.actions.act_window">
+			<field name="name">Content</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.content</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_content_form" id="menu_action_ed_content" name="Content" parent="menu_ed_act_config" sequence="3"/>      
+-->      
+      <!--         ******************class ed_topic*********************** -->
+   
+        <record id="view_ed_topic_tree" model="ir.ui.view">
+			<field name="name">view_ed_topic_tree</field>
+			<field name="model">ed.topic</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Topic">
+					<field name="content_id" select="1"/>
+					<field name="ed_class" select="1"/>	
+				   	<field name="name" select="1"/>
+				   	<field name="seq" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_topic_form" model="ir.ui.view">
+            <field name="name">view_ed_topic_form</field>
+            <field name="model">ed.topic</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	             <form string="Topic">				
+				 	<field name="content_id" required="1"/>
+					<field name="ed_class" required="1"/>	
+				   	<field name="name" required="1" string="Topic"/>
+				   	<field name="seq" required="1"/>
+			    </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_topic_form" model="ir.actions.act_window">
+			<field name="name">Topic</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.topic</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_topic_form" id="menu_action_ed_topic" name="Topic" parent="menu_ed_act_config" sequence="4"/>      
+-->	
+	 <!--         ******************class ed_time*********************** -->
+   
+        <record id="view_ed_time_tree" model="ir.ui.view">
+			<field name="name">view_ed_time_tree</field>
+			<field name="model">ed.time</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Time">	
+				   	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_time_form" model="ir.ui.view">
+            <field name="name">view_ed_time_form</field>
+	            <field name="model">ed.time</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	            	<form string="Time">				
+				 		<group col="6" colspan="2">		
+				 			<field name="name" required="1"/>
+				 		</group>	
+	       			</form>
+                </field>
+        </record>
+        
+        <record id="action_ed_time_form" model="ir.actions.act_window">
+			<field name="name">Time</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.time</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_time_form" id="menu_action_ed_time" name="Time" parent="menu_ed_act_config" sequence="4"/>
+-->          
+          <!--         ******************class ed_status*********************** -->
+   
+        <record id="view_ed_status_tree" model="ir.ui.view">
+			<field name="name">view_ed_time_tree</field>
+			<field name="model">ed.status</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Status">	
+				   	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_Status_form" model="ir.ui.view">
+            <field name="name">view_ed_time_form</field>
+            <field name="model">ed.status</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+    	         <form string="Status">				
+					 <group col="6" colspan="2">		
+					 	<field name="name" required="1"/>
+					 </group>	
+	       		 </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_status_form" model="ir.actions.act_window">
+			<field name="name">Status</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.status</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_status_form" id="menu_action_ed_status" name="Status" parent="menu_ed_act_config" sequence="5"/>
+-->      
+    <!--         ******************class ed_method_used*********************** -->
+   
+        <record id="view_ed_method_used_tree" model="ir.ui.view">
+			<field name="name">view_ed_method_used_tree</field>
+			<field name="model">ed.method.used</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Methodology Used">	
+				   	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_method_used_form" model="ir.ui.view">
+	            <field name="name">view_ed_method_used_form</field>
+	            <field name="model">ed.method.used</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+    	            <form string="Methodology Used">				
+						 <group col="6" colspan="2">		
+				 			<field name="name" required="1"/>
+				 		 </group>	
+		       		</form>
+               	</field>
+        </record>
+        
+        <record id="action_ed_method_used_form" model="ir.actions.act_window">
+			<field name="name">Methodology Used</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.method.used</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_method_used_form" id="menu_action_ed_method_used" name="Methodology Used" parent="menu_ed_act_config" sequence="6"/>       
+-->       
+         <!--         ******************class lessons*********************** -->
+   
+        <record id="view_ed_lesson_tree" model="ir.ui.view">
+			<field name="name">view_ed_lesson_tree</field>
+			<field name="model">ed.lesson</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Lessons">	
+				   	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_lesson_form" model="ir.ui.view">
+	            <field name="name">view_ed_lesson_form</field>
+	            <field name="model">ed.lesson</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Lessons">				
+						 <group col="6" colspan="2">		
+				 			<field name="name" />
+				 		 </group>	
+		       		</form>
+                </field>
+        </record>
+        
+        <record id="action_ed_lesson_form" model="ir.actions.act_window">
+			<field name="name">Lessons</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.lesson</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--       <menuitem action="action_ed_lesson_form" id="menu_action_ed_lesson" name="Lessons" parent="menu_ed_act_config" sequence="7"/> -->       
+               
+         <!--         ******************class Films*********************** -->
+   
+        <record id="view_ed_films_tree" model="ir.ui.view">
+			<field name="name">view_ed_films_tree</field>
+			<field name="model">ed.film</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Films">
+				    <field name="ed_class" select="1"/>
+				  	<field name="name" select="1"/>				   	
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_films_form" model="ir.ui.view">
+	            <field name="name">view_ed_films_form</field>
+	            <field name="model">ed.film</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	    	         <form string="Films">				
+						 <group col="6" colspan="2">
+						    <field name="ed_class" />
+						  	<field name="name" />
+			 			 </group>	
+	       			 </form>
+                </field>
+        </record>
+        
+        <record id="action_ed_films_form" model="ir.actions.act_window">
+			<field name="name">Films</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.film</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_films_form" id="menu_action_ed_films" name="Films" parent="menu_ed_act_config" sequence="8"/>         
+-->      
+       <!--         ******************class Grade*********************** -->
+   
+        <record id="view_ed_grade_tree" model="ir.ui.view">
+			<field name="name">view_ed_grade_tree</field>
+			<field name="model">ed.grade</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Grade">	
+				   <field name="percent_from" select="1"/>
+				    <field name="percent_to" select="1"/>
+				  	<field name="name" select="1"/>				   	
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_grade_form" model="ir.ui.view">
+	            <field name="name">view_ed_grade_form</field>
+	            <field name="model">ed.grade</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	             	<form string="Grade">				
+				 		<group col="6" colspan="2">		
+				 			<field name="percent_from" />
+				    		<field name="percent_to" />
+				  			<field name="name" />
+				 		</group>	
+		       		</form>
+                </field>
+        </record>
+        
+        <record id="action_ed_grade_form" model="ir.actions.act_window">
+			<field name="name">Grade</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.grade</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_grade_form" id="menu_action_ed_grade" name="Grade" parent="menu_ed_act_config" sequence="9"/>
+-->         
+<!--         ******************class ed_sponsors*********************** -->
+   
+<!--         <record id="view_ed_sponsors_tree" model="ir.ui.view"> -->
+<!-- 			<field name="name">view_ed_sponsors_tree</field> -->
+<!-- 			<field name="model">ed.sponsors</field> -->
+<!-- 			<field name="type">tree</field> -->
+<!-- 	        <field name="arch" type="xml"> -->
+<!-- 				<tree string="Sponsors">				 -->
+<!-- 				 	<field name="ed_skills" select="1"/> -->
+<!-- 				 	<field name="scity_id" select="1"/> -->
+<!-- 				 	<field name="sponsor1" /> -->
+<!-- 				 	<field name="sponsor2" /> -->
+<!-- 				 	<field name="sponsor3" /> -->
+<!-- 				</tree> -->
+<!-- 			</field> -->
+<!-- 		</record>		 -->
+    
+<!--         <record id="view_ed_sponsors_form" model="ir.ui.view"> -->
+<!-- 	            <field name="name">view_ed_sponsors_form</field> -->
+<!-- 	            <field name="model">ed.sponsors</field> -->
+<!-- 	            <field name="type">form</field> -->
+<!-- 	            <field name="arch" type="xml"> -->
+<!-- 	                <form string="Sponsors" > -->
+<!-- 	                <group col='6' colspan='2'> -->
+<!--                      <field name="ed_skills"  /> -->
+<!-- 				 	 <field name="scity_id"/> -->
+<!-- 				 	 <newline/> -->
+<!-- 				 	 <field name="sponsor1" /> -->
+<!-- 				 	 <field name="sponsor2" /> -->
+<!-- 				 	 <field name="sponsor3" /> -->
+<!-- 				 	</group> -->
+<!--                     </form> -->
+<!--                 </field> -->
+<!--         </record> -->
+        
+<!--         <record id="action_ed_sponsors_form" model="ir.actions.act_window"> -->
+<!-- 			<field name="name">Sponsors</field> -->
+<!-- 			<field name="type">ir.actions.act_window</field> -->
+<!-- 			<field name="res_model">ed.sponsors</field>  -->
+<!-- 			<field name="view_type">form</field> -->
+<!-- 			<field name="view_mode">tree,form</field> -->
+<!-- 	    </record> -->
+<!--       <menuitem action="action_ed_sponsors_form" id="menu_action_ed_sponsors" name="Sponsors" parent="menu_ed_config" sequence="10"/> -->
+  
+            
+                                       <!--             Master classes for HR -->
+<!-- *********************************************************************** 	   
+						human Resources->Configuration->Apprasial->Performance Review	
+	 *********************************************************************** -->   
+      	<menuitem id="ed_menu_config_appraisal" parent="hr.menu_hr_configuration" name="Appraisal" sequence="6" />
+       
+       	<record id="view_ed_perfomance_tree" model="ir.ui.view">
+			<field name="name">view_ed_perfomance_tree</field>
+			<field name="model">ed.performance.review</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Performance Review"  >				
+                    <field name="name" select="1"  />
+				 	<field name="value" />
+                </tree>
+			</field>
+		</record>	
+		
+		<record id="view_ed_perfomance_form" model="ir.ui.view">
+			<field name="name">"view_ed_perfomance_form"</field>
+			<field name="model">ed.performance.review</field>
+			<field name="type">form</field>
+		    <field name="arch" type="xml">
+				<form string="Performance Review">				
+                    <field name="name"  />
+				 	<field name="value" />				 	
+				   </form>
+			</field>
+		</record>	
+		
+		<record id="action_ed_perfomance_form" model="ir.actions.act_window">
+			<field name="name">Performance Review </field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.performance.review</field>
+			<field name="view_type">form</field>	
+			<field name="view_mode">tree,form</field>			
+		</record>
+		<menuitem action="action_ed_perfomance_form" id="menu_action_ed_performance_form" name="Performance Review" 
+			 parent="ed_menu_config_appraisal" sequence="4"/>
+			       
+<!-- *********************************************************************** 	   
+	 		 		human Resources->Configuration->Apprasial->Skills and Behaviour						 			
+ 	 *********************************************************************** -->
+ 	       
+	   	<record id="view_ed_skill_behave_tree" model="ir.ui.view">
+			<field name="name">view_ed_skill_behave_tree</field>
+			<field name="model">ed.skill.behave</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Skills and Behaviour"  >				
+                    <field name="name" select="1"  />
+				 	<field name="desc" />
+                </tree>
+			</field>
+		</record>		
+		
+		<record id="view_ed_skill_behave_form" model="ir.ui.view">
+			<field name="name">"view_ed_skill_behave_form"</field>
+			<field name="model">ed.skill.behave</field>
+			<field name="type">form</field>
+		    <field name="arch" type="xml">
+				<form string="Skills and Behaviour">				
+                    <field name="name"  />                   
+                    <separator string="Description"/>
+				 	<field name="desc" nolabel="1" colspan="8"/>				 	
+			    </form>
+			</field>
+		</record>	
+		
+		<record id="action_ed_skill_behave_form" model="ir.actions.act_window">
+			<field name="name">Skills and Behaviour</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.skill.behave</field>
+			<field name="view_type">form</field>	
+			<field name="view_mode">tree,form</field>			
+		</record>
+		<menuitem action="action_ed_skill_behave_form" id="menu_action_ed_skill_behave_form" name="Skills and Behaviour" 
+			 parent="ed_menu_config_appraisal" sequence="2"/> 
+			 
+<!-- *********************************************************************************************** 	   
+		 		 		human Resources->Configuration->Apprasial->Traning Need Analysis
+     *********************************************************************************************** -->
+           
+	   	<record id="view_ed_hr_train_analysis_tree" model="ir.ui.view">
+			<field name="name">view_ed_hr_train_analysis_tree</field>
+			<field name="model">ed.hr.training</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Traning Need Analysis"  >				
+                    <field name="name" select="1"  />
+                </tree>
+			</field>
+		</record>	
+		
+		<record id="view_ed_hr_train_analysis_form" model="ir.ui.view">
+			<field name="name">"view_ed_hr_train_analysis_form"</field>
+			<field name="model">ed.hr.training</field>
+			<field name="type">form</field>
+		    <field name="arch" type="xml">
+				<form string="Traning Need Analysis">				
+                   <field name="name"/>			 	
+			    </form>
+			</field>
+		</record>	
+		
+		<record id="action_ed_hr_train_analysis_form" model="ir.actions.act_window">
+			<field name="name">Traning Need Analysis</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.hr.training</field>
+			<field name="view_type">form</field>	
+			<field name="view_mode">tree,form</field>			
+		</record>
+		<menuitem action="action_ed_hr_train_analysis_form" id="menu_action_ed_hr_train_analysis_form" name="Traning Need Analysis" 
+			 parent="ed_menu_config_appraisal" sequence="3"/>		 
+			       
+<!-- *********************************************************************** 	   
+ 		 		human Resources->Configuration->Apprasial->Initiator
+     *********************************************************************** -->
+           
+	   	<record id="view_ed_initiate_tree" model="ir.ui.view">
+			<field name="name">view_ed_initiate_tree</field>
+			<field name="model">ed.initiator</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Initiator"  >				
+                    <field name="name"  />				 	
+                </tree>
+			</field>
+		</record>	
+		
+		<record id="view_ed_initiate_form" model="ir.ui.view">
+			<field name="name">view_ed_initiate_form</field>
+			<field name="model">ed.initiator</field>
+			<field name="type">form</field>
+		    <field name="arch" type="xml">
+				<form string="Initiator">
+                    <field name="name" colspan="8" />
+                </form>
+			</field>
+		</record>	
+		
+		<record id="action_ed_initiate_form" model="ir.actions.act_window">
+			<field name="name">Initiator</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.initiator</field>
+			<field name="view_type">form</field>	
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="action_ed_initiate_form" id="menu_action_ed_initiate_form" name="Initiator" 
+			 parent="ed_menu_config_appraisal" sequence="1"/>    
+			    
+			       
+<!-- ******************************************************************************** 	   
+		 		human Resources->Configuration->Apprasial->HUMAN RESOURCE ASSESSMENT
+     ******************************************************************************** -->
+           
+	   	<record id="view_ed_human_resource_assess_tree" model="ir.ui.view">
+			<field name="name">view_ed_human_resource_assess_tree</field>
+			<field name="model">ed.hr.assess</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Human Resource Assessment"  >				
+                    <field name="name"  />
+                    <field name="out_of"  />
+		        </tree>
+			</field>
+		</record>	
+		
+		<record id="view_ed_human_resource_assess_form" model="ir.ui.view">
+			<field name="name">view_ed_human_resource_assess_form</field>
+			<field name="model">ed.hr.assess</field>
+			<field name="type">form</field>
+		    <field name="arch" type="xml">
+				<form string="Human Resource Assessment">
+					<field name="name"  />
+                    <field name="out_of"  />
+                </form>
+			</field>
+		</record>	
+		
+		<record id="action_ed_human_resource_assess_form" model="ir.actions.act_window">
+			<field name="name">Human Resource Assessment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.hr.assess</field>
+			<field name="view_type">form</field>	
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="action_ed_human_resource_assess_form" id="menu_action_ed_human_resource_assess" name="Human Resource Assessment" 
+			 parent="ed_menu_config_appraisal" sequence="5"/>    
+	  	  
+	  <!--         ******************class ed_hr_status*********************** -->
+   
+        <record id="view_ed_hr_status_tree" model="ir.ui.view">
+			<field name="name">view_ed_hr_status_tree</field>
+			<field name="model">ed.hr.status</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Status">				
+				 	<field name="name" select="1"/>
+				</tree>
+			</field>
+		</record>		
+    
+        <record id="view_ed_hr_status_form" model="ir.ui.view">
+            <field name="name">view_ed_hr_status_form</field>
+            <field name="model">ed.hr.status</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Status" > 
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ed_hr_status_form" model="ir.actions.act_window">
+			<field name="name">Status</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.hr.status</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_hr_status_form" id="menu_action_ed_hr_status" name="Status" parent="hr.menu_hr_configuration" sequence="10"/>	  
+	  
+              <!-- *********************************************************************** 	   
+				   School Cinema->Configuration->Qualification Parameters->
+			       ******************************************************************** -->
+			       
+	  	<record id="view_ed_qualification_param_tree" model="ir.ui.view">
+			<field name="name">view_ed_qualification_param_tree</field>
+			<field name="model">qualification.param</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Qualification Parameters">
+					<field name ="name"/>
+					<field name="type"/>
+					<field name="points"/>
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_qualification_param_form" model="ir.ui.view">
+			<field name="name">view_ed_qualification_param_form</field>
+			<field name="model">qualification.param</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Qualification Parameters">
+					<field name ="name" required="1"/>
+					<field name="type" required="1"/>
+					<field name="points"/>
+				</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_qualification_param_form" model="ir.actions.act_window">
+			<field name="name">Qualification Parameters</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">qualification.param</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+<!--      	<menuitem action="action_ed_qualification_param_form" id="menu_action_ed_qualification_param_form" name="Qualification Parameters" parent="menu_ed_config" sequence="15"/>
+-->	  					      
+    <!-- *********************************************************************** 	   
+				   human Resources->Configuration->Apprasial->Peer Parameters
+			       ******************************************************************** -->
+			       
+	  	<record id="view_ed_hr_peersuper_param_tree" model="ir.ui.view">
+			<field name="name">view_ed_hr_peersuper_param_tree</field>
+			<field name="model">ed.peersuper.parameters</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Peer/Supervisor Parameters">
+					<field name ="name"/>
+					<field name="type"/>
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_hr_peersuper_param_form" model="ir.ui.view">
+			<field name="name">view_ed_hr_peersuper_param_form</field>
+			<field name="model">ed.peersuper.parameters</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Peer/Supervisor Parameters">
+					<field name ="name" required="1"/>
+					<field name="type" required="1"/>
+				</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_hr_peersuper_param_form" model="ir.actions.act_window">
+			<field name="name">Peer/Supervisor Parameters</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.peersuper.parameters</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_hr_peersuper_param_form" id="menu_action_ed_hr_peersuper_param_form" name="Peer/Supervisor Questions" parent="ed_menu_config_appraisal" sequence="6"/>
+ 
+ <!-- *********************************************************************** 	   
+				   Mentor->Configuration->Section
+			       ******************************************************************** -->
+		<record id="view_ed_contri_sec_tree" model="ir.ui.view">
+			<field name="name">view_ed_contri_sec_tree</field>
+			<field name="model">ed.contributors.section</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Section">
+					<field name ="name" select="1"/>
+				
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_contri_sec_form" model="ir.ui.view">
+			<field name="name">view_ed_contri_sec_form</field>
+			<field name="model">ed.contributors.section</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Section">
+					<sheet>
+						<group>
+							<field name ="name" required="1"/>
+						</group>
+					</sheet>
+				</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_contri_sec_form" model="ir.actions.act_window">
+			<field name="name">Section</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.contributors.section</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_contri_sec_form" id="menu_action_ed_contri_sec_form" name="Section" parent="menu_ed_mentor_config" sequence="2"/>
+			       
+
+	  	
+       <!-- *********************************************************************** 	   
+				   Mentor->Configuration->Contributors Details
+			       ******************************************************************** -->
+		<record id="view_ed_contri_det_tree" model="ir.ui.view">
+			<field name="name">view_ed_contri_det_tree</field>
+			<field name="model">ed.contributors.details</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Contributors Details">
+					<field name ="name" select="1"/>
+					<field name ="institution" select="1"/>
+					<field name ="email" select="1"/>
+					<field name ="contact"/>
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_contri_det_form" model="ir.ui.view">
+			<field name="name">view_ed_contri_det_form</field>
+			<field name="model">ed.contributors.details</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Contributors Details">
+					<sheet>
+					    <group col="6" colspan="2">
+							<field name ="name" required="1"/>
+							<field name ="institution" required="1"/>
+							<field name ="designation"/> 
+							<field name ="area_of_wrk"/>
+							<field name ="email" />
+							<field name ="contact" />
+							<field colspan="4" name ="address"/>
+						</group>
+					</sheet>
+				</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_contri_det_form" model="ir.actions.act_window">
+			<field name="name">Contributors Details</field>
+			
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.contributors.details</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_contri_det_form" id="menu_action_ed_contri_det_form" name="Contributors Details" parent="menu_ed_mentor_config" sequence="2"/>
+		  	
+       <!-- *********************************************************************** 	   
+				   Mentor->Configuration->Advertisers Details
+			       ******************************************************************** -->
+		<record id="view_ed_adv_det_tree" model="ir.ui.view">
+			<field name="name">view_ed_adv_det_tree</field>
+			<field name="model">ed.advertisers.details</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Advertisers Details">					
+					<field name ="institution" select="1"/>
+					<field name ="address" select="1"/>
+					<field name ="contact" select="1"/>
+					<field name ="email" select="1"/>
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_adv_det_form" model="ir.ui.view">
+			<field name="name">view_ed_adv_det_form</field>
+			<field name="model">ed.advertisers.details</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Advertisers Details">
+					<sheet>
+						<group col="6" colspan="2">
+							<field name ="institution" required="1"/>
+							<field name ="type" />
+							<field name ="email"/>
+							<field colspan="4" name ="address" />
+							<field name ="contact" />
+						</group>
+					</sheet>
+				</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_adv_det_form" model="ir.actions.act_window">
+			<field name="name">Advertisers Details</field>
+			
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.advertisers.details</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_adv_det_form" id="menu_action_ed_adv_det_form" name="Advertisers Details" parent="menu_ed_mentor_config" sequence="3"/>
+				       
+ <!-- *********************************************************************** 	   
+				   Mentor->Configuration->Director Details
+			       ******************************************************************** -->
+		<record id="view_ed_director_det_tree" model="ir.ui.view">
+			<field name="name">view_ed_director_det_tree</field>
+			<field name="model">ed.director.details</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Director Contacts">					
+					<field name ="name" select="1"/>	
+					<field name ="address" select="1"/>
+					<field name ="city_id" select="1"/>					
+					<field name ="contact" select="1"/>
+					<field name ="email" select="1"/>
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_director_det_form" model="ir.ui.view">
+			<field name="name">view_ed_director_det_form</field>
+			<field name="model">ed.director.details</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Director Contacts">
+					<sheet>
+						<group col="4" colspan="2">
+							<field colspan="2" name ="name" required="1"/>	
+							<newline/>
+								<group col="2" colspan = "2">
+									<field name ="address" />
+		                            <field colspan = "1" name='zip' />
+									<field colspan = "1" name="country_id"/>
+									<field colspan = "1" name="state_id"/>
+									<field colspan = "1" name="city_id"/>
+								</group>
+								<group col="2" colspan="2">				
+									<field name ="contact" />
+									<field name ="email" />
+								</group>
+						</group>
+					</sheet>
+					</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_director_det_form" model="ir.actions.act_window">
+			<field name="name">Director Contacts</field>			
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.director.details</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_director_det_form" id="menu_ed_director_det_form" name="Director Contacts" parent="menu_ed_mentor_config" sequence="4"/>
+      
+ <!-- *********************************************************************** 	   
+				   Mentor->Configuration-> Advertising Position
+			       ******************************************************************** -->
+		<record id="view_ed_advertiser_posit_tree" model="ir.ui.view">
+			<field name="name">view_ed_advertiser_posit_tree</field>
+			<field name="model">ed.advertisers.position</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="Advertising Position">
+					<field name ="name"/>				
+				</tree>
+		    </field>
+	  	</record>
+	  
+	  	<record id="view_ed_advertiser_posit_form" model="ir.ui.view">
+			<field name="name">view_ed_advertiser_posit_form</field>
+			<field name="model">ed.advertisers.position</field>
+			<field name="type">form</field>
+	        <field name="arch" type="xml">
+				<form string="Advertising Position">
+					<sheet>
+						<group>
+							<field name ="name" required="1"/>
+						</group>
+					</sheet>
+				</form>
+		    </field>
+	  	</record>
+	  
+	  	<record id="action_ed_advertiser_posit_form" model="ir.actions.act_window">
+			<field name="name">Advertising Position</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.advertisers.position</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+      	<menuitem action="action_ed_advertiser_posit_form" id="menu_ed_advertiser_posit_form" name="Advertising Position" parent="menu_ed_mentor_config" sequence="4"/>
+			       
+
+	  		             
+   </data> 
+</openerp>
+	                

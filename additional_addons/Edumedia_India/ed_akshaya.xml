@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+
+
+		
+        <menuitem id="menu_akshaya_training" name="Akshaya" parent="menu_activity_root" sequence="1"/>
+     	
+     	<menuitem id="menu_akshaya_customer" name="Akshaya Customers" parent="menu_activity_root" sequence="2"/>
+        <menuitem action="action_ed_partner_akshaya" id="menu_action_ed_partner_akshaya" name="Customers" parent="menu_akshaya_customer" sequence="1"/> 
+      
+ <!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Time Table Manager
+*************************************************************************************************************  -->								
+ 								
+ 
+ 		<record id="action_ed_akshaya_manager" model="ir.actions.act_window"> 
+				<field name="name">Time Table</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">time.table</field>  
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('ed_type','=','akshaya')]</field>
+				<field name="context">{'search_default_ed_type':'akshaya'}</field>
+		        <field name="view_id" ref="view_ed_time_table_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_time_table_manager_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_time_table_tree"/> 
+	            <field name="act_window_id" ref="action_ed_akshaya_manager"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_view_ed_time_table_manager_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_time_table_form"/>
+	            <field name="act_window_id" ref="action_ed_akshaya_manager"/>
+        </record> 
+     	<menuitem action="action_ed_akshaya_manager" id="menu_action_ed_akshaya_manager" name="Time Table" parent="menu_akshaya_training" sequence="1"/>
+
+<!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Time Table user
+*************************************************************************************************************  -->								
+ 								
+ 
+ 		<record id="action_ed_akshaya_user" model="ir.actions.act_window"> 
+				<field name="name">Time Table</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">time.table</field>  
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('ed_type','=','akshaya'),('create_uid','=',uid)]</field>
+				<field name="context">{'search_default_ed_type':'akshaya'}</field>
+		        <field name="view_id" ref="view_ed_time_table_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_time_table_user_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_time_table_tree"/> 
+	            <field name="act_window_id" ref="action_ed_akshaya_user"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_view_ed_time_table_user_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_time_table_form"/>
+	            <field name="act_window_id" ref="action_ed_akshaya_user"/>
+        </record> 
+     	<menuitem action="action_ed_akshaya_user" id="menu_action_ed_akshaya_user" name="Time Table" parent="menu_akshaya_training" sequence="1"/>
+
+     	
+<!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Sessions Manager
+*************************************************************************************************************  -->								
+   	
+     	<record id="action_ed_akshaya_sess_manager_form" model="ir.actions.act_window">
+			<field name="name">Session</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.activity.session</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>	
+			<field name="domain">[('ed_type','=','akshaya')]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"akshaya"}</field>
+			<field name="search_view_id" ref="view_ed_activity_sess_filter"/>
+	    </record>
+	    
+      	<record model="ir.actions.act_window.view" id="action_view_ed_akshaya_sess_manager_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_activity_sess_tree"/> 
+            <field name="act_window_id" ref="action_ed_akshaya_sess_manager_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_akshaya_sess_manager_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_activity_sess_form"/>
+            <field name="act_window_id" ref="action_ed_akshaya_sess_manager_form"/>
+       </record>
+        
+       <menuitem action="action_ed_akshaya_sess_manager_form" id="menu_action_ed_akshaya_sess_manager_form" name="Session" parent="menu_akshaya_training" sequence="2"/>
+
+<!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Sessions User
+*************************************************************************************************************  -->								
+   	
+     	<record id="action_ed_akshaya_sess_user_form" model="ir.actions.act_window">
+			<field name="name">Session</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.activity.session</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>	
+			<field name="domain">[('ed_type','=','akshaya'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"akshaya"}</field>
+			<field name="search_view_id" ref="view_ed_activity_sess_filter"/>
+	    </record>
+	    
+      	<record model="ir.actions.act_window.view" id="action_view_ed_akshaya_sess_user_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_activity_sess_tree"/> 
+            <field name="act_window_id" ref="action_ed_akshaya_sess_user_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_akshaya_sess_user_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_activity_sess_form"/>
+            <field name="act_window_id" ref="action_ed_akshaya_sess_user_form"/>
+       </record>
+        
+       <menuitem action="action_ed_akshaya_sess_user_form" id="menu_action_ed_akshaya_sess_user_form" name="Session" parent="menu_akshaya_training" sequence="2"/>
+
+ 
+ <!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Student Data Manager
+*************************************************************************************************************  -->								
+ 
+       
+       <record id="action_ed_student_akshaya_manager_form" model="ir.actions.act_window">
+			<field name="name">Student Data</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.student.data</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','akshaya')]</field>		
+			<field name="context">{"search_default_ed_type":"akshaya"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_student_aksh_manager_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_student_data_tree"/> 
+            <field name="act_window_id" ref="action_ed_student_akshaya_manager_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_student_aksh_manager_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_student_data_form"/>
+            <field name="act_window_id" ref="action_ed_student_akshaya_manager_form"/>
+       </record> 
+       <menuitem action="action_ed_student_akshaya_manager_form" id="menu_action_ed_student_akshaya_manager_form" name="Student Data" parent="menu_akshaya_training" sequence="4"/>
+
+<!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Student Data User
+*************************************************************************************************************  -->								
+ 
+       
+       <record id="action_ed_student_akshaya_user_form" model="ir.actions.act_window">
+			<field name="name">Student Data</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.student.data</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','akshaya'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_ed_type":"akshaya"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_student_aksh_user_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_student_data_tree"/> 
+            <field name="act_window_id" ref="action_ed_student_akshaya_user_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_student_aksh_user_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_student_data_form"/>
+            <field name="act_window_id" ref="action_ed_student_akshaya_user_form"/>
+       </record> 
+       <menuitem action="action_ed_student_akshaya_user_form" id="menu_action_ed_student_akshaya_user_form" name="Student Data" parent="menu_akshaya_training" sequence="4"/>
+
+       
+<!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Talent Development Manager
+*************************************************************************************************************  -->								
+       
+		<record id="action_ed_talent_akshaya_manager_form" model="ir.actions.act_window">
+			<field name="name">Talent Development</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.talent</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','akshaya')]</field>		
+			<field name="context">{"search_default_ed_type":"akshaya"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_talent_akshaya_manager_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_talent_tree"/> 
+            <field name="act_window_id" ref="action_ed_talent_akshaya_manager_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_talent_akshaya_manager_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_talent_form"/>
+            <field name="act_window_id" ref="action_ed_talent_akshaya_manager_form"/>
+       </record> 
+	    
+        <menuitem action="action_ed_talent_akshaya_manager_form" id="menu_action_ed_talent_akshaya_manager" name="Talent Development" parent="menu_akshaya_training" sequence="3"/>
+
+<!-- ************************************************************************************************************
+ 								Akshaya Life Skills=>Akshaya=>Talent Development User
+*************************************************************************************************************  -->								
+       
+		<record id="action_ed_talent_akshaya_user_form" model="ir.actions.act_window">
+			<field name="name">Talent Development</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.talent</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','akshaya'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_ed_type":"akshaya"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_talent_akshaya_user_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_talent_tree"/> 
+            <field name="act_window_id" ref="action_ed_talent_akshaya_user_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_talent_akshaya_user_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_talent_form"/>
+            <field name="act_window_id" ref="action_ed_talent_akshaya_user_form"/>
+       </record> 
+	    
+        <menuitem action="action_ed_talent_akshaya_user_form" id="menu_action_ed_talent_akshaya_user" name="Talent Development" parent="menu_akshaya_training" sequence="3"/>
+
+        
+ 	</data>
+ </openerp>        

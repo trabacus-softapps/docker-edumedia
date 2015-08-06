@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   
+   
+<!--   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  PARTNER  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+   		 <delete model="ir.ui.view" search="[('name','=','res.partner.address.form1'),('model','=','res.partner.address')]"/>
+   		 <delete model="ir.ui.view" search="[('name','=','res.partner.address.form2'),('model','=','res.partner.address')]"/>   		
+   		 <delete model="ir.ui.view" search="[('name','=','res.partner.address.select'),('model','=','res.partner.address')]"/>
+   		 <delete model="ir.ui.view" search="[('name','=','res.partner.address.tree'),('model','=','res.partner.address')]"/>
+   	     <delete model="ir.actions.act_window" search="[('name','=','Create Opportunity'),('src_model','=','res.partner')]"/>  		
+   		 <delete model="ir.ui.view" search="[('name','=','res.partner.select'),('model','=','res.partner')]"/>
+   		 <delete model="ir.ui.view" search="[('name','=','hr.expense.form'),('model','=','hr.expense.expense')]"/>
+   		 <delete model="ir.ui.view" search="[('name','=','Leave Request'),('model','=','hr.holidays')]"/>
+   	     <delete model="ir.ui.view" search="[('name','=','hr.attendance.form'),('model','=','hr.attendance')]"/>
+   	     <delete model="ir.ui.view" search="[('name','=','Allocation Request'),('model','=','hr.holidays')]"/>
+   	     <delete model="ir.ui.view" search="[('name','=','CRM - Leads Search '),('model','=','crm.lead'),('xml_id','=','crm.view_crm_case_leads_filter')]"/>
+   	         
+   	     
+   	     
+<!--   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  SALE ORDER  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+<!--   		<delete model="ir.ui.view" search="[('name','=','sale.order.form'),('model','=','sale.order')]"/> -->
+            <delete model="ir.actions.report.xml" search="[('name','=','Quotation / Order'),('model','=','sale.order')]"/>
+            
+   		   	<delete model="ir.actions.report.xml" search="[('name','=','Request for Quotation'),('model','=','purchase.order')]"/>
+   		   	
+   		   	<delete model="ir.actions.report.xml" search="[('name','=','Invoices'),('model','=','account.invoice')]"/>	 
+
+   </data>
+  </openerp>

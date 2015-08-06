@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_appraisal" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/serveradmin/bin/packages/openerp-server-6.0.2/bin/addons/Edumedia_India/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="skills" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="training" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="performance" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="kpi_setting" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="hr_assesment" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="hr_summary" class="java.lang.Object" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Description-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Description-name]]></fieldDescription>
+	</field>
+	<field name="Emp_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Employee-emp_id/Resource-resource_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="man_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Manager-manager_id/Resource-resource_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Skills_Applicable_to_the_Department-skill_text" class="java.lang.String">
+		<fieldDescription><![CDATA[Skills_Applicable_to_the_Department-skill_text]]></fieldDescription>
+	</field>
+	<field name="Appraisers_COMMENTS-coment_text" class="java.lang.String">
+		<fieldDescription><![CDATA[Appraisers_COMMENTS-coment_text]]></fieldDescription>
+	</field>
+	<field name="Supervisor_Comments-sup_comment" class="java.lang.String">
+		<fieldDescription><![CDATA[Supervisor_Comments-sup_comment]]></fieldDescription>
+	</field>
+	<field name="HR_Comments-hr_comment" class="java.lang.String">
+		<fieldDescription><![CDATA[HR_Comments-hr_comment]]></fieldDescription>
+	</field>
+	<field name="Competency_Points-mycompet_points" class="java.lang.Float">
+		<fieldDescription><![CDATA[Competency_Points-mycompet_points]]></fieldDescription>
+	</field>
+	<field name="Start_Date-start_date" class="java.lang.String">
+		<fieldDescription><![CDATA[Start_Date-start_date]]></fieldDescription>
+	</field>
+	<field name="End_Date-end_date" class="java.lang.String">
+		<fieldDescription><![CDATA[End_Date-end_date]]></fieldDescription>
+	</field>
+	<field name="date_of_joining" class="java.lang.String">
+		<fieldDescription><![CDATA[Employee-emp_id/Date_of_Joining-date_of_join]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="123" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="46" forecolor="#CACCD2" backcolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="20" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[EDUMEDIA INDIA PVT. LTD.
+APPRAISAL FORM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="109" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Description Of Appraisal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="58" width="458" height="15"/>
+				<box topPadding="2" leftPadding="1" bottomPadding="2" rightPadding="3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Description-name}  == "" ?"" : $F{Description-name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="78" width="77" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Employee Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="78" width="225" height="15"/>
+				<box topPadding="2" leftPadding="1" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Emp_name} == "" ?"" :$F{Emp_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="78" width="51" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Manager ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="78" width="137" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{man_name}  == "" ?"" : $F{man_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="429" y="78" width="7" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="78" width="7" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="58" width="7" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="100" width="77" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Date Of Joining]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="83" y="100" width="225" height="15">
+					<printWhenExpression><![CDATA[$F{date_of_joining}]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="1" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new SimpleDateFormat("yyyy-MM-dd").parse($F{date_of_joining})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="77" y="100" width="7" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="100" width="225" height="15">
+					<printWhenExpression><![CDATA[!$F{date_of_joining}]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="1" bottomPadding="2" rightPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" - "]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="27"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{skills}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_appraisal_sub1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="61" splitType="Prevent">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="20" backcolor="#FEFCA1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[PART II: Competency Assessment]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="30" width="572" height="31"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="572" height="15"/>
+					<box topPadding="2" leftPadding="3" bottomPadding="2" rightPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[SKILLS APPLICABLE TO THE DEPARTMENT:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="14" width="572" height="15"/>
+					<box topPadding="2" leftPadding="3" bottomPadding="2" rightPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Skills_Applicable_to_the_Department-skill_text}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="63" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="572" height="31"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="572" height="15"/>
+					<box topPadding="2" leftPadding="3" bottomPadding="2" rightPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[APPRAISERS COMMENTS:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="0" y="15" width="572" height="15"/>
+					<box topPadding="2" leftPadding="3" bottomPadding="2" rightPadding="2"/>
+					<textElement>
+						<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Appraisers_COMMENTS-coment_text}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="38" width="85" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[SCORE ON 100]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement positionType="Float" x="85" y="38" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{Competency_Points-mycompet_points} == null ? 0.00 :
+$F{Competency_Points-mycompet_points}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="38" splitType="Prevent">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="27"/>
+				<dataSourceExpression><![CDATA[$P{training}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_appraisal_sub2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="36" splitType="Prevent">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="27"/>
+				<dataSourceExpression><![CDATA[$P{performance}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_appraisal_sub3.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="39" splitType="Prevent">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="27"/>
+				<dataSourceExpression><![CDATA[$P{kpi_setting}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_appraisal_sub4.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="39" splitType="Prevent">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="27"/>
+				<dataSourceExpression><![CDATA[$P{hr_assesment}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_appraisal_sub5.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="39" splitType="Prevent">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="27"/>
+				<dataSourceExpression><![CDATA[$P{hr_summary}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_appraisal_sub6.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="31" splitType="Prevent">
+			<staticText>
+				<reportElement x="0" y="0" width="109" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[HR Comments :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="15" width="572" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{HR_Comments-hr_comment}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="30">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="15" width="572" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Supervisor_Comments-sup_comment} == "" ? "" : $F{Supervisor_Comments-sup_comment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="128" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Supervisor’s Comments:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="42">
+			<staticText>
+				<reportElement x="0" y="0" width="128" height="15"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Acknowledgement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="14" width="572" height="28"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isItalic="true" pdfFontName="Times-Italic"/>
+				</textElement>
+				<text><![CDATA[The Appraisal Process has been completed in accordance to the procedure laid down by the company. The Appraiser has carried forward the process in the presence of the HR Representative. The Appraised agrees to have read and understood all parts of their performance appraisal.]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

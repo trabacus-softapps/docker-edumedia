@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_topic_list_rpt" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;lines&apos;]"/>
+	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/serveradmin/bin/packages/openerp-server-6.0.2/bin/addons/Edumedia_India/reports/"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="school_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Partner-partner_id/id]]></fieldDescription>
+	</field>
+	<field name="school_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Partner-partner_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Status-status" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Status-status]]></fieldDescription>
+	</field>
+	<field name="Topic-topic" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Topic-topic]]></fieldDescription>
+	</field>
+	<field name="Total_Sessions-tot_sessions" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Total_Sessions-tot_sessions]]></fieldDescription>
+	</field>
+	<field name="Class-ed_class" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Class-ed_class]]></fieldDescription>
+	</field>
+	<field name="Start_Date-start_date" class="java.lang.String">
+		<fieldDescription><![CDATA[Start_Date-start_date]]></fieldDescription>
+	</field>
+	<field name="End_Date-end_date" class="java.lang.String">
+		<fieldDescription><![CDATA[End_Date-end_date]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[($F{Class-ed_class} == 5 ||$F{Class-ed_class} == 6
+||$F{Class-ed_class} == 7)
+&& ($F{Total_Sessions-tot_sessions} > 0)
+]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="36" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="802" height="36"/>
+				<crosstabHeaderCell>
+					<cellContents>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="1" y="0" width="156" height="39"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+							</textElement>
+							<text><![CDATA[School Name]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="157" y="0" width="62" height="39"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+							</textElement>
+							<text><![CDATA[Conducted Total No. of Session]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="school_id" width="1">
+					<bucket>
+						<bucketExpression class="java.lang.Integer"><![CDATA[$F{school_id}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="1" height="15" forecolor="#FEFEFE"/>
+								<textElement>
+									<font size="1"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Integer"><![CDATA[$V{school_id}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="school_name" width="156">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{school_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="156" height="15"/>
+								<box topPadding="3" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+								<textElement textAlignment="Left" verticalAlignment="Top">
+									<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{school_name}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="Tot_session" width="62">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{Total_Sessions-tot_sessions} == null ? 0 : $F{Total_Sessions-tot_sessions}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="62" height="15"/>
+								<box topPadding="3" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+								<textElement verticalAlignment="Top">
+									<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{Tot_session}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="Status-status" height="23">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{Status-status}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="97" height="23"/>
+								<box leftPadding="0" rightPadding="0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{Status-status} == "completed" ? "Topics Completed"
+: "Topics In Progress"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="Class-ed_class" height="16">
+					<bucket>
+						<bucketExpression class="java.lang.Integer"><![CDATA[$F{Class-ed_class}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="97" height="16"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{Class-ed_class}+ "th Std"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="Topic-topicMeasure" class="java.lang.String">
+					<measureExpression><![CDATA[$F{Topic-topic}]]></measureExpression>
+				</measure>
+				<crosstabCell width="97" height="15">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="97" height="15"/>
+							<box topPadding="3" leftPadding="2" bottomPadding="2" rightPadding="2"/>
+							<textElement verticalAlignment="Top">
+								<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="school_id">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="62" columnTotalGroup="Status-status">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="school_id" columnTotalGroup="Status-status">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="0" columnTotalGroup="Class-ed_class">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="school_id" columnTotalGroup="Class-ed_class">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="school_name">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="school_name" columnTotalGroup="Status-status">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="school_name" columnTotalGroup="Class-ed_class">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{Topic-topicMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="9" rowTotalGroup="Tot_session">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="Tot_session" columnTotalGroup="Status-status">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="Tot_session" columnTotalGroup="Class-ed_class">
+					<cellContents/>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

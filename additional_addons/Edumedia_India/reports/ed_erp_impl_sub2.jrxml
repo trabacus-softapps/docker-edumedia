@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_erp_impl_sub2" language="groovy" pageWidth="157" pageHeight="572" orientation="Landscape" columnWidth="157" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="OPENERP_RELATIONS" value="[&apos;lines/sale_id/training_ids&apos;]"/>
+	<parameter name="sale" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="REWIND" class="java.lang.Object" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{REPORT_DATA_SOURCE}.moveFirst()]]></defaultValueExpression>
+	</parameter>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Description-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/Training-training_ids/Description-name]]></fieldDescription>
+	</field>
+	<field name="Status-ed_stat" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/Training-training_ids/Status-ed_stat]]></fieldDescription>
+	</field>
+	<field name="User_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/Training-training_ids/Assigned_To-user_id/User_Name-name]]></fieldDescription>
+	</field>
+	<field name="sale_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Lines-lines/Sale-sale_id/id]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[$P{sale} == $F{sale_id}]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="99" y="0" width="58" height="15"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Description-name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="44" y="0" width="55" height="15"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{User_Name-name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="44" height="15"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Status-ed_stat}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

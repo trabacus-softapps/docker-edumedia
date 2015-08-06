@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+
+
+<!--     <record model="res.users" id="uid_city">
+        <field name="name">UserCity</field>
+        <field name="usercity_id" ref="city_id"/>
+        <field name="object_id" search="[('model','=','ed.activity.session')]" model="ir.model"/>
+
+    </record> -->
+                
+       
+        <menuitem id="menu_training_customer" name="Activity" parent="menu_activity_root" sequence="3"/>
+        <menuitem id="menu_actv_comun" name="Communication" parent="menu_activity_root" sequence="4"/>
+        <menuitem name="Phone Calls" id="ed_activ_menu_crm_case_phone"
+        	groups="base.group_no_one,base.group_sale_salesman"
+	        parent="menu_actv_comun" sequence="2" />
+		          
+<!--	    <menuitem name="Inbound" id="ed_activ_menu_crm_case_phone_inbound" 
+		        parent="ed_activ_menu_crm_case_phone" 
+		        action="action_ed_incoming0" sequence="1"/>
+		
+	    <menuitem name="Outbound" id="ed_activ_menu_crm_case_phone_outbound"
+		        parent="ed_activ_menu_crm_case_phone"
+		        action="action_ed_crm_outbound" sequence="2" />-->
+		        
+	    <menuitem name="Meetings" id="ed_activ_menu_meeting_sale"
+		        parent="menu_actv_comun" sequence="0"/>
+		
+	    <menuitem name="Meetings" id="ed_activ_menu_crm_case_categ_meet"
+	    	action="calendar.action_calendar_event" parent="ed_activ_menu_meeting_sale"
+		        sequence="1" />
+        <menuitem id="menu_activity_customer" name="Activity Customers" parent="menu_activity_root" sequence="4"/>
+     	<menuitem action="action_ed_partner_activity" id="menu_action_ed_partner_activity" name="Customers" parent="menu_activity_customer" sequence="1"/>		            
+       
+   		<menuitem action="account.action_account_fiscalyear" id="ed_menu_action_account_fiscalyear_form" parent="menu_ed_act_config" sequence="1"/>
+  
+   	<!--  ***********************************************time table******************************************* -->
+
+		<record id="view_ed_time_table_tree" model="ir.ui.view">
+		            <field name="name">view_ed_time_table_tree</field>
+		            <field name="model">time.table</field>
+		            <field name="type">tree</field>
+		            <field name="arch" type="xml">
+	                <tree string="Time Table" >
+                         <field name="account_id"/>
+                         <field name="city_id"/>
+	                </tree>    
+		            </field>
+		</record>
+		        
+		<record id="view_ed_time_table_form" model="ir.ui.view">
+		            <field name="name">view_ed_time_table_form</field>
+		            <field name="model">time.table</field>
+		            <field name="type">form</field>
+		            <field name="arch" type="xml">
+	                <form string="Time Table" >
+	                     <field name="account_id"/>
+	                     <field name="city_id" required="1"/>
+	                     <field name="ed_type" invisible="1"/>
+	                        <newline/>
+	                     <field colspan="6" name="month_id" nolabel="1" context="{'parent_city':city_id}" />
+	                </form>    
+		            </field>
+	    </record>
+				        
+   	<!--  ***********************************************Action for time table manager *****************************-->		    
+	    <record id="action_ed_time_table_manager_form" model="ir.actions.act_window">
+				<field name="name">Time Table</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">time.table</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('ed_type','=','activity')]</field>
+				<field name="context">{'search_default_ed_type':'activity'}</field>
+		        <field name="view_id" ref="view_ed_time_table_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_time_tree_manager">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_time_table_tree"/> 
+	            <field name="act_window_id" ref="action_ed_time_table_manager_form"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_view_ed_time_manager_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_time_table_form"/>
+	            <field name="act_window_id" ref="action_ed_time_table_manager_form"/>
+        </record> 
+        <menuitem action="action_ed_time_table_manager_form" id="menu_action_ed_time_table_manager" name="Time Table" parent="menu_training_customer" sequence="1"/>
+ 	
+   	<!--  ***********************************************Action for time table user ***************************** -->	      
+        <record id="action_ed_time_table_user_form" model="ir.actions.act_window">
+				<field name="name">Time Table</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">time.table</field> 
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('ed_type','=','activity'),('create_uid','=',uid)]</field>
+				<field name="context">{'search_default_ed_type':'activity'}</field>
+		        <field name="view_id" ref="view_ed_time_table_tree"/>
+	    </record> 
+		    
+        <record model="ir.actions.act_window.view" id="action_ed_time_user_tree">
+		        <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_ed_time_table_tree"/> 
+	            <field name="act_window_id" ref="action_ed_time_table_user_form"/>
+        </record> 
+        <record model="ir.actions.act_window.view" id="action_view_ed_time_user_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_ed_time_table_form"/>
+	            <field name="act_window_id" ref="action_ed_time_table_user_form"/>
+        </record> 
+        <menuitem action="action_ed_time_table_user_form" id="menu_action_ed_time_table_user" name="Time Table" parent="menu_training_customer" sequence="2"/>
+        
+     
+   	<!--  ***********************************************time table lines*****************************  -->	      
+     
+     
+     	<record id="view_ed_time_table_lines_tree" model="ir.ui.view">
+		            <field name="name">view_ed_time_table_lines_tree</field>
+		            <field name="model">time.table.lines</field>
+		            <field name="type">tree</field>
+		            <field name="arch" type="xml">
+		                <tree string="Time Table Lines" >
+		                    <field name="ed_date" />
+		                    <field name="day_id" />
+		                    <field name="partner_id"/>
+		                    <field name="time_from" />
+		                    <field name="time_to" />
+	                     	
+		                </tree>    
+		            </field>
+        </record>
+				        
+		<record id="view_ed_time_table_lines_form" model="ir.ui.view">
+		            <field name="name">view_ed_time_table_lines_form</field>
+		            <field name="model">time.table.lines</field>
+		            <field name="type">form</field>
+		            <field name="arch" type="xml">
+		                <form string="Time Table Lines" >
+		                    <field name="ed_date" required="1"/>
+		                    <field name="day_id" widget="selection"/>
+		                    <field name="partner_mapping" invisible="1"/>
+		                    <field name="partner_id" />
+		                    <field name="time_from"/>
+		                    <field name="time_to"/>
+		                    <field name="session_id" invisible = "1"/>
+		                    <field name="ed_class" attrs="{'invisible': [('ed_type', '=','akshaya')]}"/>
+		                    <field name="ed_sec" attrs="{'invisible': [('ed_type', '=','akshaya')]}"/>
+		                    <field name="content_id" widget="selection" attrs="{'invisible': [('ed_type', '=','akshaya')]}"/>
+						    <field name="topic_id" domain="[('ed_class','=',ed_class),('content_id','=',content_id)]" attrs="{'invisible': [('ed_type', '=','akshaya')]}"/>
+						    <field name="uid_mapping" invisible="1" />
+						    <field name="user_id" attrs="{'invisible': [('ed_type', '=','akshaya')]}"/>
+						    <field name="ed_type" invisible="1" />		                    
+		                </form>    
+		            </field>
+        </record>
+				        
+		<record id="action_ed_time_table_lines_form" model="ir.actions.act_window">
+			<field name="name">Time Table Lines</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">time.table.lines</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','activity')]</field>
+			<field name="context">{'search_default_ed_type':'activity'}</field>
+	    </record> 
+    
+   	<!--  ***********************************************activity session*****************************   -->    
+
+		<record id="view_ed_activity_sess_filter" model="ir.ui.view">
+		            <field name="name">view_ed_activity_sess_filter</field>
+		            <field name="model">ed.activity.session</field>
+		            <field name="type">search</field>
+		            <field name="arch" type="xml">
+		                <search string="Session" >
+		                	<field name="city_id"  />	 
+		                    <field name="ed_date"/>
+		                    <field name="day_id" />
+		                    <field name="partner_id" />
+		                    <field name="user_id" />
+		                    <field name="ed_class" />
+		                    <field name="content_id"/>
+		                    <field name="topic_id"/>
+		                    <field name="ed_total"/>
+		                    <field name="status_id"/>
+		                </search>    
+		            </field>
+        </record>
+		
+		<record id="view_ed_activity_sess_tree" model="ir.ui.view">
+		            <field name="name">view_ed_activity_sess_tree</field>
+		            <field name="model">ed.activity.session</field>
+		            <field name="type">tree</field>
+		            <field name="arch" type="xml">
+		                <tree string="Session" >
+		                	<field name="city_id" select="1" />	 
+		                    <field name="ed_date" select="1"/>
+		                    <field name="day_id" select="1"/>
+		                    <field name="time_from"/>
+		                    <field name="time_to"/>
+		                    <field name="partner_id" select="1"/>
+		                    <field name="user_id" select="1"/>
+		                    <field name="ed_class" select="1"/>
+		                    <field name="content_id" select="1"/>
+		                    <field name="topic_id" select="1"/>
+		                    <field name="ed_total" select="1"/>
+		                    <field name="status_id" select="1"/>
+		                </tree>    
+		            </field>
+        </record>
+				        
+		<record id="view_ed_activity_sess_form" model="ir.ui.view">
+		            <field name="name">view_ed_activity_sess_form</field>
+		            <field name="model">ed.activity.session</field>
+		            <field name="type">form</field>
+		            <field name="arch" type="xml">
+		                <form string="Session" >
+		                   <group col="6" colspan="4">
+		                   <group col="4" colspan="2">
+		                    <field name="city_id" required="1" on_change="onchange_city(city_id)"/>
+		                    <field name="ed_date" required="1"/>
+		                    <field name="ed_type" invisible="1"/>
+		                   </group> 
+		                    <field name="day_id" widget="selection" required="1"/>		    
+		                    <field name="partner_mapping" invisible="1"/>
+		                    <field name="partner_id" required="1" />
+		                    <group col="4" colspan="2">
+			                    <field name="ed_class"/>
+			                    <field name="ed_sec"/>
+		                    </group>
+		                    <field name="content_id" widget="selection"/>
+		                    <field name="topic_id" domain="[('ed_class','=',ed_class),('content_id','=',content_id)]"/>
+		                    <field name="time_from"/>
+		                    <field name="time_to"/>
+		                    <field name="ed_total"/>
+		                    <field name="uid_mapping" invisible="1"/>
+		                    <field name="user_id" />
+		                    <field name="status_id" widget="selection"/>
+		                    <field name="sess_count" attrs="{'invisible': [('ed_type', '=','activity')]}"/>
+		                    </group>
+		                   
+		                    <newline/>
+		                    
+                            <separator string="Methodology Used" colspan="6"/>
+		                    <field colspan ="6" name="method_ids" nolabel="1"/>
+		            		<group col="8" colspan="4" >
+                              	<group col="4" colspan="3"> 
+                                   <separator string="Students Reaction" colspan="2"/>
+                                   <separator string="Other Activites" colspan="2"/>
+                                   <field name="stu_reaction" string="" colspan="2"/>
+                                   <field name="otr_act" string="" colspan="2"/>
+                             	</group>     
+                             	<newline/>
+                             	<group col="4" colspan="3">  
+	                                <separator string="Facilitator Observation" colspan="2" />
+	                                <separator string="Training Requirement" colspan="2"/>
+		                            <field name="observ" string="" colspan="2"/>
+		                            <field name="train_req" string="" colspan="2"/>
+		               			</group>
+		            		</group>
+                      	</form>    
+		    		</field>
+ 		</record>
+ 				        
+		<!-- Do not uncomment
+			<record id="action_ed_activity_sess_form" model="ir.actions.act_window">
+			<field name="name">Session</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.activity.session</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_bbh_receipt_filter"/>
+			<field name="domain">[('city_id','in',city_get()]</field>
+			<field name="context">{'default_user_id':uid}</field>
+			<field name="context" eval="'{\'search_default_city_id\': ' + str(ref('uid_city')) +'}'"/>
+        </record> -->
+
+   	<!--         *************************************action for sessions manager *********************** -->       
+	     <record id="action_ed_act_sess_manager_form" model="ir.actions.act_window">
+			<field name="name">Session</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.activity.session</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>	
+			<field name="domain">[('ed_type','=','activity')]</field>		
+			<field name="context">{"search_default_ed_type":"activity"}</field>
+			<field name="search_view_id" ref="view_ed_activity_sess_filter"/>
+	    </record>
+	    
+      	<record model="ir.actions.act_window.view" id="action_view_ed_act_sess_manager_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_activity_sess_tree"/> 
+            <field name="act_window_id" ref="action_ed_act_sess_manager_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_act_sess_manager_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_activity_sess_form"/>
+            <field name="act_window_id" ref="action_ed_act_sess_manager_form"/>
+       </record> 
+	    
+      	<menuitem action="action_ed_act_sess_manager_form" id="menu_action_ed_act_sess_manager" name="Session" parent="menu_training_customer" sequence="3"/>
+      	
+      	 
+   	<!--         *************************************action for sessions user ***********************   -->       
+	     <record id="action_ed_act_sess_user_form" model="ir.actions.act_window">
+			<field name="name">Session</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.activity.session</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>	
+			<field name="domain">[('ed_type','=','activity'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"activity"}</field>
+			<field name="search_view_id" ref="view_ed_activity_sess_filter"/>
+	    </record>
+	    
+      	<record model="ir.actions.act_window.view" id="action_view_ed_act_sess_user_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_activity_sess_tree"/> 
+            <field name="act_window_id" ref="action_ed_act_sess_user_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_act_sess_user_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_activity_sess_form"/>
+            <field name="act_window_id" ref="action_ed_act_sess_user_form"/>
+       </record> 
+	    
+      	<menuitem action="action_ed_act_sess_user_form" id="menu_action_ed_act_sess_user" name="Session" parent="menu_training_customer" sequence="3"/>
+      	
+     
+   	<!--         *************************************class ed_prize*********************** -->
+   
+        <record id="view_ed_prize_tree" model="ir.ui.view">
+			<field name="name">view_ed_prize_tree</field>
+			<field name="model">ed.prize</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree  string="Prize List" editable="top">	
+				   	<field name="name" select="1" required="1"/>
+					<field name="first" string="1st Prize" select="1"/>
+				   	<field name="ed_class1" select="1"/>
+				   	<field name="ed_sec1" />
+				   	<field name="second" string="2nd Prize" select="1"/>
+				   	<field name="ed_class2" select="1"/>
+				   	<field name="ed_sec2" />
+				   	<field name="third" string="3rd Prize" select="1"/>
+				   	<field name="ed_class3" select="1"/>
+				   	<field name="ed_sec3" />
+				 </tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_prize_form" model="ir.ui.view">
+	            <field name="name">view_ed_prize_form</field>
+	            <field name="model">ed.prize</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	             <form string="Prize List">	
+	               <group col="4" colspan="2">			
+				 	<field name="name" />
+				 	<newline/>
+				   	<field name="first" string="1st Prize"/>
+				   	<field name="ed_class1" />
+				   	<field name="ed_sec1" />
+				   	<field name="second" string="2nd Prize"/>
+				   	<field name="ed_class2" />
+				   	<field name="ed_sec2" />
+				   	<field name="third" string="3rd Prize"/>
+				   	<field name="ed_class3"/>
+				   	<field name="ed_sec3" />
+				   	</group>	
+		         </form>
+		        </field>
+        </record>
+        
+        <record id="action_ed_prize_form" model="ir.actions.act_window">
+			<field name="name">Prize List</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.prize</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>   
+          
+     
+   	<!--  ***********************************************Talent*****************************  -->       
+
+		<record id="view_ed_talent_tree" model="ir.ui.view">
+		            <field name="name">view_ed_talent_tree</field>
+		            <field name="model">ed.talent</field>
+		            <field name="type">tree</field>
+		            <field name="arch" type="xml">
+		                <tree string="Talent Development" >
+		                    <field name="partner_id" select="1"/>
+		                    <field name="ed_date" select="1"/>
+		                    <field name="event_name" select="1"/>
+		                    <field name="event_topic" select="1"/>
+		                    <field name="ed_total" select="1"/>
+                        </tree>    
+		            </field>
+        </record>
+				        
+		<record id="view_ed_talent_form" model="ir.ui.view">
+		            <field name="name">view_ed_talent_form</field>
+		            <field name="model">ed.talent</field>
+		            <field name="type">form</field>
+		            <field name="arch" type="xml">
+		                <form string="Talent Development" >
+                  		   <group col="6" colspan="2">
+                  		   		<field name="partner_mapping" invisible="1"/>
+			                    <field name="partner_id"  />   
+			                    <field name="ed_date" required="1"/>
+			                    <field name="event_name"/>
+			                    <field name="event_topic"/>
+			                    <field name="ed_total"/>
+			                    <field name="ed_type" invisible="1"/>
+			                    <newline/>
+			                    <field colspan="6" name="prize_id" nolabel="1"/>
+			                    <button name="%(rpt_talent)d"  align="0.0" string="Talent Report" type="action" icon="gtk-print" />
+	                       </group>
+		                </form> 
+		            </field>
+        </record>
+		        
+		<record id="action_ed_talent_form" model="ir.actions.act_window">
+			<field name="name">Talent Development</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.talent</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','activity')]</field>		
+			<field name="context">{"search_default_ed_type":"activity",default_ed_type":"activity"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_talent_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_talent_tree"/> 
+            <field name="act_window_id" ref="action_ed_talent_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_talent_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_talent_form"/>
+            <field name="act_window_id" ref="action_ed_talent_form"/>
+       </record> 
+	   
+<!--    Do not uncomment     
+   		<menuitem action="action_ed_talent_form" id="menu_action_ed_talent" name="Talent Development" parent="menu_training_customer" sequence="3"/> -->
+ 
+   	<!--  ***********************************************Student Data*****************************  -->      
+
+		<record id="view_ed_student_data_tree" model="ir.ui.view">
+		            <field name="name">view_ed_student_data_tree</field>
+		            <field name="model">ed.student.data</field>
+		            <field name="type">tree</field>
+		            <field name="arch" type="xml">
+		                <tree string="Student Data" >
+		                    <field name="name" select="1"/>
+		                    <field name="partner_id" select="1"/>
+		                    <field name="ed_class" select="1"/>
+		                    <field name="ed_sec" select="1"/>
+		                    <field name="contact" select="1"/>
+		                    <field name="e_mail"/>
+		                    <field name="address"/>
+		                </tree>    
+		            </field>
+       	</record>
+				        
+		<record id="view_ed_student_data_form" model="ir.ui.view">
+		            <field name="name">view_ed_student_data_form</field>
+		            <field name="model">ed.student.data</field>
+		            <field name="type">form</field>
+		            <field name="arch" type="xml">
+		                <form string="Student Data" >
+		                    <group col="6" colspan="2">
+		                    <field name="partner_mapping" invisible ="1"/>
+			                   <field name="partner_id" required="1"/>
+			                   <newline/>
+			                   <separator colspan="6"  string="Student Details"/>
+			                   <field name="name" required="1"/>
+			                    <field name="ed_class"/>
+			                    <field name="ed_sec"/>
+			                    <field name="contact"/>
+			                    <field name="e_mail" widget="email"/>
+			                    <field name="address"/>
+			                    <field name="ed_type" invisible="1"/>
+		                    </group>
+		                </form>    
+		            </field>
+        </record>
+
+   	<!--         *************************************action for student data manager**********************  -->
+				        
+		<record id="action_ed_student_data_manager_form" model="ir.actions.act_window">
+			<field name="name">Student Data</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.student.data</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','activity')]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"activity"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_student_data_manager_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_student_data_tree"/> 
+            <field name="act_window_id" ref="action_ed_student_data_manager_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_student_data_manager_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_student_data_form"/>
+            <field name="act_window_id" ref="action_ed_student_data_manager_form"/>
+       </record> 
+	    
+        <menuitem action="action_ed_student_data_manager_form" id="menu_action_ed_student_data_manager" name="Student Data" parent="menu_training_customer" sequence="7"/>
+   	
+   	<!--         *************************************action for student data user********************** -->
+ 		
+ 		<record id="action_ed_student_data_user_form" model="ir.actions.act_window">
+			<field name="name">Student Data</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.student.data</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','activity'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"activity"}</field>
+	    </record>
+	    
+	    <record model="ir.actions.act_window.view" id="action_view_ed_student_data_user_tree">
+	        <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ed_student_data_tree"/> 
+            <field name="act_window_id" ref="action_ed_student_data_user_form"/>
+       </record> 
+       <record model="ir.actions.act_window.view" id="action_view_ed_student_data_user_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ed_student_data_form"/>
+            <field name="act_window_id" ref="action_ed_student_data_user_form"/>
+       </record> 
+	    
+        <menuitem action="action_ed_student_data_user_form" id="menu_action_ed_student_data_user" name="Student Data" parent="menu_training_customer" sequence="7"/>
+ 		
+ 		
+   	<!--       ******************************************class ed_auto_month**********************************************--> 
+
+		<record id="view_ed_auto_month_tree" model="ir.ui.view">
+					<field name="name">view_ed_auto_month_tree</field>
+					<field name="model">ed.auto.month</field>
+					<field name="type">tree</field>
+			        <field name="arch" type="xml">
+						<tree string="Month">				
+						 	<field name="name" select="1"/>
+						 	 <field name="state"/>
+						 	<button name="confirm_form" states="draft" string="Publish" type="object" icon="gtk-apply" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/> 
+						    <button name="cancel_form" states="publish" string="Cancel" type="object" icon="gtk-cancel"/>
+						</tree>
+					</field>
+		</record>		
+   
+        <record id="view_ed_auto_month_form" model="ir.ui.view">
+		            <field name="name">ed_auto_month_form</field>
+		            <field name="model">ed.auto.month</field>
+		            <field name="type">form</field>
+		            <field name="arch" type="xml">
+		                <form string="Month">
+	                     	<field colspan="2" name="name" readonly="1" />
+	                     	<field name="ed_type1" invisible="1" />
+	                      	<newline/>
+	                     	<field colspan="6" name="time_line" string="" context="{'mon_edtype':ed_type1,'mon_city':context.get('parent_city')}"/>
+	                      	<field name="state"/>
+	                     	<button name="confirm_form" states="draft" string="Publish" type="object" icon="gtk-apply" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/>
+					     	<button name="cancel_form" states="publish" string="Cancel" type="object" icon="gtk-cancel"/>
+	                    </form>
+	                </field>
+        </record>
+        
+        <record id="action_ed_auto_month_form" model="ir.actions.act_window">
+			<field name="name">Month</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.auto.month</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	    </record>
+       
+	
+   	<!--  ***********************************************ACTIVITY->Activity->CCE****************************    -->    
+
+        <record id="view_ed_cce_tree" model="ir.ui.view">
+			<field name="name">view_ed_cce_tree</field>
+			<field name="model">ed.cce</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree string="CCE">
+				 	<field name="academic_year" select="1"/>				
+				 	<field name="partner_id" select="1"/>
+				 	<field name="name" select="1"/>
+				 	<field name="ed_class" select="1"/>
+				 	<field name="ed_sec" select="1"/>
+				 	
+				 	
+				</tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_cce_form" model="ir.ui.view">
+	            <field name="name">view_ed_cce_form</field>
+	            <field name="model">ed.cce</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="CCE" >	                
+				 	<field name="academic_year" required="1"/>
+                    <field name="partner_mapping" invisible="1"/>
+                    <field name="partner_id" required="1"/>
+				 	<field name="name" />
+				 	<field name="ed_class" required="1"/>
+				 	<field name="ed_sec" required="1"/>
+				 	<field name="ed_type" invisible="1"/>
+				 	<field colspan="4" mode="tree,form" name="film_score_ids" nolabel="1" select="1" height="260" context="{'class':ed_class}" >
+				 		<form string="Film Score">
+				 			<field name='f_class' invisible="1"/>
+				 			<field name="film_id" domain="[('ed_class','=',f_class)]" required="1"/>
+				 			<field name="think_skills" />
+				 			<field name="social_skills" />
+				 			<field name="emot_skills" />
+				 			<field name="values" />
+				 			<field name="attitude" />
+				 			<field name="remarks"/>
+				 			
+                        </form>
+                        <tree string="Film Score" >
+				 			<field name="film_id" />
+				 			<field name="think_skills" sum="think_skills"/>
+				 			<field name="social_skills" sum="social_skills"/>
+				 			<field name="emot_skills" sum="emot_skills"/>
+				 			<field name="values" sum="values"/>
+				 			<field name="attitude" sum="attitude"/>
+                        </tree>
+				 	</field>
+				 	<group col="8" colspan="2">
+					 	<field name="total"/>
+					 	<field name="percentage"/>
+					 	<field name="grade"/>
+				 	</group>
+                    </form>
+                </field>
+        </record>
+
+   	<!--         *************************************action for cce manager**********************       --> 
+        <record id="action_ed_cce_manager_form" model="ir.actions.act_window">
+			<field name="name">CCE</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.cce</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','activity')]</field>		
+			<field name="context">{"search_default_ed_type":"activity"}</field>
+	    </record>
+      <menuitem action="action_ed_cce_manager_form" id="menu_action_ed_cce_manager" name="CCE" parent="menu_training_customer" sequence="4"/>
+ 
+   	
+   	<!--         *************************************action for cce user**********************        -->
+      <record id="action_ed_cce_user_form" model="ir.actions.act_window">
+			<field name="name">CCE</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ed.cce</field> 
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('ed_type','=','activity'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"activity"}</field>
+	    </record>
+      <menuitem action="action_ed_cce_user_form" id="menu_action_ed_cce_user" name="CCE" parent="menu_training_customer" sequence="4"/>
+
+   	<!--         *************************************class  work shop********************** -->
+   
+        <record id="view_ed_wrk_shop_tree" model="ir.ui.view">
+			<field name="name">view_ed_wrk_shop_tree</field>
+			<field name="model">ed.wrkshop.civic.awareness</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree  string="Workshop" >	
+				   	<field name="city_id" select="1" />
+					<field name="ed_date"  select="1"/>
+				   	<field name="day_id" select="1" />
+				   	<field name="partner_id" />
+				   	<field name="ed_topic" select="1"/>
+				   	<field name="ed_partcipants" />
+				   	<field name="no_of_participants" />
+				   	<field name="user_id" />
+				    <field name="remarks" />
+				 </tree>
+			</field>
+		</record>		
+   
+        <record id="view_ed_wrk_shop_civic_aware_form" model="ir.ui.view">
+	            <field name="name">"view_ed_wrk_shop_civic_aware_form"</field>
+	            <field name="model">ed.wrkshop.civic.awareness</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	             <form string="Workshop">
+	             <group col="8" colspan="2">	
+	             	<field name="city_id" required="1"/>
+					<field name="ed_date" required="1" />
+				   	<field name="day_id" required="1"/>
+				   	<field name="partner_id" required="1" domain="[('ed_sh_act','=',True),('ed_city_id','=',city_id)]"/> 
+				   	<field name="ed_topic" />
+				   	<field name="ed_partcipants" />
+				   	<field name="no_of_participants" />
+				   	<field name="user_id" />
+				   	<field name="ed_type" invisible="1"/>
+				   	<newline/>
+				    <separator string="Remarks" colspan="8"/>
+				   	<field name="remarks" colspan="8" nolabel="1"/>
+				   	</group>
+				   	
+                </form>
+		        </field>
+        </record>
+
+   	
+   	<!--         *************************************action for work shop manager**********************   -->      
+       <record id="action_ed_wrk_shop_manager" model="ir.actions.act_window">
+	         <field name="name">Workshop</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.wrkshop.civic.awareness</field>
+	         <field name="view_mode">tree,form</field>
+	       	 <field name="domain">[('ed_type','=','workshop')]</field>		
+			 <field name="context">{"search_default_ed_type":"workshop"}</field>
+	  </record>        
+        
+      <record id="action_ed_wrk_shop_manager_tree" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="view_ed_wrk_shop_tree"/>
+          <field name="domain">[('e_type','=','workshop')]</field>
+          <field name="act_window_id" ref="action_ed_wrk_shop_manager"/>
+      </record>
+        
+      <record id="action_ed_wrk_shop_manager_form" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="view_ed_wrk_shop_civic_aware_form"/>
+          <field name="act_window_id" ref="action_ed_wrk_shop_manager"/>
+      </record>
+ 
+      <menuitem action="action_ed_wrk_shop_manager" id="menu_action_ed_wrk_shop_manager" name="Workshop" parent="menu_training_customer" sequence="5"/>
+
+
+   	<!--         *************************************action for work shop user********************** -->
+      
+      <record id="action_ed_wrk_shop_user" model="ir.actions.act_window">
+	         <field name="name">Workshop</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.wrkshop.civic.awareness</field>
+	         <field name="view_mode">tree,form</field>
+	       	 <field name="domain">[('ed_type','=','workshop'),('create_uid','=',uid)]</field>		
+			 <field name="context">{"search_default_user_id":uid,"search_default_ed_type":"workshop"}</field>
+	  </record>        
+        
+      <record id="action_ed_wrk_shop_user_tree" model="ir.actions.act_window.view">
+          <field eval="2" name="sequence"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="view_ed_wrk_shop_tree"/>
+          <field name="domain">[('e_type','=','workshop')]</field>
+          <field name="act_window_id" ref="action_ed_wrk_shop_user"/>
+      </record>
+        
+      <record id="action_ed_wrk_shop_user_form" model="ir.actions.act_window.view">
+          <field eval="20" name="sequence"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="view_ed_wrk_shop_civic_aware_form"/>
+          <field name="act_window_id" ref="action_ed_wrk_shop_user"/>
+      </record>
+ 
+      <menuitem action="action_ed_wrk_shop_user" id="menu_action_ed_wrk_shop_user" name="Workshop" parent="menu_training_customer" sequence="5"/>
+
+   	
+   	<!--         ************************************* civic awareness********************** -->
+		 <record id="view_ed_civic_aware_tree" model="ir.ui.view">
+			<field name="name">view_ed_civic_aware_tree</field>
+			<field name="model">ed.wrkshop.civic.awareness</field>
+			<field name="type">tree</field>
+	        <field name="arch" type="xml">
+				<tree  string="Civic Awareness" >	
+				   	<field name="city_id" select="1" />
+					<field name="ed_date"  select="1"/>
+				   	<field name="day_id" select="1" />
+				   	<field name="partner_id" />
+				   	<field name="ed_topic" select="1"/>
+				   	<field name="ed_partcipants" />
+				   	<field name="no_of_participants" />
+				   	<field name="user_id" />
+				    <field name="remarks" />
+				 </tree>
+			</field>
+		</record>
+
+
+   	<!--         *************************************action for civic awareness manager********************** -->
+		
+       <record id="action_ed_civic_aware_manager" model="ir.actions.act_window">
+	         <field name="name">Civic Awareness</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.wrkshop.civic.awareness</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">[('ed_type','=','civic_awareness')]</field>		
+			<field name="context">{"search_default_ed_type":"civic_awareness"}</field>
+      </record>        
+	
+	
+		  <record id="action_ed_civic_aware_manager_tree" model="ir.actions.act_window.view">
+	          <field eval="2" name="sequence"/>
+	          <field name="view_mode">tree</field>
+	          <field name="view_id" ref="view_ed_civic_aware_tree"/>
+	          <field name="domain">[('e_type','=','civic_awareness')]</field> 
+	          <field name="act_window_id" ref="action_ed_civic_aware_manager"/>
+	      </record>
+        
+	      <record id="action_ed_civic aware_manager_form" model="ir.actions.act_window.view">
+	          <field eval="20" name="sequence"/>
+	          <field name="view_mode">form</field>
+	          <field name="view_id" ref="view_ed_wrk_shop_civic_aware_form"/>
+	          <field name="act_window_id" ref="action_ed_civic_aware_manager"/>
+	      </record>
+     
+         <menuitem action="action_ed_civic_aware_manager" id="menu_ed_civic_aware_manager" parent="menu_training_customer" sequence="6" name = 'Civic Awareness'/>
+
+   	<!--         *************************************action for civic awareness user********************** -->
+		
+		<record id="action_ed_civic_aware_user" model="ir.actions.act_window">
+	         <field name="name">Civic Awareness</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">ed.wrkshop.civic.awareness</field>
+	         <field name="view_mode">tree,form</field>
+	         <field name="domain">[('ed_type','=','civic_awareness'),('create_uid','=',uid)]</field>		
+			<field name="context">{"search_default_user_id":uid,"search_default_ed_type":"civic_awareness"}</field>
+      </record>        
+	
+	
+		  <record id="action_ed_civic_aware_user_tree" model="ir.actions.act_window.view">
+	          <field eval="2" name="sequence"/>
+	          <field name="view_mode">tree</field>
+	          <field name="view_id" ref="view_ed_civic_aware_tree"/>
+	          <field name="domain">[('e_type','=','civic_awareness')]</field> 
+	          <field name="act_window_id" ref="action_ed_civic_aware_user"/>
+	      </record>
+        
+	      <record id="action_ed_civic aware_user_form" model="ir.actions.act_window.view">
+	          <field eval="20" name="sequence"/>
+	          <field name="view_mode">form</field>
+	          <field name="view_id" ref="view_ed_wrk_shop_civic_aware_form"/>
+	          <field name="act_window_id" ref="action_ed_civic_aware_user"/>
+	      </record>
+     
+         <menuitem action="action_ed_civic_aware_user" id="menu_ed_civic_aware_user" parent="menu_training_customer" sequence="6" name = 'Civic Awareness'/>
+			
+        
+   </data>
+</openerp>   

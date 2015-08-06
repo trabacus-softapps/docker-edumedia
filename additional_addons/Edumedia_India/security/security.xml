@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <openerp>
+	<data>
+	
+       
+         <!-- 	Inherited group leads from sales manager --> 
+       
+<!--        <record id="ed_sales_admin" model="res.groups"> -->
+<!-- 			<field name="name">ED-Sales Admin </field> -->
+<!-- 			<field name="implied_ids" eval="[(4, ref('ed_sales_manager'))]"/> -->
+<!-- 		</record>                                             -->
+                                           
+                                             <!-- 	Groups -->
+
+		<record id="ed_admin" model="res.groups">
+			<field name="name">ED-Admin</field> 
+		</record>
+			
+	    <record id="ed_leads" model="res.groups">
+			<field name="name">ED-Leads</field>
+		</record>
+		
+	    <record id="ed_sales_admin" model="res.groups">
+			<field name="name">ED-Sales Admin</field>
+		</record>
+			
+		<record id="ed_sales_manager" model="res.groups">
+			<field name="name">ED-Sales Manager</field> 
+		</record>
+		 
+		<record id="ed_sales_user" model="res.groups">
+			<field name="name">ED-Sales User</field>
+		</record>
+		
+		
+		<record id="ed_act_manager" model="res.groups">
+			<field name="name">ED-Activity Manager</field>
+		</record>
+		
+		<record id="ed_act_user" model="res.groups">
+			<field name="name">ED-Activity User</field>
+		</record>
+		
+
+        <record id="ed_aksh_manager" model="res.groups">
+			<field name="name">ED-AKshaya Manager</field>
+		</record>
+		 
+		<record id="ed_aksh_user" model="res.groups">
+			<field name="name">ED-AKshaya User</field>
+		</record>
+		
+		
+		<record id="ed_scm" model="res.groups">
+			<field name="name">ED-SCM</field>
+		</record>
+		
+		<record id="ed_pur" model="res.groups">
+			<field name="name">ED-Purchase</field>
+		</record>
+		
+		<record id="ed_acc" model="res.groups">
+			<field name="name">ED-Accounts</field>
+		</record>
+
+		<record id="ed_mentor" model="res.groups">
+			<field name="name">ED-Mentor</field>
+		</record>
+                              
+                              
+                                <!-- HR Groups		 -->
+                                
+		<record id="ed_hr" model="res.groups">
+			<field name="name">ED-HR</field>
+		</record>
+		
+		<record id="ed_hr_manager" model="res.groups">
+			<field name="name">ED-HR Manager</field>
+		</record>
+		
+		<record id="ed_hr_user" model="res.groups">
+			<field name="name">ED-HR User</field>
+		</record>
+		
+		
+<!-- Access Menu  -->
+	<!--     Employee -->
+<!-- # Root menu -->
+
+<!-- __________________________________________Human Resources___________________________________________-->			
+
+        <record model='ir.ui.menu' id='hr.menu_hr_root'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	    </record> 
+	   
+	    <record model='ir.ui.menu' id='hr.menu_hr_configuration'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+	    
+	    <record model='ir.ui.menu' id='hr.menu_hr_reporting'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+		<!--mani-->	
+<!--		<record model='ir.ui.menu' id='menu_ed_career'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>-->
+		
+		<!--<record model='ir.ui.menu' id='base.menu_hr_dasboard'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+		
+		<record model='ir.ui.menu' id='hr.open_board_hr_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>-->
+		
+		 <record model='ir.ui.menu' id='hr_payroll.menu_hr_payroll_reporting'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+		
+		 <record model='ir.ui.menu' id='base.menu_crm_case_job_req_main'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+		
+
+<!--mani-->
+       <!-- <record model='ir.ui.menu' id='hr_contract.next_id_56'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>-->
+		
+	<!--	 <record model='ir.ui.menu' id='hr_contract.hr_menu_contract_wage_type'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>-->
+		
+	   <!-- <record model='ir.ui.menu' id='hr.menu_hr_management'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>-->
+	      <!-- 	  ~~~~~~~~~~~~  HR =>Employee details ~~~~~~~~~~~~ --> 
+	      
+	     <record model='ir.ui.menu' id='hr.menu_hr_main'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	     </record> 
+	     
+	       <record model='ir.ui.menu' id='hr.menu_open_view_employee_list_my'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	      </record> 
+	      
+	       <record model='ir.ui.menu' id='menu_action_ed_emp_my_details'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	      </record> 
+	      
+	       <record model='ir.ui.menu' id='menu_action_ed_emp_team_details'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+	      </record> 
+	      
+  <!-- 	  ~~~~~~~~~~~~  HR => Attendance ~~~~~~~~~~~~ --> 
+	    	      
+		  <record model='ir.ui.menu' id='hr_attendance.menu_hr_attendance'>
+			<field name="groups_id"  eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+		 </record>	
+		 
+		   <record model='ir.ui.menu' id='menu_action_ed_hr_my_attendance'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	      </record> 
+	      
+	      <record model='ir.ui.menu' id='menu_action_ed_hr_team_attendance_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+	      </record> 
+	      
+	       <record model='ir.ui.menu' id='menu_action_ed_hr_attendance'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>	 
+	          
+	          
+	     <!-- 	  ~~~~~~~~~~~~  HR => Sign in/out ~~~~~~~~~~~~ -->  
+<!--	     	    	     	MAni	-->
+	     <!--<record model='ir.ui.menu' id='hr_attendance.menu_hr_attendance_sigh_in_out'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr'),ref('ed_hr_manager'),ref('ed_hr_user')])]"/>
+		</record>-->
+		
+			     <!-- 	  ~~~~~~~~~~~~  HR => Log ~~~~~~~~~~~~ -->  
+	    <record model='ir.ui.menu' id='menu_log'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+		 <record model='ir.ui.menu' id='menu_my_log'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+		</record>
+		<record model='ir.ui.menu' id='menu_team_log'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+		</record>
+	      	    
+	    <!-- 	  ~~~~~~~~~~~~  HR => Appraisal ~~~~~~~~~~~~ --> 
+
+        <record model='ir.ui.menu' id='ed_menu_appraisal'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr'),ref('ed_hr_user'),ref('ed_hr_manager')])]"/>
+	    </record>
+	    
+		<record model='ir.ui.menu' id='menu_action_ed_resource_appraisal'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record> 
+	    
+        <record model='ir.ui.menu' id='ed_menu_action_my_appraisal_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	    </record> 
+	    
+	    <record model='ir.ui.menu' id='ed_menu_action_team_appraisal_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+	    </record>
+	    
+	    <record model='ir.ui.menu' id='ed_menu_action_hr_appraisal_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>
+	    
+	    <record model='ir.ui.menu' id='menu_action_ed_peer_appraisal'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr'),ref('ed_hr_manager'),ref('ed_hr_user')])]"/>
+	    </record>
+	    
+	    <record model='ir.ui.menu' id='menu_action_ed_supervisor_appraisal'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr'),ref('ed_hr_manager'),ref('ed_hr_user')])]"/>
+	    </record>
+
+	    
+	    <!-- 	  ~~~~~~~~~~~~  HR => Expense ~~~~~~~~~~~~ -->
+	    <record model='ir.ui.menu' id='ed_hr_expense_parent'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	    </record>
+	    
+        <record model='ir.ui.menu' id='ed_menu_my_expense'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	    </record> 
+	    
+	    <record model='ir.ui.menu' id='ed_menu_team_expense'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+	    </record>  
+       
+		
+		  <record model='ir.ui.menu' id='menu_action_ed_view_expenses_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>	
+		
+		<record model='ir.ui.menu' id='hr_expense.menu_hr_expense_report_all'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>    
+		
+		<!-- 	  ~~~~~~~~~~~~  HR => Leaves ~~~~~~~~~~~~ -->
+		
+        <record model='ir.ui.menu' id='menu_my_leaves'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	    </record> 
+	    
+	     <record model='ir.ui.menu' id='menu_team_leaves'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+	     </record> 
+	     
+	     <record model='ir.ui.menu' id='menu_emp_leaves'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>
+	    
+	     <record model='ir.ui.menu' id='menu_ed_allocation_holidays'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>
+	    
+	    <!-- 	  ~~~~~~~~~~~~  HR => Holidays  ~~~~~~~~~~~~ -->
+	    
+	     <record model='ir.ui.menu' id='hr_holidays.menu_open_allocation_holidays'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>
+	     <record model='ir.ui.menu' id='menu_emp_leaves'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>
+	    
+	    
+	   	<!-- 	  ~~~~~~~~~~~~  HR => Payroll ~~~~~~~~~~~~ -->
+	   	
+	    <record model='ir.ui.menu' id='hr_payroll.menu_hr_root_payroll'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+		</record>
+		 
+		<record model='ir.ui.menu' id='hr_payroll.payroll_configure'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>
+		
+<!--		<record model='ir.ui.menu' id='hr_payroll.menu_hr_company_contribution_tree'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+		</record>-->
+		<record model='ir.ui.menu' id='menu_my_payslip'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	    </record>
+	     
+	    <record model='ir.ui.menu' id='hr_payroll.menu_department_tree'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>
+	    
+<!--	    <record model='ir.ui.menu' id='hr_payroll.hr_menu_payment_advice'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>-->
+	    
+<!--	    <record model='ir.ui.menu' id='hr_payroll.hr_menu_payroll_register'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+	    </record>-->
+	   
+	   	<!-- 	  ~~~~~~~~~~~~  HR => TO DO ~~~~~~~~~~~~ -->
+	   		    
+	     <record model='ir.ui.menu' id='menu_action_ed_hr_tasks'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+         <record model='ir.ui.menu' id='menu_action_ed_hr_mytasks'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+         <record model='ir.ui.menu' id='menu_action_ed_hr_teamtasks'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+         <record model='ir.ui.menu' id='menu_action_ed_hr_employeetasks'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+        </record>
+
+		<!-- 	  ~~~~~~~~~~~~  HR => Time Off ~~~~~~~~~~~~ -->
+		<record model='ir.ui.menu' id='ed_menu_time_off'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+        <record model='ir.ui.menu' id='menu_ed_my_time_off'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+        <record model='ir.ui.menu' id='menu_ed_team_time_off'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
+        </record>
+        
+        <record model='ir.ui.menu' id='menu_ed_emp_time_off'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr')])]"/>
+        </record>
+        
+        <!-- 	  ~~~~~~~~~~~~  HR => Repository ~~~~~~~~~~~~ -->
+        
+		<record model='ir.ui.menu' id='menu_ed_hr_repositary'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+        <record model='ir.ui.menu' id='ed_menu_hr_document_files'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+        
+        
+                            <!-- 	  ~~~~~~~~~~~~  HR => News ~~~~~~~~~~~~ -->
+         <record model='ir.ui.menu' id='menu_action_ed_news'>
+     		<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+        </record>
+<!-- ____________________________________________School Cinema __________________________________ -->
+		<!--		MAni  -->   
+<!--	    <record model='ir.ui.menu' id='menu_schlcinema_root'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_user'),ref('ed_sales_admin'),ref('ed_leads')])]"/>
+	    </record> -->
+	   
+<!--	   	<record model='ir.ui.menu' id='menu_ed_crm'>-->
+<!--			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_crm')])]"/>-->
+<!--	   	</record>-->
+		
+<!--		MAni  -->
+		
+<!--		
+	   	<record model='ir.ui.menu' id='menu_ed_saleorder_Pro'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_user'),ref('ed_sales_admin'),ref('ed_leads')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_action_ed_sale_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>	
+	   	
+	   	<record model='ir.ui.menu' id='menu_action_ed_sale_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_user')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_case_opp'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_user_opp'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_user'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_edumedia_customer'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin'),ref('ed_leads'),ref('ed_sales_user')])]"/>
+	   	</record>  
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_config'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_comun'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_user') ,ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_repositary'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_user'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_case_leads'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_admin'),ref('ed_leads')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_action_ed_sessions'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='crm.menu_report_crm_opportunities_tree'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='sale.menu_report_product_all'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_action_ed_project_issue'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+		<record model='ir.ui.menu' id='menu_ed_reports'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_report_ed_crm_opportunities_tree'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_manager_opp'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_sales_manager'),ref('ed_sales_admin')])]"/>
+	   	</record>
+	   	
+	   	<record model='ir.ui.menu' id='menu_ed_user_opp'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_sales_user')])]"/>
+	   	</record>
+-->	   	
+<!-- ____________________________________________Activity __________________________________ -->	
+		
+<!--		MAni -->
+<!--
+	   	<record model='ir.ui.menu' id='menu_activity_root'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager'),ref('ed_act_user'),ref('ed_aksh_manager'),ref('ed_aksh_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_training_customer'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager'),ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_activity_customer'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager'),ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_time_table_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_time_table_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_act_sess_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_act_sess_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_cce_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_cce_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_wrk_shop_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_wrk_shop_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_student_data_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_student_data_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_act_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_ed_civic_aware_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_act_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_ed_civic_aware_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_act_user')])]"/>
+       	</record>
+  -->     	
+  <!-- ____________________________________________Mentor __________________________________ --> 
+  
+       	<record model='ir.ui.menu' id='menu_mentor_root'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>
+
+       	<record model='ir.ui.menu' id='menu_edumedia_mentor'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_action_ed_mentor_partner2'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+       	
+       	<record model='ir.ui.menu' id='menu_edumedia_subscrip'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_edumedia_contributors'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_edumedia_advertisers'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_edumedia_mnth_editons'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_action_ed_mentor_subsc'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_action_ed_contri_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_action_ed_advert_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_mon_edit_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_contri_sec_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+       	
+       	<record model='ir.ui.menu' id='menu_ed_mentor_config'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_action_ed_contri_det_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+       	<record model='ir.ui.menu' id='menu_action_ed_adv_det_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      	
+
+<!--MAni-->
+		
+       <!--	<record model='ir.ui.menu' id='menu_action_ed_art_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>      -->	
+
+
+
+
+
+<!-- ____________________________________________AKshaya Life Skills __________________________________ -->	
+		
+<!--	   	MAni-->
+		
+		<!--
+		<record model='ir.ui.menu' id='menu_akshaya_training'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_aksh_manager'),ref('ed_aksh_user')])]"/>
+       	</record> 
+       	
+        <record model='ir.ui.menu' id='menu_akshaya_customer'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_aksh_manager'),ref('ed_aksh_user')])]"/>
+       	</record>
+       	
+      	<record model='ir.ui.menu' id='menu_action_ed_akshaya_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_aksh_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_akshaya_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_aksh_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_akshaya_sess_manager_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_aksh_manager')])]"/>
+       	</record>
+       	<record model='ir.ui.menu' id='menu_action_ed_akshaya_sess_user_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_aksh_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_student_akshaya_manager_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_aksh_manager')])]"/>
+       	</record>
+       	<record model='ir.ui.menu' id='menu_action_ed_student_akshaya_user_form'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_aksh_user')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_talent_akshaya_manager'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_aksh_manager')])]"/>
+       	</record>
+       	
+       	<record model='ir.ui.menu' id='menu_action_ed_talent_akshaya_user'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_aksh_user')])]"/>
+       	</record> 
+       	-->
+       	
+<!-- ___________________________________________ Stock__________________________________________ -->
+		
+<!--		MAni-->
+		<!--
+	  	<record model='ir.ui.menu' id='stock.menu_stock_root'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_scm')])]"/>
+ 	  	</record>
+	  
+	  	<record model='ir.ui.menu' id='stock.menu_stock_product_moves'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_scm')])]"/>
+	  	</record>
+	  
+	  	<record model='ir.ui.menu' id='stock.menu_stock_configuration'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_scm')])]"/>
+	  	</record>
+	  	-->
+				
+<!--  _______________________________________Menu - Purchases_______________________________________ -->
+		<!--		MAni-->
+		<!--	
+
+	   	<record model='ir.ui.menu' id='base.menu_purchase_root'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_pur')])]"/>
+	   	</record> 
+	   
+	   	<record model='ir.ui.menu' id='purchase.menu_procurement_management_inventory'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_pur')])]"/>
+	   	</record> 
+			
+	   	<record model='ir.ui.menu' id='purchase.menu_action_picking_tree4'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_pur')])]"/>
+	   	</record> 
+	   	-->
+	   
+<!-- __________________________________________Menu - Accounting_________________________________________ -->	
+<!--		MAni-->
+<!--		
+
+		<record model='ir.ui.menu' id='account.menu_finance'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc'),ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+		</record> 
+			
+		<record model='ir.ui.menu' id='account.menu_finance_payables'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record> 
+   			
+		<record model='ir.ui.menu' id='account.menu_finance_receivables'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record> 
+				
+		<record model='ir.ui.menu' id='account.menu_action_account_moves_bank'>
+	   		<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record>
+		    
+	    <record model='ir.ui.menu' id='account.menu_act_ir_actions_bleble'>
+    	 	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record>
+		    
+	    <record model='ir.ui.menu' id='account.menu_action_tax_code_tree'>
+    		<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record>
+		    
+	    <record model='ir.ui.menu' id='account.menu_dashboard_acc'>
+	    	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record>
+		    
+	    <record model='ir.ui.menu' id='account_voucher.menu_action_vendor_receipt'>
+	    	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record> 
+		    
+	    <record model='ir.ui.menu' id='account_voucher.menu_action_vendor_payment'>
+    	    <field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record> 
+		    
+	    <record model='ir.ui.menu' id='account.menu_journals'>
+	    	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+	    </record> 
+			
+		<record model='ir.ui.menu' id='account_voucher.menu_action_sale_receipt'>
+		    <field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account.menu_action_move_journal_line_form'>
+		    <field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account_voucher.menu_action_purchase_receipt'>
+	     	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record> 
+		 
+		<record model='ir.ui.menu' id='account.menu_finance_bank_and_cash'>
+	    	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record> 
+			
+		<record model='ir.ui.menu' id='account.menu_finance_periodical_processing'>
+	     	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account.menu_finance_charts'>
+		    <field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account.menu_action_account_moves_all'>
+	    	<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account.menu_finance_reporting'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account.menu_finance_configuration'>
+		    <field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record>
+			
+		<record model='ir.ui.menu' id='account.menu_finance_entries'>
+		    <field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_acc')])]"/>
+		</record> 
+		-->
+			
+<!-- __________________________________________ADMINISTRATION___________________________________________-->			
+
+		<record model='ir.ui.menu' id='base.menu_administration'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('base.group_system')])]"/>
+		</record>  
+			
+<!--        		<record model='ir.ui.menu' id='smsclient.menu_smsclient_administration_server'> -->
+<!-- 					<field name="groups_id" eval="[(6,0,[ref('ed_admin')])]"/> -->
+<!-- 			</record>  -->
+			
+		<record model='ir.ui.menu' id='base.menu_users'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('base.group_system')])]"/>
+	    </record> 
+		    
+		    
+<!-- _______________________________________________Removed Menu________________________________________ -->
+	  	<record model='ir.ui.menu' id='base.menu_base_partner'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+		</record>
+		
+		<record model='ir.ui.menu' id='base.menu_config'>
+		    <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+		</record>		
+	 
+	    <record model='ir.ui.menu' id='base.menu_custom'>
+     		<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+       </record>
+       
+        <record model='ir.ui.menu' id='hr_expense.menu_expense_all'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+		</record>
+		
+		
+	     <record model='ir.ui.menu' id='hr_holidays.menu_open_ask_holidays'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+	    
+	     <record model='ir.ui.menu' id='hr_attendance.menu_open_view_attendance'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+	    
+	      <record model='ir.ui.menu' id='hr_holidays.menu_open_allocation_holidays'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+	    
+	    <record model='ir.ui.menu' id='hr_expense.next_id_49'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+	    
+	    <!-- MAni-->
+		<!--
+	    <record model='ir.ui.menu' id='stock.menu_action_stock_inventory_report'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+	    
+	    <record model='ir.ui.menu' id='stock.menu_action_stock_move_report'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+	    
+	    <record model='ir.ui.menu' id='stock.menu_report_stock_line_date'>
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	    </record>
+		-->
+	    
+</data>
+</openerp>

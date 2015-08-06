@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ed_purchase_taxes" language="groovy" pageWidth="245" pageHeight="802" columnWidth="245" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Amount-amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[Order_Lines-order_line/Taxes-taxes_id/Amount-amount]]></fieldDescription>
+	</field>
+	<field name="Tax_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Order_Lines-order_line/Taxes-taxes_id/id]]></fieldDescription>
+	</field>
+	<field name="Tax_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Order_Lines-order_line/Taxes-taxes_id/Tax_Name-name]]></fieldDescription>
+	</field>
+	<field name="Subtotal-price_subtotal" class="java.lang.Float">
+		<fieldDescription><![CDATA[Order_Lines-order_line/Subtotal-price_subtotal]]></fieldDescription>
+	</field>
+	<sortField name="Tax_id"/>
+	<variable name="Tot_tax" class="java.lang.Double" resetType="Group" resetGroup="Tax_id" calculation="Sum">
+		<variableExpression><![CDATA[($F{Subtotal-price_subtotal} * $F{Amount-amount})]]></variableExpression>
+	</variable>
+	<group name="Tax_id">
+		<groupExpression><![CDATA[$F{Tax_id}]]></groupExpression>
+		<groupFooter>
+			<band height="17">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="145" height="17"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="1">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Tax_Name-name} == null ? ""
+: ($F{Tax_Name-name} + " @  "
+   + ($F{Amount-amount} == null ? 0 :
+   new DecimalFormat("0.00").format($F{Amount-amount} * 100) )
+   + "% ")]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="145" y="0" width="100" height="17"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="5">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{Tot_tax} == null ? 0 : $V{Tot_tax}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+</jasperReport>

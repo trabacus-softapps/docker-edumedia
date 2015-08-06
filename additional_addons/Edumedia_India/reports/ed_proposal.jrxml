@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="proposal" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/serveradmin/bin/packages/openerp-server-6.0.2/bin/addons/Edumedia_India/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="prod" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="serv" class="java.lang.Object" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="Order_Reference-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Order_Reference-name]]></fieldDescription>
+	</field>
+	<field name="Ordered_Date-date_order" class="java.lang.String">
+		<fieldDescription><![CDATA[Ordered_Date-date_order]]></fieldDescription>
+	</field>
+	<field name="E_Mail-email" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/E_Mail-email]]></fieldDescription>
+	</field>
+	<field name="Contact_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Contact_Name-name]]></fieldDescription>
+	</field>
+	<field name="Phone-phone" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Phone-phone]]></fieldDescription>
+	</field>
+	<field name="User_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[User-User/User_Name-name]]></fieldDescription>
+	</field>
+	<field name="City-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/City-ed_city_id/City-name]]></fieldDescription>
+	</field>
+	<field name="Type-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Designation-ed_desig_id/Type-name]]></fieldDescription>
+	</field>
+	<field name="Country_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Country-country_id/Country_Name-name]]></fieldDescription>
+	</field>
+	<field name="Sale_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="Street-street" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Street-street]]></fieldDescription>
+	</field>
+	<field name="Street2-street2" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Street2-street2]]></fieldDescription>
+	</field>
+	<field name="State_Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Fed._State-state_id/State_Name-name]]></fieldDescription>
+	</field>
+	<field name="Name-name" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Name-name]]></fieldDescription>
+	</field>
+	<field name="Zip-zip" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Zip-zip]]></fieldDescription>
+	</field>
+	<field name="Mobile-mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Mobile-mobile]]></fieldDescription>
+	</field>
+	<field name="default E_Mail-email2" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/E_Mail-email]]></fieldDescription>
+	</field>
+	<field name="default Phone-phone2" class="java.lang.String">
+		<fieldDescription><![CDATA[Default_Contact-partner_default_id/Phone-phone]]></fieldDescription>
+	</field>
+	<field name="contact E_Mail-email3" class="java.lang.String">
+		<fieldDescription><![CDATA[Ordering_Contact-partner_order_id/E_Mail-email]]></fieldDescription>
+	</field>
+	<field name="Contact_Name-name2" class="java.lang.String">
+		<fieldDescription><![CDATA[Ordering_Contact-partner_order_id/Contact_Name-name]]></fieldDescription>
+	</field>
+	<field name="contact Mobile-mobile2" class="java.lang.String">
+		<fieldDescription><![CDATA[Ordering_Contact-partner_order_id/Mobile-mobile]]></fieldDescription>
+	</field>
+	<field name="contact desg Type-name2" class="java.lang.String">
+		<fieldDescription><![CDATA[Ordering_Contact-partner_order_id/Designation-ed_desig_id/Type-name]]></fieldDescription>
+	</field>
+	<field name="Caption_1-cap1_terms" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_1-cap1_terms]]></fieldDescription>
+	</field>
+	<field name="Caption_Text-cap1_text" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_Text-cap1_text]]></fieldDescription>
+	</field>
+	<field name="Caption_2-cap2_terms" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_2-cap2_terms]]></fieldDescription>
+	</field>
+	<field name="Caption_Text-cap2_text" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_Text-cap2_text]]></fieldDescription>
+	</field>
+	<field name="Caption_3-cap3_terms" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_3-cap3_terms]]></fieldDescription>
+	</field>
+	<field name="Caption_Text-cap3_text" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_Text-cap3_text]]></fieldDescription>
+	</field>
+	<field name="Caption_4-cap4_terms" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_4-cap4_terms]]></fieldDescription>
+	</field>
+	<field name="Caption_Text-cap4_text" class="java.lang.String">
+		<fieldDescription><![CDATA[Caption_Text-cap4_text]]></fieldDescription>
+	</field>
+	<field name="Total_Student" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Total_Students-tot_student]]></fieldDescription>
+	</field>
+	<field name="Unit_Price-price_unit" class="java.lang.Float">
+		<fieldDescription><![CDATA[Order_Lines-order_line/Unit_Price-price_unit]]></fieldDescription>
+	</field>
+	<field name="Discount-discount" class="java.lang.Float">
+		<fieldDescription><![CDATA[Order_Lines-order_line/Discount-discount]]></fieldDescription>
+	</field>
+	<field name="partner_name" class="java.lang.String">
+		<fieldDescription><![CDATA[Customer-partner_id/Name-name]]></fieldDescription>
+	</field>
+	<group name="Sale_order">
+		<groupExpression><![CDATA[$F{Sale_id}]]></groupExpression>
+		<groupFooter>
+			<band height="42">
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#000000" backcolor="#CACCD2"/>
+					<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_1-cap1_terms}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="20" width="555" height="22"/>
+					<box topPadding="3" leftPadding="5" bottomPadding="3" rightPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="9" isBold="false" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_Text-cap1_text}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="42">
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="20" width="278" height="22"/>
+					<box topPadding="3" leftPadding="5" bottomPadding="3" rightPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_Text-cap2_text}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="278" height="20" forecolor="#000000" backcolor="#CACCD2"/>
+					<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_2-cap2_terms}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="278" y="20" width="277" height="22"/>
+					<box topPadding="3" leftPadding="5" bottomPadding="3" rightPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_Text-cap3_text}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="278" y="0" width="277" height="20" forecolor="#000000" backcolor="#CACCD2"/>
+					<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_3-cap3_terms}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="43">
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="21" width="555" height="22"/>
+					<box topPadding="3" leftPadding="5" bottomPadding="3" rightPadding="3">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="9" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_Text-cap4_text}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="555" height="21" forecolor="#000000" backcolor="#CACCD2"/>
+					<box topPadding="3" leftPadding="2" bottomPadding="1" rightPadding="1">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Caption_4-cap4_terms}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="319" height="20"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+					</textElement>
+					<text><![CDATA[For further details visit us www.schoolcinema.net]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="PROPOSAL GROUP">
+		<groupExpression><![CDATA[$F{Sale_id}]]></groupExpression>
+		<groupHeader>
+			<band height="123">
+				<staticText>
+					<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="555" height="18" backcolor="#CACCD2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[SCHOOL DETAILS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="63" width="64" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[City]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="33" width="64" height="30"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Address]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="64" y="18" width="491" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{partner_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="64" y="63" width="214" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{City-name}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="64" y="33" width="491" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Street-street} + ", " + $F{Street2-street2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" x="64" y="48" width="491" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{State_Name-name}+ ", " + $F{Country_Name-name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="278" y="63" width="115" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Pincode]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="108" width="64" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Email]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="278" y="108" width="115" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Mobile]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="64" y="108" width="214" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{contact E_Mail-email3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="393" y="63" width="162" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Zip-zip}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="393" y="108" width="162" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{contact Mobile-mobile2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="18" width="64" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[School Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="78" width="64" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[School Email]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="64" y="78" width="214" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{default E_Mail-email2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="278" y="78" width="115" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[School Phone]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" mode="Opaque" x="393" y="78" width="162" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{default Phone-phone2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="278" y="93" width="115" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Designation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="93" width="64" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Contact Person]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="64" y="93" width="214" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Contact_Name-name2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="393" y="93" width="162" height="15"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{contact desg Type-name2}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="35">
+				<staticText>
+					<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="555" height="19" backcolor="#CACCD2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[PROPOSED PRICE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="19" width="149" height="16"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[Per Student per Annum]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="278" y="19" width="115" height="16"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<text><![CDATA[No. of Students]]></text>
+				</staticText>
+				<textField pattern="">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="393" y="19" width="162" height="16"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Total_Student} == null ? 0 : $F{Total_Student}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="149" y="19" width="129" height="16" backcolor="#D1E52A"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Float"><![CDATA[($F{Unit_Price-price_unit} == null ? 0 :$F{Unit_Price-price_unit})
+* (1 - ($F{Discount-discount} == null ? 0 : $F{Discount-discount}) / 100)]]></textFieldExpression>
+				</textField>
+				<image vAlign="Bottom">
+					<reportElement x="131" y="20" width="18" height="13"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "Rupee.jpeg"]]></imageExpression>
+				</image>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="27"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"top.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="775" width="555" height="27"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"top.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="115" splitType="Stretch">
+			<image>
+				<reportElement x="478" y="28" width="77" height="47"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "school.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="34" width="245" height="20"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[SCHOOL CINEMA PROPOSAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="66" width="64" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Proposal No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="86" width="64" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="87" width="61" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Prepared By]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="66" width="100" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Order_Reference-name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="86" width="100" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(new SimpleDateFormat("dd MMMMM yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse($F{Ordered_Date-date_order})))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="87" width="133" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{User_Name-name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="67" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="19" width="555" height="48"/>
+				<subreportParameter name="Category">
+					<subreportParameterExpression><![CDATA["CDD"]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{prod}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_proposal_sub1.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="555" height="19" backcolor="#CACCD2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[SCHOOL CINEMA  ORDER OPTIONS ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="50" width="137" height="17"/>
+				<box topPadding="2" leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Edumedia Content Delivery Device (CDD)"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="27">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="27"/>
+				<subreportParameter name="Category">
+					<subreportParameterExpression><![CDATA["CDD"]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{serv}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ed_proposal_sub2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="39">
+			<textField>
+				<reportElement x="81" y="0" width="197" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="278" y="0" width="128" height="15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" pdfFontName="Times-Roman"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

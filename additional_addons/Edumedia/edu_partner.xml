@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="edu_view_partner_form" model="ir.ui.view">
+            <field name="name">edu_view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="18" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='is_company']" position="attributes">
+                    <attribute name="string">Is a School?</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="placeholder">School</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Sales &amp; Purchases']//field[@name='customer']"
+                    position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group" position="before">
+                    <group colspan="2" col="4">
+                        <field name="strength" placeholder="Strength..."/>
+                        <field name="board_id" placeholder="Board..."
+                            attrs="{'invisible': [('is_company','=', False)]}"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_edu_partner_property_form" model="ir.ui.view">
+            <field name="name">edu.partner.property.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Accounting']//field[@name='property_payment_term']"
+                    position="attributes">
+                    <attribute name="string">School Payment Term</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_edu_res_partner_filter" model="ir.ui.view">
+            <field name="name">edu.res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='type_company']" position="attributes">
+                    <attribute name="string">Schools</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="string">Schools</attribute>
+                </xpath>
+                <xpath expr="//filter[@string='Company']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="name">Schools</field>
+        </record> 
+        
+        <menuitem id="base.menu_partner_form" parent="base.menu_sales" action="base.action_partner_form" sequence="2" name="Schools"/>
+
+
+        <!--	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       				Company/Terms And conditon
+  		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^	-->
+
+        <record model="ir.ui.view" id="edu_view_company_form">
+            <field name="name">edu_view_company_form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Bank Accounts']" position="before">
+                    <group string="Terms &amp; Conditions">
+                        <field name="terms_conditions" nolabel="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!--	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       				Configuration/Address Book/Board
+  		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^	-->
+
+        <record id="edu_partner_board_tree" model="ir.ui.view">
+            <field name="name">edu_partner_board_tree</field>
+            <field name="model">edu.partner.board</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Board" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_edu_partner_board" model="ir.actions.act_window">
+            <field name="name">Board</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edu.partner.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_edu_partner_board" id="menu_edu_partner_board" name="Board"
+            parent="base.menu_config_address_book" groups="base.group_system" sequence="16"/>
+    </data>
+</openerp>

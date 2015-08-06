@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data>  
+   
+  
+        <record id="ed_purchase_order_form" model="ir.ui.view">
+            <field name="name">ed.purchase.order.form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <field name="pricelist_id" position="replace">
+         	<field domain="[('type','=','purchase')]" name="pricelist_id" groups="base.group_no_one" invisible="1" /> 
+            </field>
+            <page string="Deliveries &amp; Invoices" position="after">
+            
+            
+	            <page string="Additional Information">
+	            <separator string="Delivery/Packing"/>
+	                  <field name="del_pack"/> 
+					  <field name="del_mode" /> 
+					  <field name="del_date" />
+			    <separator string="Payment Terms"/>
+			     <group col="6"	>	  
+					  <field colspan="2" name="pay_adv"/> 
+
+					  <field colspan="2" name="adv_date" /> 
+					  <field colspan="2" name="adv_mode" />
+					  <field colspan="2" name="pay_bal"/> 
+					  <field colspan="2" name="bal_date" /> 
+					  <field colspan="2"  name="bal_mode" />
+			     </group>
+			      <notebook colspan="4">
+                        <page string="Penalty Clause">
+                      	     <group colspan="1" col="1">
+                      	         <field name="penalty_cla" string=""/> 
+                      	     </group>   
+                	    </page>
+                	     <page string="Rejection Clause">
+                      	     <group colspan="1" col="1">
+                      	         <field name="reject_cla" string=""/> 
+                      	     </group>   
+                	    </page>
+                	   </notebook>
+	            
+	            </page>
+            </page>
+           
+            </field>
+            
+            </record>
+            
+            
+         
+           </data>
+            </openerp>
+  

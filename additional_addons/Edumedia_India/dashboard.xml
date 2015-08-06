@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<openerp>
+     <data>
+         
+         <!--  *********************************************************************************
+						Birthday  
+	  *********************************************************************************	--> 
+         
+         <record id="ed_vw_birthday_tree" model="ir.ui.view">
+             <field name="name">ed_vw_birthday_tree</field>
+             <field name="model">ed.vw.birthday</field>
+             <field name="type">tree</field> 
+             <field name="arch" type="xml">
+                 <tree string="Birthdays" editable="top">	                 
+                     <field name="employee_id" readonly="1"/>                        
+                     <field name="birthday" readonly="1"/>
+                 </tree>
+             </field>
+         </record>
+         
+         <record id="action_ed_birthday" model="ir.actions.act_window">
+             <field name="name">Birthday</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="res_model">ed.vw.birthday</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree</field>
+         </record> 
+         
+         <!--  *********************************************************************************
+						HR Dashboard Holidays  
+	  *********************************************************************************	--> 
+         
+         <record id="ed_vw_holiday_tree" model="ir.ui.view">
+             <field name="name">ed_vw_holiday_tree</field>
+             <field name="model">ed.vw.holidays</field>
+             <field name="type">tree</field> 
+             <field name="arch" type="xml">
+                 <tree string="holiday" editable="top">	                 
+                     <field name="holiday" readonly="1"/>                        
+                     <field name="h_date" readonly="1"/>
+                     <field name="h_year" invisible="1"/>
+                     <field name="city_id" invisible="1"/>   
+                 </tree>
+             </field>
+         </record>
+         
+         <record id="action_ed_vw_holidays" model="ir.actions.act_window">
+             <field name="name">Holidays</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="res_model">ed.vw.holidays</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree</field>
+         </record>  
+         
+      
+          <record model="ir.ui.view" id="ed_board_hr_details_form">
+               <field name="name">Human Resources Dashboard Form</field>
+               <field name="model">board.board</field>
+               <field name="type">form</field>
+               <field name="arch" type="xml">
+                    <form string="Human Resources Dashboard">
+                         <hpaned>
+                              <child1> 
+                                   <action
+                                        string="My Attendance"
+                                        name="%(action_ed_hr_my_attendance_form)d"
+                                        colspan="4"
+                                        height="150"
+                                        width="510"/>
+                                   <action
+                                        string="My Leaves"
+                                        name="%(action_ed_view_my_leaves_form)d"
+                                        height="150"
+                                        colspan="4"/>
+                                   
+                              </child1> 
+                              <child2>
+                                   <action
+		                                string="My Tasks"
+		                                name="%(action_ed_hr_mytasks)d" 
+		                                colspan="4"/>
+		                            <action
+		                                string="NEWS"
+		                                name="%(action_ed_news_form)d" 
+		                                colspan="4"/>
+		                            <action
+		                                string="Birthdays"
+		                                name="%(action_ed_birthday)d" 
+		                                colspan="4"/>
+		                            <action
+		                                string="Holidays"
+		                                name="%(action_ed_vw_holidays)d" 
+		                                colspan="4"/>
+		                        </child2>
+                              
+                    </hpaned>
+                </form> 
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="ed_open_board_hr_details">
+            <field name="name">Human Resources Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ed_board_hr_details_form"/>
+        </record>
+   
+<!-- 		Overridden:  -->
+   		<menuitem icon="terp-project" id="hr.menu_hr_root" name="Human Resources"
+            	  action="ed_open_board_hr_details" />
+              
+     
+     
+    </data>
+</openerp>

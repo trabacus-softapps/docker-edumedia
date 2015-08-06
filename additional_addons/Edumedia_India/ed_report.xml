@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+   
+         <report auto="False" id="ed_report_purchase_order" model="purchase.order" name="purchase.order1" 
+        	 rml="Edumedia_India/reports/ed_purchase_rpt.jrxml" string="Purchase Order"/>
+        	 
+          <report auto="False" id="rpt_sale" model="sale.order" name="sale.order1" 
+        	 rml="Edumedia_India/reports/ed_sale.jrxml" string="Sale Order" menu="False" groups="base.group_no_one"/>
+         
+         <report auto="False" id="report_proposal" model="sale.order" name="sale.order.proposal" 
+        	 rml="Edumedia_India/reports/ed_proposal.jrxml" string="Proposal"  menu="False" groups="base.group_no_one"/>
+        	 
+         <report auto="False" id="report_dispatch_order" model="sale.order" name="sale.order.dispatch.order" 
+        	 rml="Edumedia_India/reports/dispatch_order.jrxml" string="Print Dispatch Order"  menu="False"/>
+
+         <report auto="False" id="rpt_invoice" model="account.invoice" name="account.invoice1" 
+        	 rml="Edumedia_India/reports/ed_invoice.jrxml" string="Invoice."/>
+        	 
+         <report auto="False" id="rpt_talent" model="ed.talent" name="ed.talent" 
+        	 rml="Edumedia_India/reports/ed_talent.jrxml" string="Talent Report"/>
+        	 
+         <report auto="False" id="rpt_payslip" model="hr.payslip" name="hr.payslip" 
+        	 rml="Edumedia_India/reports/ed_payslip_rpt.jrxml" string="Payslip Report"/>
+        	 
+         <report auto="False" id="rpt_labels" model="stock.picking" name="monthly.edition.labels" 
+        	 rml="Edumedia_India/reports/ed_labels_main.jrxml" string="Labels"/>
+        	 
+        <report auto="False" id="rpt_lappraisal" model="ed.appraisal" name="ed.appraisal" 
+        	 rml="Edumedia_India/reports/ed_appraisal.jrxml" string="Appraisal Report"/> 
+
+     
+                	 
+<!--         <report auto="False" id="report_sale_order" model="sale.order" name="sale.order"  -->
+<!--          rml="sale/report/sale_order.rml" string="Quotation / Order" auto="false" menu="False" groups="base.group_no_one"/> -->
+
+   
+   </data>
+   </openerp> 

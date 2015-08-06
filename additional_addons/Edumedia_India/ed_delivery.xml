@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data>  
+   
+<!--   *****************  Inherited: Delivery Order	*****************	-->
+
+           <record id="ed_view_picking_out_form" model="ir.ui.view">
+            <field name="name">ed_view_picking_out_form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml"> 
+				 <group col="6" colspan="4" position="replace">			
+	                    <group col="6" colspan="4">
+	                        <group colspan="4" col="4">
+	                            <field name="name" readonly="1"/>
+	                            <field name="origin" readonly="1"/>
+	                            <field name="address_id" on_change="onchange_partner_in(address_id)" context="{'contact_display':'partner'}" colspan="4"/> 
+	                            <field name="backorder_id" readonly="1" groups="base.group_no_one"/>
+	                            <field name="log_partner_id" />
+	                            <field name="docket_no" />
+	                            <field name="mode" />	                          
+	                            <field colspan='4' name="license_detls"/>   
+	                        </group>
+	                        <group colspan="2" col="2">
+	                            <field name="date"/>
+	                            <field name="min_date" readonly="1" invisible="1"/>
+	                             <field name="no_boxes" />
+	                             <field name="weight"/>
+	                             <field name="service_type"/>
+	                             <field name='monthly_id' readonly="1" attrs="{'invisible':[('service_type','=','shl_cinema')]}"/>
+	                             <field name="user_id"/>
+	                        </group>
+                    </group>
+				</group>	
+			
+				
+				<button name="draft_validate" states="draft" string="Process Now" type="object" icon="gtk-yes" position="after">
+					<button name="print_Labels_Report" string="Print Labels" type="object" icon="gtk-print" attrs="{'invisible':[('monthly_id','=',False)]}"/>
+						<button name="print_delvry_order_report" string="Print Dispatch Order" icon="gtk-print" type="object" attrs="{'invisible':[('monthly_id','!=',False)]}"/>
+				</button>
+				
+				<button name="draft_force_assign" states="draft" string="Process Later" type="object" icon="gtk-ok" position="replace"/>
+				<button name="%(stock.action_stock_invoice_onshipping)d" 
+						string="Create Invoice" 
+						attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}"  
+						type="action" 
+						icon="terp-gtk-go-back-rtl"
+						position="replace"/>
+                
+               <!--	  ~~~~~~~~~~~~~~~~~~ In Lines - Tree View	~~~~~~~~~~~~~~~~~~	-->     
+	           <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_uos']" position="replace">
+	               <field name="product_uos" invisible="1"/>
+	           </xpath>  
+	           <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='scrapped']" position="replace">
+	               <field name="scrapped" invisible="1"/>
+	           </xpath> 
+	           <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="replace">
+	               <field name="prodlot_id" invisible="1"/>
+	           </xpath>  
+	           <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='tracking_id']" position="replace">
+	               <field name="tracking_id" invisible="1" />
+	           </xpath> 	               	           
+               <xpath expr="//button[@name='%(stock.move_scrap)d']" position="replace"/>	           
+               <xpath expr="//button[@name='%(stock.track_line)d']" position="replace"/>    
+               <xpath expr="//button[@name='%(stock.split_into)d']" position="replace"/>  
+               <xpath expr="//button[@name='%(stock.action_partial_move_server)d']" position="replace"/>                   
+               <xpath expr="//button[@name='setlast_tracking']" position="replace"/>
+               <xpath expr="//button[@name='action_done']" position="replace"/>
+                                         
+			 <!--	  ~~~~~~~~~~~~~~~~~~ In Lines - Form View	~~~~~~~~~~~~~~~~~~	-->	           
+               <xpath expr="///button[@name='%(stock.move_scrap)d']" position="replace"/>	
+	           <xpath expr="///field[@name='product_packaging']" position="replace"/>   	    
+	                     
+	           <xpath expr='///separator[@string="Traceability"]' position="replace"/>   	
+	           <xpath expr="///field[@name='tracking_id']" position="replace"/>   	     
+               <xpath expr="///button[@name='%(stock.split_into)d']" position="replace"/>  
+	           <xpath expr="///field[@name='prodlot_id']" position="replace"/>   
+               <xpath expr="///button[@name='%(stock.track_line)d']" position="replace"/> 
+               <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group[4]/field[@name='prodlot_id']" position="after">
+	                <field  colspan="4" name="ed_remarks"/>
+	           </xpath>  
+	           
+	            
+
+            </field>
+        </record>
+        
+   
+<!--   *****************  Inherited: Internal Moves	*****************	-->
+
+           <record id="ed_view_picking_form" model="ir.ui.view">
+            <field name="name">ed_view_picking_form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">   
+            
+              <field name="backorder_id" position="after">
+              	<field name="user_id" />
+              </field>
+			 <!--	  ~~~~~~~~~~~~~~~~~~ In Lines - Tree View	~~~~~~~~~~~~~~~~~~	-->
+	          <xpath expr="//field[@name='product_uos']" position="replace"/>   	           
+	          <xpath expr="//field[@name='scrapped']" position="replace"/>  	           
+	          <xpath expr="//field[@name='prodlot_id']" position="replace"/> 	           
+	          <xpath expr="//field[@name='tracking_id']" position="replace"/>  
+              <xpath expr="//button[@name='%(stock.move_scrap)d']" position="replace"/>	           
+              <xpath expr="//button[@name='%(stock.track_line)d']" position="replace"/>    
+              <xpath expr="//button[@name='%(stock.split_into)d']" position="replace"/>
+              <xpath expr="//button[@name='setlast_tracking']" position="replace"/> 
+            
+			 <!--	  ~~~~~~~~~~~~~~~~~~ In Lines - Form View	~~~~~~~~~~~~~~~~~~	-->	           
+               <xpath expr="///button[@name='%(stock.move_scrap)d']" position="replace"/>	
+	           <xpath expr="///field[@name='product_packaging']" position="replace"/>   	    
+	                     
+	           <xpath expr='///separator[@string="Traceability"]' position="replace"/>   	
+	           <xpath expr="///field[@name='tracking_id']" position="replace"/>   	     
+               <xpath expr="///button[@name='%(stock.split_into)d']" position="replace"/>  
+	           <xpath expr="///field[@name='prodlot_id']" position="replace"/>   
+               <xpath expr="///button[@name='%(stock.track_line)d']" position="replace"/> 
+			   
+			   <button name="%(stock.action_stock_invoice_onshipping)d" 
+			   		   string="Create Invoice"  
+			   		   attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}"  
+			   		   type="action" 
+			   		   icon="terp-gtk-go-back-rtl" 
+			   		   position="replace"/>
+			   		   
+			   <button name="draft_force_assign" states="draft" string="Process Later" type="object" icon="gtk-apply" position="replace"/>	
+					           		               
+            </field>
+        </record>
+        	           <!--   *****************  Inherited: Incoming Shipments	*****************	-->
+
+           <record id="ed_view_picking_in_form" model="ir.ui.view">
+            <field name="name">ed_view_picking_in_form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="arch" type="xml">   
+            
+            <field name="backorder_id" position="after">
+              	<field name="user_id" />
+              </field>
+            <button name="draft_force_assign" states="draft" string="Process Later" type="object" icon="gtk-ok" position="replace"/>
+            <button states="done" 
+            		name="%(stock.action_stock_invoice_onshipping)d" 
+            		string="Create Invoice" 
+            		attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}" 
+            		type="action" 
+            		icon="terp-gtk-go-back-rtl" position="replace"/>
+			 <!--	  ~~~~~~~~~~~~~~~~~~ In Lines-  Tree View	~~~~~~~~~~~~~~~~~~	-->
+	          <xpath expr="//field[@name='product_uos']" position="replace"/>   	           
+	          <xpath expr="//field[@name='scrapped']" position="replace"/>  	           
+	          <xpath expr="//field[@name='prodlot_id']" position="replace"/> 	           
+	          <xpath expr="//field[@name='tracking_id']" position="replace"/>  
+              <xpath expr="//button[@name='%(stock.move_scrap)d']" position="replace"/>	           
+              <xpath expr="//button[@name='%(stock.track_line)d']" position="replace"/>    
+              <xpath expr="//button[@name='%(stock.split_into)d']" position="replace"/>
+              <xpath expr="//button[@name='setlast_tracking']" position="replace"/> 
+            
+			 <!--	  ~~~~~~~~~~~~~~~~~~ In Lines - Form View	~~~~~~~~~~~~~~~~~~	-->	           
+               <xpath expr="///button[@name='%(stock.move_scrap)d']" position="replace"/>	
+	           <xpath expr="///field[@name='product_packaging']" position="replace"/>   	    
+	                     
+	           <xpath expr='///separator[@string="Traceability"]' position="replace"/>   	
+	           <xpath expr="///field[@name='tracking_id']" position="replace"/>   	     
+               <xpath expr="///button[@name='%(stock.split_into)d']" position="replace"/>  
+	           <xpath expr="///field[@name='prodlot_id']" position="replace"/>   
+               <xpath expr="///button[@name='%(stock.track_line)d']" position="replace"/> 
+	
+   </field>
+   </record>
+   
+   <!--   *****************  Inherited: Delivery Order	*****************	-->
+   
+   <record id="stock.action_picking_tree" model="ir.actions.act_window">
+            <field name="name">Delivery Orders</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('type','=','out')]</field>
+            <field name="context">{'contact_display': 'partner_address','search_default_available': 0}</field>
+            <field name="search_view_id" ref="stock.view_picking_out_search"/>
+            <field name="help">This is the list of all delivery orders that have to be prepared, according to your different sales orders and your logistics rules.</field>
+        </record>
+        <record id="stock.action_picking_tree_out_view1_waiting" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock.view_picking_out_tree"/>
+            <field name="act_window_id" ref="stock.action_picking_tree"/>
+        </record>
+        <record id="stock.action_picking_tree_out_view2_waiting" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_out_form"/>
+            <field name="act_window_id" ref="stock.action_picking_tree"/>
+        </record>
+        <record id="stock.action_picking_tree_out_view2_waiting_cal" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="act_window_id" ref="stock.action_picking_tree"/>
+        </record>
+   
+  </data>
+</openerp>  	

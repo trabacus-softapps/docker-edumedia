@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+edu_access_edu_partner_board,edu.partner.board,model_edu_partner_board,base.group_sale_salesman,1,1,1,1
+edu_access_edu_payment_detail,edu.payment.detail,model_edu_payment_detail,base.group_sale_salesman,1,1,1,1

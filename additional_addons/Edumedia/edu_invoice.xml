@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        
+<!--        Sale Order/ Quotation : Search Inherited  -->
+        <record id="view_edu_sales_order_filter" model="ir.ui.view">
+            <field name="name">edu.sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+                
+                <xpath expr="//filter[@string='Customer']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+<!--        Sale Order : Tree Inherited -->
+        <record id="view_edu_order_tree" model="ir.ui.view">
+            <field name="name">edu.sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">1</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+<!--        Sale Order : Form Inherited -->
+        <record id="edu_view_order_form" model="ir.ui.view">
+            <field name="name">edu_view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                    <attribute name="domain">[('parent_id','=', False)]</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Order Lines']/field/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="string">Students</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Order Lines']/field/tree/field[@name='product_uom_qty']" position="after">
+                    <field name = "no_section" />
+                    <field name = "no_boy" />
+                    <field name = "no_girl" />
+                </xpath>
+                <xpath expr="//page[@string='Order Lines']" position="after">
+                    <page string="Contact Person Details">
+                        <field name="child_partner_ids" domain="[('parent_id','=',partner_id)]" >
+                            <tree string ="School" >
+                                <field name= "name"/>
+                                <field name= "mobile"/>
+                                <field name= "email"/>
+                                <field name= "function"/>
+                            </tree>
+                        </field> 
+                    </page>
+                    <page string="Payment Details">
+                        <separator string="Payment Details"/>
+                        <field name="payment_detail_ids" >
+                            <tree string="Sales Order Lines" editable="bottom">
+                                <field name="name"/>
+                                <field name="bank_name"/>
+                                <field name="cheque_no"/>
+                                <field name="pay_date"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@string='Other Information']/group/group/field[@name='company_id']" position="after">
+                    <field name = "shipping_partner_id" domain = "['|',('customer','=',True),('supplier','=',True)]"/>
+                </xpath>
+            </field>
+        </record>
+        
+<!--        Quotation:  Tree Inherited  -->
+        <record id="edu_view_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">School</attribute>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

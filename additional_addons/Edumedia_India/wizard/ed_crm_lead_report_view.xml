@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- Leads by user and section Tree View -->
+
+        <record id="view_report_ed_crm_lead_tree" model="ir.ui.view">
+            <field name="name">ed.crm.lead.report.tree</field>
+            <field name="model">crm.lead</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml"> 
+            <tree string="Sales Tracker"> 
+            	<field name="nbr"/> 
+            	<field name="stage_id"/>
+                <field name="user_id" string="Assigned To"/>  
+                <field name="partner_id" string="School Name"/> 
+                <field name="address" string="Address"/>
+                <field name="city"/>
+                <field name="pincode"/>
+                <field name="curriculum_id" string="Syllabus/Curriculum"/>
+                <field name="strength_id"/>
+                <field name="contact" string="Principal Name"/>
+                <field name="phone" string="Contact Number"/>
+                <field name="c_email"/>
+                <field name="con_person" string="Contact Person1"/>
+                <field name="con_phone" string="Contact Number"/>
+                <field name="con_email" string="Contact Email"/>
+                <field name="chanel_id" string="Lead Source"/>
+                <field name="modules" />
+                <field name="prop_stu" />
+                <field name="rate_child"/>
+                <field name="exp_bill"/> 
+                <field name='background'/> 
+                <field name="date_action"/>
+                <field name="title_action"/>
+                <field name="rsn_reject"/>
+                <field name="rgn_rmks"/>
+                </tree>
+            </field>
+        </record>
+
+
+<!-- Leads by user and section Search View -->
+
+        <record id="view_report_ed_crm_lead_filter" model="ir.ui.view">
+            <field name="name">ed.crm.lead.report.select</field>
+            <field name="model">crm.lead</field>                   
+            <field name="priority">2</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Sales Tracker">
+                    <group col="20" colspan="8">
+                    	 <filter icon="terp-gtk-jump-to-rtl"
+                            string="RAW"
+                            domain="[('stage_id','=','Raw')]"
+                            help="Leads/Opportunities which are in Draft State"/>
+                        <filter icon="terp-stock_symbol-selection"
+                            string="Qualified Assigned"
+                            domain="[('stage_id','=','Qualified Assigned')]"
+                            help="Leads/Opportunities which are in Qualified Assigned State"/>
+                        <filter icon="terp-check"
+                            string="Activated"
+                            domain="[('stage_id','=','Activated')]"
+                            help="Leads/Opportunities which are in Activated State"/>
+                        <filter icon="terp-rating-rated"
+                            string="Meeting/Proposal"
+                            domain="[('stage_id','=','Meeting/Proposal')]"
+                            help="Leads/Opportunities which are in Qualified Prospect State"/>  
+                        <filter icon="gtk-media-pause"
+                            string="Moved To Crm"
+                            domain="[('stage_id','=','Moved TO CRM')]"
+                            help="Leads/Opportunities which are in Moved To CRM State"/>                     
+                        <filter icon="terp-dialog-close"
+                            string="Rejected"
+                            domain="[('stage_id','=','Rejected')]"
+                            help="Leads/Opportunities which are in Cancelled State"/>                
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Extended Filters..." groups="base.group_no_one">
+                        <field name="partner_id" string="School"/>
+                        <field name="create_date"/>
+                        <field name="date_open"/>
+                        <field name="date_closed"/>
+                        <field name="user_id" string="Assigned To"/>
+                    </group>
+                    <newline/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Assigned To" name="Eduvisor" icon="terp-personal"
+                            domain="[]" context="{'group_by':'user_id'}" />
+                        <filter string="City" name="City" icon="terp-go-home"
+                            domain="[]" context="{'group_by':'city'}" />
+                        <separator orientation="vertical" />
+                        <filter string="Stage" name="Stage" icon="terp-stage"
+                            domain="[]" context="{'group_by':'stage_id'}" />    
+                    </group>
+                </search>
+            </field>
+        </record>
+
+<!-- Leads by user and section Action -->
+  
+       <record id="action_report_ed_crm_opportunity" model="ir.actions.act_window">
+            <field name="name">Sales Tracker</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_type">form</field>
+           <field name="context">{'vw_type':'sales_t'}</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="domain">[('type', '=', 'opportunity')]</field>-->
+            <field name="help">Sales Tracker gives you an instant access to your sales with information such as the expected revenue, planned cost, missed deadlines or the number of interactions per sale. This report is mainly used by the sales manager in order to do the periodic review with the teams of the sales pipeline.</field>
+            <field name="search_view_id" ref="view_report_ed_crm_lead_filter"/>
+        </record>
+
+       <record model="ir.actions.act_window.view" id="action_report_ed_crm_opportunity_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_report_ed_crm_lead_tree"/>
+            <field name="act_window_id" ref="action_report_ed_crm_opportunity"/>
+            <field name="search_view_id" ref="view_report_ed_crm_lead_filter"/>
+       </record>
+              
+       <menuitem name="Sales Tracker" id="menu_report_ed_crm_opportunities_tree"
+          
+            parent="menu_ed_reports" action="action_report_ed_crm_opportunity" sequence="4"/>
+
+    </data>
+</openerp>
