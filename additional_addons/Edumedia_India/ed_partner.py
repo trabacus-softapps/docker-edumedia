@@ -7,6 +7,7 @@ class res_partner(osv.osv):
     _inherit = 'res.partner'
       
     def fields_view_get(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):
+        """ Fileds view get """
         context = dict(context or {})
         sup_id = cust_id = mentor = 0  
         
