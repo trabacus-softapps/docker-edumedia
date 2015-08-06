@@ -507,9 +507,13 @@
 			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
        	</record>      	
 
-       	<record model='ir.ui.menu' id='menu_action_ed_mentor_partner2'>
+<!--       	<record model='ir.ui.menu' id='menu_action_ed_mentor_partner2'>
 			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
-       	</record>      	
+       	</record>   -->  
+		
+		<record model='ir.ui.menu' id='menu_action_partner'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
+       	</record>    
        	
        	<record model='ir.ui.menu' id='menu_edumedia_subscrip'>
 			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('ed_mentor')])]"/>
@@ -735,7 +739,7 @@
 <!-- __________________________________________ADMINISTRATION___________________________________________-->			
 
 		<record model='ir.ui.menu' id='base.menu_administration'>
-			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('base.group_system')])]"/>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('base.group_system'),ref('base.group_no_one')])]"/>
 		</record>  
 			
 <!--        		<record model='ir.ui.menu' id='smsclient.menu_smsclient_administration_server'> -->
@@ -743,13 +747,13 @@
 <!-- 			</record>  -->
 			
 		<record model='ir.ui.menu' id='base.menu_users'>
-			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('base.group_system')])]"/>
+			<field name="groups_id" eval="[(6,0,[ref('ed_admin'),ref('base.group_system'),ref('base.group_no_one')])]"/>
 	    </record> 
 		    
 		    
 <!-- _______________________________________________Removed Menu________________________________________ -->
 	  	<record model='ir.ui.menu' id='base.menu_base_partner'>
-			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+	  		<field name="groups_id" eval="[(6,0,[ref('base.group_system'),ref('base.group_sale_salesman'),ref('base.group_sale_salesman_all_leads'),ref('base.group_sale_manager')])]"/>
 		</record>
 		
 		<record model='ir.ui.menu' id='base.menu_config'>

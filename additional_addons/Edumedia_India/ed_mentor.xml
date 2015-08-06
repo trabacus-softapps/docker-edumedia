@@ -47,7 +47,8 @@
    			</search>
    		</field>
    	</record>
-   	
+   
+   <!--
    	<record id="view_ed_partner_mentor_tree" model="ir.ui.view">
    		<field name="name">ed_partner_mentor_tree</field>
    		<field name="model">res.partner</field>
@@ -72,10 +73,9 @@
    		<field name="name">view_ed_mentor_partner_form</field>
    		<field name="model">res.partner</field> 
    		<field name="type">form</field>
-   		<field name="priority">2</field>
+   		<field name="priority">16</field>
    		<field name="arch" type="xml">
    			<form string="Database" col='1'>
-   				<!--                          <button name="mark_Subscription" string="Mark Subscription" type="object" icon="gtk-confirm"/> -->
    				
    				<group col="10" colspan="2">
    					<group colspan="2" col="4">
@@ -91,39 +91,7 @@
    				<notebook colspan="4">
    					<page string="General">
    						<field colspan="4"  name="child_ids" nolabel="1" select="1" height="260">
-   							<!--<form string="Partner Contacts">
-		                            		    <group colspan="4" col="6">
-			                                        <field name="name"/>
-			                                        <field name="ed_desig_id" widget="selection"/>
-			                                  </group>
-			                                  <newline/>
-			                                  <group colspan="2" col="4">
-			                                        <separator string="Postal Address" colspan="4" col="4" />
-			                                        <field name="type" string="Type" colspan="2"/>
-			                                        <field name="street" colspan="4"/>
-			                                        <field name="street2" colspan="4"/>
-			                                        <field name="zip"/>
-			                                        <field name="country_id" completion="1"/>
-			                                        <field name="state_id" domain="[('country_id','=',country_id)]"/>
-			                                        <field name="ed_city_id" domain="[('state_id','=',state_id)]" select="1"/>	                                        
-			                                  </group>
-			                                  <group colspan="2" col="2">
-			                                        <separator string="Communication" colspan="2" col="2" />
-			                                        <field name="phone"/>
-			                                        <field name="mobile"/>
-			                                        <field name="fax"/>
-			                                        <field name="email" widget="email"/>
-			                                        <field name="ed_birth" attrs="{'invisible':[('type', '!=','contact')]}"/>
-											  </group>
-			                            </form>
-			                            <tree string="Partner Contacts">
-			                                  <field name="name"/>
-			                                  <field name="zip"/>
-								 			  <field name="ed_city_id"/>
-		                                      <field name="country_id"/>
-			                                  <field name="phone"/>
-			                                  <field name="email"/>
-			                            </tree>-->
+   							
    						</field>
    						<group  groups="base.group_no_one">
    							<separator colspan="4" string="Categories"/>
@@ -157,11 +125,11 @@
    			</form>
    		</field>
    	</record>
-   	
+   	-->
    	
    	<!-- *********************************************************************** 	   
 				   Mentor->Subscription->Subscription
-	  *********************************************************************** --> 
+	  ***********************************************************************  
    	<record id="action_ed_mentor_partner2" model="ir.actions.act_window">
    		<field name="name">Database</field>
    		<field name="type">ir.actions.act_window</field>
@@ -176,17 +144,75 @@
    		<field name="sequence" eval="1"/>
    		<field name="view_mode">tree</field>
    		<field name="domain">[]</field>
+   		<field name="priority">2</field>
    		<field name="view_id" ref="view_ed_partner_mentor_tree"/> 
    		<field name="act_window_id" ref="action_ed_mentor_partner2"/>
    	</record> 
    	<record model="ir.actions.act_window.view" id="action_ed_mentor_partner_form2">
    		<field name="sequence" eval="2"/>
+   		<field name="priority">2</field>
    		<field name="view_mode">form</field>
    		<field name="view_id" ref="view_ed_mentor_partner_form"/>
    		<field name="act_window_id" ref="action_ed_mentor_partner2"/> 
-   	</record> 
+   	</record> -->
    	
-   	<menuitem action="action_ed_mentor_partner2" id="menu_action_ed_mentor_partner2" name="Database" parent="menu_edumedia_mentor" sequence="1"/>
+<!--   	<menuitem action="action_ed_mentor_partner2" id="menu_action_ed_mentor_partner2" name="Database" parent="menu_edumedia_mentor" sequence="1"/>
+-->   	
+   	
+   	
+   	
+   	<record id="mentor_view_partner_form" model="ir.ui.view">
+   		<field name="name">mentor.res.partner.form</field>
+   		<field name="model">res.partner</field>
+   		<field name="inherit_id" ref="base.view_partner_form"/>
+   		<field eval="1" name="priority"/>
+   		<field name="arch" type="xml">
+   			<xpath expr="//notebook" position="before">
+   				<group col="6" colspan="2">
+   					<field name="ed_sh_subscrip"/>
+   					<field name="ed_sh_complem" attrs="{'invisible': [('ed_sh_subscrip', '=',True)]}"/>
+   					<field name="ed_source" attrs="{'invisible': [('ed_sh_subscrip', '=',True)]}"/>
+   				</group>
+   			</xpath>
+   		</field>
+   	</record>
+   	
+   	
+   	<record id="action_partner_form_database" model="ir.actions.act_window">
+   		<field name="name">Database</field>
+   		<field name="type">ir.actions.act_window</field>
+   		<field name="res_model">res.partner</field>
+   		<field name="view_type">form</field>
+   		<field name="view_mode">kanban,tree,form</field>
+   		<field name="domain">[('customer','=',True)]</field>
+   		<field name="context">{"search_default_customer":1,'mentor':1}</field>
+   		<field name="search_view_id" ref="base.view_res_partner_filter"/>
+   		<field name="help" type="html">
+   			<p class="oe_view_nocontent_create">
+   				Click to add a contact in your address book.
+   			</p><p>
+   				Odoo helps you easily track all activities related to
+   				a customer; discussions, history of business opportunities,
+   				documents, etc.
+   			</p>
+   		</field>
+   	</record>
+   	
+   	<record model="ir.actions.act_window.view" id="action_ed_partner_tree2">
+   		<field name="sequence" eval="1"/>
+   		<field name="view_mode">tree</field>
+   		<field name="view_id" ref="base.view_partner_tree"/> 
+   		<field name="act_window_id" ref="action_partner_form_database"/>
+   	</record> 
+   	<record model="ir.actions.act_window.view" id="action_ed_partner_form2">
+   		<field name="sequence" eval="2"/>
+   		<field name="view_mode">form</field>
+   		<field name="view_id" ref="base.view_partner_form"/>
+   		<field name="act_window_id" ref="action_partner_form_database"/>
+   	</record>
+   	
+   	<menuitem action="action_partner_form_database" id="menu_action_partner" name="Database" parent="menu_edumedia_mentor" sequence="1"/>
+   	
    	
    	
 	

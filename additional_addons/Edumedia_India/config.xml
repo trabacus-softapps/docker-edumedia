@@ -859,6 +859,9 @@
 			<field name="view_mode">tree,form</field>
 	    </record>
 	    <!-- 	    *************************************res.company***************************************** -->
+   	
+   	<menuitem id="base.menu_res_company_global" parent="base.menu_administration" name="Companies" sequence="2"
+   		groups="base.group_no_one"/>
 	    
         <record model="ir.ui.view" id="ed_company_inherit_form">
             <field name="name">ed_company_inherit_form</field>
@@ -871,7 +874,7 @@
                   		    <field name="sch_terms" colspan="4" string=""/>
                   		</page>
                   		<page string="Sponsors">
-                  			<field name="sponsor_ids"  mode="tree,form" widget="one2many_list" nolabel="1" >
+                  			<field name="sponsor_ids"   widget="one2many_list" nolabel="1" >
 	                  			<tree string="Sponsors">	
 									<field name="ed_skills"/>
 									<field name="scity_id" />							
