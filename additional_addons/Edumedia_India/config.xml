@@ -1329,9 +1329,13 @@
 			<field name="model">ed.performance.review</field>
 			<field name="type">form</field>
 		    <field name="arch" type="xml">
-				<form string="Performance Review">				
-                    <field name="name"  />
-				 	<field name="value" />				 	
+				<form string="Performance Review">
+					<sheet>
+						<group col="4" colspan="2">
+	                    	<field name="name"  />
+					 		<field name="value" />
+						</group>
+					</sheet>
 				   </form>
 			</field>
 		</record>	
@@ -1367,10 +1371,15 @@
 			<field name="model">ed.skill.behave</field>
 			<field name="type">form</field>
 		    <field name="arch" type="xml">
-				<form string="Skills and Behaviour">				
-                    <field name="name"  />                   
-                    <separator string="Description"/>
-				 	<field name="desc" nolabel="1" colspan="8"/>				 	
+				<form string="Skills and Behaviour">
+					<sheet>
+						<group>
+		                    <field name="name"  />                   
+		                    <separator string="Description"/>
+						 	<field name="desc" nolabel="1" colspan="8"/>
+						</group>
+					</sheet>
+						
 			    </form>
 			</field>
 		</record>	
@@ -1405,8 +1414,12 @@
 			<field name="model">ed.hr.training</field>
 			<field name="type">form</field>
 		    <field name="arch" type="xml">
-				<form string="Traning Need Analysis">				
-                   <field name="name"/>			 	
+				<form string="Traning Need Analysis">
+					<sheet>
+						<group>
+                   			<field name="name"/>
+						</group>
+					</sheet>
 			    </form>
 			</field>
 		</record>	
@@ -1442,7 +1455,11 @@
 			<field name="type">form</field>
 		    <field name="arch" type="xml">
 				<form string="Initiator">
-                    <field name="name" colspan="8" />
+					<sheet>
+						<group>
+                    		<field name="name"/>
+						</group>
+					</sheet>
                 </form>
 			</field>
 		</record>	
@@ -1480,8 +1497,12 @@
 			<field name="type">form</field>
 		    <field name="arch" type="xml">
 				<form string="Human Resource Assessment">
-					<field name="name"  />
-                    <field name="out_of"  />
+					<sheet>
+						<group col="4" colspan="2">
+							<field name="name"  />
+	                    	<field name="out_of"  />
+						</group>
+					</sheet>
                 </form>
 			</field>
 		</record>	
@@ -1590,8 +1611,12 @@
 			<field name="type">form</field>
 	        <field name="arch" type="xml">
 				<form string="Peer/Supervisor Parameters">
-					<field name ="name" required="1"/>
-					<field name="type" required="1"/>
+					<sheet>
+						<group col="4" colspan="2">
+							<field name ="name" required="1"/>
+							<field name="type" required="1"/>
+						</group>
+					</sheet>
 				</form>
 		    </field>
 	  	</record>

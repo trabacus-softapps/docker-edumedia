@@ -5,7 +5,7 @@
     'description': """Module for Edumedia  which keep customer records and provide smooth running of sales...""",
     'author': 'SoftApps IT Solutions(P) Ltd',
     'website':'https://www.softappsit.com',
-    'depends': ['base',
+    'depends': ['base','sale',
                 #'crm', 'account','account_voucher','mrp', 
                 #'purchase','sale', 'sale_crm', 'project_issue','document',
                 'board','hr_attendance','hr_payroll','hr_expense','hr_contract', 'document' ],

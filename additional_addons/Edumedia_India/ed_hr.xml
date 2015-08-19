@@ -111,7 +111,8 @@
 	                            <group col="4" colspan="4">
 	                                <separator string="Contact Information" colspan="4"/>
 	                                <newline/>
-	                                <field name="address_home_id" colspan="2"/>
+	                            	<field name="address_home"/>
+	                                <!--<field name="address_home_id" colspan="2"/>-->
 <!--	                                <field name="partner_id" invisible="1" />
 -->	                                <field name="address_id" colspan="2" on_change="onchange_address_id(address_id)"/>
 	                                <field name="work_phone"/>
@@ -242,12 +243,12 @@
 	                        <newline/>
 	                        <field name="department_id" widget="selection" readonly="1"/>
 	                        <field name="manager_id" readonly="1"/>
-	                         <field name="manager2_id" /> 
-                             <field name="manager3_id" />   
+	                         <field name="manager2_id" readonly="1"/> 
+                        	<field name="manager3_id" readonly="1"/>   
 <!-- 	                        <button name="do_create_attendance" string="Schedule" type="object"  icon="gtk-go-forward" colspan="4"/> -->
 	                        </group>
 	                        <group colspan="2" col="1">
-	                        <field name="image_medium" widget='image' nolabel="1" readonly="1"/>
+	                        <field name="image_medium" widget='image' nolabel="1" readonly="0"/>
 	                        </group>
 	                    </group>
 	                    <notebook colspan="6">
@@ -282,8 +283,9 @@
 	                            </group>
 	                            <group col="4" colspan="4">
 	                                <separator string="Contact Information" colspan="4"/>
-	                                <field name="address_home_id" colspan="2" readonly="1"/>
-	                                <!--<field name="partner_id" invisible="1" />-->
+	                            	<field name="address_home"/>
+<!--	                                <field name="address_home_id" colspan="2" readonly="1"/>
+-->	                                <!--<field name="partner_id" invisible="1" />-->
 	                                <field name="address_id" colspan="2" on_change="onchange_address_id(address_id)" readonly="1"/>
 	                                <field name="work_phone" readonly="1"/>
 	                                <field name="mobile_phone" readonly="1"/>
@@ -391,12 +393,12 @@
 	                        <newline/>
 	                        <field name="department_id" widget="selection" readonly="1"/>
 	                        <field name="manager_id" readonly="1"/>
-	                         <field name="manager2_id" /> 
-                             <field name="manager3_id" />   
+	                        	<field name="manager2_id" readonly="1"/> 
+	                        	<field name="manager3_id" readonly="1"/>   
 <!-- 	                        <button name="do_create_attendance" string="Schedule" type="object"  icon="gtk-go-forward" colspan="4"/> -->
 	                        </group>
 	                        <group colspan="2" col="1">
-	                        <field name="image_medium" widget='image' nolabel="1" readonly="1"/>
+	                        <field name="image_medium" widget='image' nolabel="1" readonly="0"/>
 	                        </group>
 	                    </group>
 	                    <notebook colspan="6">
@@ -431,8 +433,9 @@
 	                            </group>
 	                            <group col="4" colspan="4">
 	                                <separator string="Contact Information" colspan="4"/>
-	                                <field name="address_home_id" colspan="2" readonly="1"/>
-<!--	                                <field name="partner_id" invisible="1" />
+	                            	<field name="address_home"/>
+<!--	                                <field name="address_home_id" colspan="2" readonly="1"/>
+--><!--	                                <field name="partner_id" invisible="1" />
 -->	                                <field name="address_id" colspan="2" on_change="onchange_address_id(address_id)" readonly="1"/>
 	                                <field name="work_phone" readonly="1"/>
 	                                <field name="mobile_phone" readonly="1"/>

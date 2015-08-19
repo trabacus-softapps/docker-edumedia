@@ -7,7 +7,7 @@ EmpApp_STATES =  [('draft','Draft'),
                   ('emp_submit','Submitted by Employee'),
                   ('emp_timeout','Time Out'),
                   ('man_acpt','Approved by Manager'),
-                  ('man_timeout','Time Outmmmmmmmmmmm'), 
+                  ('man_timeout','Time Outmm'), 
                   ('hr_acpt','Approved by HR'),
                   ('done','Done'),
                   ('cancel','Cancelled')]
@@ -72,6 +72,7 @@ class hr_employee(osv.osv):
                  'pf_no':fields.char('PF Account No',size=15),
                  'late_count':fields.integer('Late Count'),
                  'emp_alloc_ids' : fields.one2many('ed.hr.allocation','hr_emp_id','Allocation',ondelete = 'cascade'),
+                 'address_home'  : fields.char('Home Address', size=256)
                  
                  } 
  
@@ -323,8 +324,10 @@ class ed_resource_appraisal(osv.osv):
                                                'My Appraisal link of the HR menu to enter your remarks.'
                                        ,'priority':'2'
                                          } 
-                            req_id = reqst_obj.create(cr, uid, vals)
-                            reqst_obj.request_send(cr, uid, [req_id])
+#                             Commenteb By Mani
+#                             TODO: Notification to Employee
+                            #req_id = reqst_obj.create(cr, uid, vals)
+                            #reqst_obj.request_send(cr, uid, [req_id])
                                 
                     EmpApp_obj.write(cr, uid, EmpAppids, {})
         return True
@@ -665,7 +668,7 @@ class ed_app_initiator(osv.osv):
     _columns  = {
                   'appraisal_id' : fields.many2one('ed.appraisal','Appraisals'),
                   'initiate_ques' : fields.char('Question',size=500),
-                  'initiate_desc' : fields.text('Description', readonly=True, states={'draft': [('readonly', False)]}),
+                  'initiate_desc' : fields.text('Description', readonly=True),
                   'state' : fields.related('appraisal_id', 'state', type='selection', selection=EmpApp_STATES, string='Parent State'),
                   'name':fields.char('Name',size=5),
                  }  

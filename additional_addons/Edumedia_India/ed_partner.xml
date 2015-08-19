@@ -347,6 +347,9 @@
 	            <field name="view_id" ref="view_ed_partner_form"/>
 	            <field name="act_window_id" ref="action_ed_partner1"/>
         </record> 
+   	
+   
+   	
      	<menuitem action="action_ed_partner1" id="menu_action_ed_partner1" name="Database" parent="menu_edumedia_customer" sequence="1"/>
      
 <!-- ************************************************************************************************************
