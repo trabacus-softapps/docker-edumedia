@@ -109,14 +109,15 @@ class hr_holidays(osv.osv):
                 reqst_obj.request_send(cr, uid, req_ids)
         return res
     
-    def holidays_validate2(self, cr, uid, ids, context=None):
+    def holidays_validate(self, cr, uid, ids, context=None):
+        context = dict(context or {})
         Attend_obj = self.pool.get("ed.attendance")
         reqst_obj = self.pool.get('res.request')
         user_obj = self.pool.get('res.users')
-        res = super(hr_holidays, self).holidays_validate2(cr, uid, ids)         
+        res = super(hr_holidays, self).holidays_validate(cr, uid, ids, context)         
         for case in self.browse(cr, uid, ids):
             absent_rec_ids = Attend_obj.search(cr,uid,[('employee_id','=',case.employee_id.id),('log_date','>=',case.date_from),('log_date','<=',case.date_to),('state','=','absent')])
-            Attend_obj.write(cr, uid, absent_rec_ids, {'state':case.holiday_status_id.type,'remarks':case.name})
+            Attend_obj.write(cr, uid, absent_rec_ids, {'state':case.holiday_status_id.name,'remarks':case.name})
 #            if absent_rec_ids:
 #                for ab in Attend_obj.browse(cr,uid,absent_rec_ids):
 #                    cr.execute("select extract(hour from '%s'::time - '%s'::time) as hrs"%(case.date_to,case.date_from))

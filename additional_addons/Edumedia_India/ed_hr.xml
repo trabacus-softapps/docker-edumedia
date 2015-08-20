@@ -548,10 +548,14 @@
 				<field name="model">ed.holiday</field>
 				<field name="type">form</field>
 			    <field name="arch" type="xml">
-				<form string="Holidays">				
-                    <field name="name"  />
-				 	<field name="h_date" />
-				 	<field name="city_id"/>
+				<form string="Holidays">
+					<sheet>
+						<group col="4" colspan="2">
+		                    <field name="name"/>
+						 	<field name="h_date" />
+						 	<field name="city_id"/>
+						</group>
+					</sheet>
 				</form>
 				</field>
 		</record>	

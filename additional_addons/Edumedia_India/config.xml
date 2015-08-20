@@ -1535,8 +1535,12 @@
             <field name="model">ed.hr.status</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Status" > 
-                    <field name="name"/>
+                <form string="Status">
+                	<sheet>
+                		<group>
+                    		<field name="name"/>
+                		</group>
+                	</sheet>
                 </form>
             </field>
         </record>

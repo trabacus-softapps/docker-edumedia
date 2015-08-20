@@ -40,6 +40,7 @@
                    'ed_leaves.xml',  
                    'ed_payroll.xml',            
                    'security/security.xml',
+                   'ed_schedular.xml',
 #                    'security/Admin/ir.model.access.csv',
 #                    'security/Leads/ir.model.access.csv',
 #                    'security/SCM/ir.model.access.csv',

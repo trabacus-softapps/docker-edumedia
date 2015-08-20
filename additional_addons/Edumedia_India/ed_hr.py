@@ -653,7 +653,7 @@ class ed_appraisal(osv.osv):
         data['ids'] = ids 
         data['model'] = 'ed.appraisal'
         return {
-                'report_name': 'ed.appraisal',
+                'report_name': 'Appraisal',
                 'type': 'ir.actions.report.xml',
                 'target': 'new',
                 'datas': data,

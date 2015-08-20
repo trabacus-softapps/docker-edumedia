@@ -190,17 +190,17 @@ Managing Director"""
                 
                 
             if emails and email_from: 
-                flag = tools.email_send(
+                flag = openerp.tools.email_send(
                     email_from,
                     emails,
                     subject, 
                     body,
                     email_cc = email_cc,
-                    attach = [],
+                    #attach = [],
                     subtype = subtype,
                     reply_to = email_from,
                     openobject_id = str(case.id),
-                    x_headers = {}
+                    headers = {}
                 )
 
                 if not flag:
@@ -263,17 +263,17 @@ Managing Director"""
                     
                     
                 if emails and email_from: 
-                    flag = tools.email_send(
+                    flag = openerp.tools.email_send(
                         email_from,
                         emails,
                         subject, 
                         body,
                         email_cc = email_cc,
-                        attach = [],
+                        #attach = [],
                         subtype = subtype,
                         reply_to = email_from,
                         openobject_id = str(case.id),
-                        x_headers = {}
+                        headers = {}
                     )
     
                     if not flag:

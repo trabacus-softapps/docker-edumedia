@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <!--	*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+						Scheduler to create Attendance
+		*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. -->
+        
+        <record forcecreate="True" id="ed_run_scheduler" model="ir.cron">
+            <field name="name">Create Attendance</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall" />
+            <field eval="'hr.employee'" name="model" />
+            <field eval="'do_create_attendance'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+        
+        
+        <!--	*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+						Scheduler to Create Leaves
+		*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. -->
+        
+        <record forcecreate="True" id="ed_leave_scheduler" model="ir.cron">
+            <field name="name">Create Leaves</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall" />
+            <field eval="'hr.employee'" name="model" />
+            <field eval="'do_create_earned_leaves'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+        
+        <!--	*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+						Scheduler to Create Reminders
+		*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. -->
+        
+        <record forcecreate="True" id="ed_remainder_scheduler" model="ir.cron">
+            <field name="name">Create Reminders</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall" />
+            <field eval="'hr.employee'" name="model" />
+            <field eval="'do_remainder_mail'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+    </data>
+</openerp>

@@ -422,9 +422,14 @@ class hr_employee(osv.osv):
                 currentday = ((parser.parse(''.join((re.compile('\d')).findall(logdate))))).strftime("%a").lower()
                 wrkday = siMaps.get(currentday, 'NonWorkingDay')
                 
+#                 cr.execute ("""select id from hr_attendance 
+#                                            where id = (select max(id) from hr_attendance where  day = '""" + str(logdate) + """' and employee_id = """ + str(case.id) + """)
+#                                            or id = (select min(id) from hr_attendance where  day = '""" + str(logdate) + """' and employee_id = """ + str(case.id) + """)
+#                                            order by id """) 
+
                 cr.execute ("""select id from hr_attendance 
-                                           where id = (select max(id) from hr_attendance where  day = '""" + str(logdate) + """' and employee_id = """ + str(case.id) + """)
-                                           or id = (select min(id) from hr_attendance where  day = '""" + str(logdate) + """' and employee_id = """ + str(case.id) + """)
+                                           where id = (select max(id) from hr_attendance where  name::date = '""" + str(logdate) + """' and employee_id = """ + str(case.id) + """)
+                                           or id = (select min(id) from hr_attendance where  name::date = '""" + str(logdate) + """' and employee_id = """ + str(case.id) + """)
                                            order by id """) 
                 TodaysLogs =[]
                 IOlogs = cr.fetchall()
@@ -432,7 +437,7 @@ class hr_employee(osv.osv):
                     TodaysLogs.append(lg[0])
      
      
-                Holidays = Hols_obj.search(cr, uid, [('h_date::date','=', logdate)])
+                Holidays = Hols_obj.search(cr, uid, [('h_date','=', logdate)])
                                
                 cr.execute("""SELECT hol.id FROM hr_holidays hol WHERE hol.employee_id = """ + str(case.id) + """ 
                                 AND hol.state='validate'
@@ -440,8 +445,11 @@ class hr_employee(osv.osv):
                 
                 LeaveRecords = cr.fetchone()
                 
+#                 ExistsTodaysLogs = edatt_obj.search(cr, uid, [('employee_id','=',case.id)
+#                                                              ,('log_date','=',logdate)], order = 'name') 
+                
                 ExistsTodaysLogs = edatt_obj.search(cr, uid, [('employee_id','=',case.id)
-                                                             ,('log_date::date','=',logdate)], order = 'name') 
+                                             ,('log_date','=',logdate)])
                 
                 cr.execute("""SELECT tf.id FROM ed_time_off tf WHERE tf.emp_id = """ + str(case.id) + """ AND tf.state='validate'
                                                            AND '""" + str(logdate) + """' BETWEEN tf.start_date::date AND tf.end_date::date order by tf.id DESC;""")
@@ -452,8 +460,8 @@ class hr_employee(osv.osv):
                    if Holidays and not ExistsTodaysLogs :    
                        edatt_obj.create(cr, uid, { 'employee_id': case.id
                                                    , 'log_date':logdate
-                                                   , 'sign_in': time.strftime("00:00:00")
-                                                   , 'sign_out': time.strftime("00:00:00")
+                                                   , 'sign_in': time.strftime("%Y-%m-%d 00:00:00")# addes %Y-%m-%d" by mani
+                                                   , 'sign_out': time.strftime("%Y-%m-%d 00:00:00")# addes %Y-%m-%d" by mani
                                                    , 'state': 'holiday' 
                                                   })                    
                        HRlog_obj.write(cr, uid, TodaysLogs, {'validated_ok':True})
@@ -464,8 +472,8 @@ class hr_employee(osv.osv):
                    elif not TodaysLogs and wrkday != 'NonWorkingDay' and not ExistsTodaysLogs:
                            edatt_obj.create(cr, uid, { 'employee_id': case.id
                                                         , 'log_date':logdate
-                                                        , 'sign_in': time.strftime("00:00:00")
-                                                        , 'sign_out': time.strftime("00:00:00")
+                                                        , 'sign_in': time.strftime("%Y-%m-%d 00:00:00")# addes %Y-%m-%d" by mani
+                                                        , 'sign_out': time.strftime("%Y-%m-%d 00:00:00")# addes %Y-%m-%d" by mani
                                                         , 'state': 'absent'
                                                         , 'no_days': 1  
                                                        })
@@ -610,7 +618,9 @@ class hr_employee(osv.osv):
         emp_obj = self.pool.get('hr.employee')
         emp_ids = self.search(cr, uid, [])
         holstat_obj = self.pool.get('hr.holidays.status')
-        holstat_id = holstat_obj.search(cr,uid,[('name','=','Earned Leave')])[0]
+        holstat_id = holstat_obj.search(cr,uid,[('name','=','Earned Leave')])
+        holstat_id = holstat_id and holstat_id[0] or False
+        
         for case in emp_obj.browse(cr,uid,emp_ids):
             lv_alloc_ids = Leave_obj.search(cr,uid,[('aloc_date','<=',time.strftime("%Y-%m-%d %H:%M:%S'")),('employee_id','=',case.id),('type','=','add'),('state','=','validate')])
             if lv_alloc_ids:
@@ -628,7 +638,8 @@ class hr_employee(osv.osv):
                                                     ,'aloc_date':time.strftime("%Y-%m-%d")
                                                     ,'state':'draft'})
                            Leave_obj.holidays_confirm( cr, uid, [Leave_id])
-                           Leave_obj.holidays_validate2(cr, uid, [Leave_id], context) 
+                           Leave_obj.holidays_validate(cr, uid, [Leave_id], context) 
+                           
             elif case.ac_conform_due_date:
                 actual_con_date = ((parser.parse(''.join((re.compile('\d')).findall(case.ac_conform_due_date))))).strftime("%Y-%m-%d")
                 if  actual_con_date < time.strftime("%Y-%m-%d"):
@@ -640,7 +651,7 @@ class hr_employee(osv.osv):
                                             ,'aloc_date':time.strftime("%Y-%m-%d")
                                             ,'state':'draft'})
                    Leave_obj.holidays_confirm( cr, uid, [Leave_id])
-                   Leave_obj.holidays_validate2(cr, uid, [Leave_id], context)    
+                   Leave_obj.holidays_validate(cr, uid, [Leave_id], context)    
         return True
     
     def do_remainder_mail(self, cr, uid, automatic=False, use_new_cursor=False, context=None):
@@ -673,8 +684,8 @@ class hr_employee(osv.osv):
             subtype = 'plain'
             comp_email = ''
             if case.company_id:
-               addr_id = Addr_obj.search(cr,uid,[('partner_id','=',case.company_id.id)])[0]
-               comp_email = Addr_obj.browse(cr,uid,addr_id).email 
+               #addr_id = Addr_obj.search(cr,uid,[('partner_id','=',case.company_id.id)])[0]
+               comp_email = case.company_id.email 
             email_to = case.work_email
             email_from = comp_email
             email_cc = comp_email
@@ -710,17 +721,17 @@ class hr_employee(osv.osv):
                 body += """ Regards, \n\n The Edumedia HR Team.""" 
                 
             if emails and email_from: 
-                flag = tools.email_send(
+                flag = openerp.tools.email_send(
                     email_from,
                     emails,
                     subject, 
                     body,
                     email_cc = email_cc,
-                    attach = [],
+                    #attach = [],
                     subtype = subtype,
                     reply_to = email_from,
                     openobject_id = str(case.id),
-                    x_headers = {}
+                    headers = {}
                 )
 
                 if not flag:
