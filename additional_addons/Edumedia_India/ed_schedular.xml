@@ -53,5 +53,12 @@
             <field eval="'do_remainder_mail'" name="function" />
             <field eval="'()'" name="args" />
         </record>
+        
+        <record model="ir.rule" id="holiday_view_rule">
+            <field name="name">Holidays Dashboard</field>
+            <field name="model_id" search="[('model','=','ed.vw.holidays')]" model="ir.model"/>
+            <field name="domain_force">[('city_id','=',user.city_id.id),('h_year','=',time.strftime('%Y'))]</field>
+        </record>
+        
     </data>
 </openerp>

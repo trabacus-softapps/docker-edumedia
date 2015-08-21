@@ -406,7 +406,8 @@ class hr_employee(osv.osv):
         else :
             logdate = time.strftime("%Y-%m-%d")
         emp_ids = self.search(cr, uid, [('active','=',True)])
-#        emp_ids = [2] 
+#         emp_ids = [113]
+#         logdate = '2015-08-20' 
         while( logdate <= time.strftime("%Y-%m-%d")):
             for case in self.browse(cr, uid, emp_ids):
                 siMaps = {}
@@ -498,6 +499,8 @@ class hr_employee(osv.osv):
                                   resval = {}
                                   logday = ((parser.parse(''.join((re.compile('\d')).findall(ha.name))))).strftime("%a").lower()
                                   logSItym = rec.sign_in
+                                  logSItym = ((parser.parse(''.join((re.compile('\d')).findall(rec.sign_in))))).strftime("%H:%M:%S")
+                                  
                                   logSOtym = ((parser.parse(''.join((re.compile('\d')).findall(ha.name))))).strftime("%H:%M:00")
                                                                  
                                   wrkSItym = siMaps.get(((parser.parse(''.join((re.compile('\d')).findall(rec.log_date))))).strftime("%a").lower(), 'NonWorkingDay')
@@ -531,7 +534,7 @@ class hr_employee(osv.osv):
                                       lt_count = case.late_count + 1
                                       self.write(cr,uid,[case.id],{'late_count':lt_count}) 
                                       resval['state'] = 'present'
-                                      resval['remarks'] = 'Incorrect Login/out Time!!'
+                                      resval['remarks'] = 'Late Login/Logout !!'
                                       resval['late_ok'] = True
                                       
                                   else:
@@ -594,8 +597,8 @@ class hr_employee(osv.osv):
                                            # Half Day Leave
                                            edatt_obj.create(cr, uid, { 'employee_id': case.id
                                                                      , 'log_date':rec.log_date
-                                                                     , 'sign_in': time.strftime("00:00:00")
-                                                                     , 'sign_out': time.strftime("00:00:00")
+                                                                     , 'sign_in': time.strftime("%Y-%m-%d 00:00:00")
+                                                                     , 'sign_out': time.strftime("%Y-%m-%d 00:00:00")
                                                                      , 'wrk_hrs' : rec.wrk_hrs
                                                                      , 'wrked_hrs':rec.wrked_hrs
                                                                      , 'state': 'absent' 

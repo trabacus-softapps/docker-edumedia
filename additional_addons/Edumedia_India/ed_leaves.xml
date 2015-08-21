@@ -445,7 +445,7 @@
 				   <field name="type">tree</field>
 				   <field name="arch" type="xml">
 				          <tree string="Team Time Off" >
-				           
+				            <field name="state"/>
 		                    <field name="name"  />
 		                    <field name="emp_id" />
 		                    <field name="start_date"  />
