@@ -20,10 +20,10 @@
                 <form string="Leave Request">
                     <header>
                         <button string="Refuse" name="holidays_refuse" states="confirm,validate,validate1" type="object" icon="gtk-no" groups="Edumedia_India.ed_hr_manager,Edumedia_India.ed_hr"/>
-                        <button string="Confirm" name="holidays_confirm" states="draft" type="object" icon="gtk-yes" groups="Edumedia_India.ed_hr_user" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/> 
-                        <button string="Approve" name="holidays_validate2" states="confirm" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr_manager"/>
+                        <button string="Confirm" name="holidays_confirm" states="draft" type="object" icon="gtk-yes" groups="Edumedia_India.ed_hr_user" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?" context="{'send_mail':1}"/> 
+                        <button string="Approve" name="holidays_validate" states="confirm" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr_manager"/>
                         <!--                                <button string="Approved" name="holidays_validate2" states="validate1" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr"/>-->
-                        <button string="Set to Draft" name="set_to_draft" states="confirm" type="object" icon="gtk-convert" groups="Edumedia_India.ed_hr_user"/>
+                        <button string="Set to Draft" name="reset" type="workflow" states="confirm" icon="gtk-convert" groups="Edumedia_India.ed_hr_user"/>
                         <field name="state" widget ="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <group col="8" colspan="4">
@@ -108,10 +108,10 @@
                     <header>
                        
                             <!--                                 <button string="Refuse" name="holidays_refuse" states="confirm,validate,validate1" type="object" icon="gtk-no" groups="Edumedia_India.ed_hr_manager,Edumedia_India.ed_hr"/> -->
-                            <button string="Confirm" name="holidays_confirm" states="draft" type="object" icon="gtk-yes" groups="Edumedia_India.ed_hr_user" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?"/> 
+                            <button string="Confirm" name="holidays_confirm" states="draft" type="object" icon="gtk-yes" groups="Edumedia_India.ed_hr_user" confirm="DO YOU WANT TO CONTINUE WITH THIS ACTION?" context="{'send_mail':1}"/> 
                             <!--                                 <button string="Approve" name="holidays_validate" states="confirm" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr_manager"/> -->
                             <!--                                 <button string="Approved" name="holidays_validate2" states="validate1" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr"/> -->
-                            <button string="Set to Draft" name="set_to_draft" states="confirm" type="object" icon="gtk-convert" groups="Edumedia_India.ed_hr_user,Edumedia_India.ed_hr_manager"/>
+                        <button string="Reset to Draft" name="reset" type="workflow" states="confirm" icon="gtk-convert" groups="Edumedia_India.ed_hr_user,Edumedia_India.ed_hr_manager"/>
                         <field name="state" widget ="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                         
@@ -230,10 +230,10 @@
             <form string="Allocation Request">
                 <header>
                         <button string="Refuse" name="holidays_refuse" states="confirm,validate,validate1" type="object" icon="gtk-no" groups="Edumedia_India.ed_hr"/>
-                        <button string="Confirm" name="holidays_confirm" states="confirm" type="object" icon="gtk-yes"/>
-                        <button string="Approve" name="holidays_validate2" states="confirm" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr"/>
+                    <button string="Confirm" name="holidays_confirm" states="draft" type="object" icon="gtk-yes" context="{'send_mail':1}"/>
+                        <button string="Approve" name="holidays_validate" states="confirm" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr"/>
                         <!--                            <button string="Approved" name="holidays_validate2" states="validate1" type="object" icon="gtk-apply" groups="Edumedia_India.ed_hr"/>-->
-                        <button string="Set to Draft" name="set_to_draft" states="cancel" type="object" icon="gtk-convert" groups="Edumedia_India.ed_hr"/>
+                    <button string="Set to Draft" name="reset" type="workflow" states="cancel" icon="gtk-convert" groups="Edumedia_India.ed_hr"/>
                     <field name="state" widget ="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
                 <group col="8" colspan="4">
@@ -492,7 +492,7 @@
 				   <field name="type">tree</field>
 				   <field name="arch" type="xml">
 				          <tree string="Employee Time Off" >
-				           
+				            <field name="state"/>
 		                    <field name="name"  />
 		                    <field name="emp_id" />
 		                    <field name="start_date"  />

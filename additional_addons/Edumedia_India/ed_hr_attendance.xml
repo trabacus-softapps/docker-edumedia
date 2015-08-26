@@ -26,10 +26,12 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Employee attendance">
-                    <field name="employee_id" readonly="1" />
-                    <field name="name"  readonly="1"/>
-                    <field name="action"  readonly="1"/>
-                    <field name="action_desc"  readonly="1"/>
+                	<group>
+	                    <field name="employee_id" readonly="1" />
+	                    <field name="name"  readonly="1"/>
+	                    <field name="action"  readonly="1"/>
+	                    <field name="action_desc"  readonly="1"/>
+                	</group>
                 </form>
             </field>
         </record>
@@ -434,8 +436,11 @@
 			<field name="type">form</field>
 			<field eval="5" name="priority"/>
 	        <field name="arch" type="xml">
-			<form string="Sign In-Grace Period">	
-				  <field name="grace"/> 
+			<form string="Sign In-Grace Period">
+				<group col="4" colspan="2">
+				  <field name="grace"/>
+					<newline/>
+				</group>
 			</form>
 	       </field>
 		 </record>	

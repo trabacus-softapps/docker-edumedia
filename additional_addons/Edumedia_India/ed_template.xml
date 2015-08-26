@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <!-- Email template for Leave request from Employee -->
+        <record id="leave_request_send_mail" model="mail.template">
+            <field name="name">Employee Leave Request</field>
+            <field name="model_id" ref="model_hr_holidays"/>
+            <field name="email_from"><![CDATA[${object.employee_id.company_id.name} <${object.employee_id.company_id.email}>]]></field>
+            <field name="email_to"></field>
+            <field name="subject"><![CDATA[Leave Request]]></field>
+            <field name="body_html">
+                <![CDATA[
+    			
+	    			<p>
+	                		Leave Request from ${object.employee_id.name or ''}
+	                </p>
+	               
+                    
+    			
+    			]]>
+    			
+            </field>
+        </record>
+        
+        
+        <!-- Email template for Leave Approval from Manager -->
+        <record id="leave_approved_send_mail" model="mail.template">
+            <field name="name">Employee Leave Request Approval</field>
+            <field name="model_id" ref="model_hr_holidays"/>
+            <field name="email_from"><![CDATA[${object.employee_id.company_id.name} <${object.employee_id.company_id.email}>]]></field>
+            <field name="email_to"></field>
+            <field name="subject"><![CDATA[Leave Request Approved]]></field>
+            <field name="body_html">
+                <![CDATA[
+    			
+	    			
+	                	<p>
+	                		Leave Request from ${object.employee_id.name or ''} has been Approved
+	                    </p>
+	                
+	               
+                    
+    			
+    			]]>
+    			
+            </field>
+        </record>
+        
+        <!-- Email template for Leave Approval from Manager -->
+        <record id="leave_refuse_send_mail" model="mail.template">
+            <field name="name">Employee Leave Request Refuse</field>
+            <field name="model_id" ref="model_hr_holidays"/>
+            <field name="email_from"><![CDATA[${object.employee_id.company_id.name} <${object.employee_id.company_id.email}>]]></field>
+            <field name="email_to"></field>
+            <field name="subject"><![CDATA[Leave Request Refused]]></field>
+            <field name="body_html">
+                <![CDATA[
+    			
+	    			
+	             <p>
+	                		Leave Request from ${object.employee_id.name or ''} has been Refused
+	                    </p>
+                    
+    			
+    			]]>
+    			
+            </field>
+        </record>
+        
+        
+    </data>
+</openerp>

@@ -17,6 +17,14 @@ class hr_holidays(osv.osv):
         return result 
 
     _columns = {
+                'state': fields.selection([('draft', 'To Submit'), ('cancel', 'Cancelled'),('confirm', 'To Approve'), ('refuse', 'Refused'), ('validate1', 'Second Approval'), ('validate', 'Approved')],
+                    'Status', readonly=True, track_visibility='onchange', copy=False,
+                    help='The status is set to \'To Submit\', when a holiday request is created.\
+                    \nThe status is \'To Approve\', when holiday request is confirmed by user.\
+                    \nThe status is \'Refused\', when holiday request is refused by manager.\
+                    \nThe status is \'Approved\', when holiday request is approved by manager.'),
+                'payslip_status': fields.boolean(string='Reported in last payslips',
+                    help='Green this button when the leave has been taken into account in the payslip.'),
                 
                 'ed_manager_id': fields.related('employee_id','manager_id',relation='hr.employee', string='Manager', type='many2one', store=True),
                 'ed_manager_id2':fields.related('employee_id','manager2_id',relation='hr.employee', string = 'Manager2', type='many2one', store=True),
@@ -33,6 +41,7 @@ class hr_holidays(osv.osv):
                 'aloc_date':fields.date('Allocation Date'),
                 'fst_day':fields.boolean('Half Day', readonly=True, states={'draft':[('readonly',False)], 'confirm':[('readonly',False)]},help='Check this to apply First Day Half Leave.'),
                 'sec_day':fields.boolean('Half Day', readonly=True, states={'draft':[('readonly',False)], 'confirm':[('readonly',False)]},help='Check this to apply Last Day Half Leave.'),
+                
                 }
     _order = 'date_from desc' 
     
@@ -43,7 +52,7 @@ class hr_holidays(osv.osv):
     ]
     
     _defaults= {
-                'state' : 'confirm'
+                'state' : 'draft'
                 }
     # TODO: can be improved using resource calendar method Overriden
     def _get_number_of_days(self, date_from, date_to):
@@ -77,37 +86,60 @@ class hr_holidays(osv.osv):
             'number_of_days_temp': 0,
         }
         return result
+    
+    
+#overriden    
+    def holidays_confirm(self, cr, uid, ids, context=None):
+        print "context....", context
+        for record in self.browse(cr, uid, ids, context=context):
+            if record.employee_id and record.employee_id.parent_id and record.employee_id.parent_id.user_id:
+                self.message_subscribe_users(cr, uid, [record.id], user_ids=[record.employee_id.parent_id.user_id.id], context=context)
+            
+            if record.type=='remove' and context.get('send_mail'):
+                template = self.pool.get('ir.model.data').get_object(cr, uid, 'Edumedia_India', 'leave_request_send_mail')
+                assert template._name == 'mail.template'
+                mail_id = self.pool.get('mail.template').send_mail(cr, uid, template.id, record.id, True, {})
+        return self.write(cr, uid, ids, {'state': 'confirm'})
+    
 #    overriden
-    def holidays_confirm(self, cr, uid, ids, *args):
-        res = super(hr_holidays, self).holidays_confirm(cr, uid, ids)
-        reqst_obj = self.pool.get('res.request')
-        for case in self.browse(cr,uid,ids):
-        #Notification to Employee
-            req_ids=[]
-            if  case.type == 'remove':
-                vals = { 
-                        'name': 'Leave Request'
-                       ,'act_to': case.employee_id.manager_id and case.employee_id.manager_id.user_id and case.employee_id.manager_id.user_id.id or False 
-                       ,'body':'Employee ' + str(case.employee_id.name) + ' has applied for leave. ' 
-                               ' Please do the need full.'
-                       ,'priority':'2'
-                        }
-                if vals['act_to']: 
-                    req_id = reqst_obj.create(cr, uid, vals)
-                    req_ids.append(req_id)
-                
-                vals['act_to'] = case.employee_id.manager2_id and case.employee_id.manager2_id.user_id and case.employee_id.manager2_id.user_id.id or False
-                if vals['act_to']:                 
-                    req_id = reqst_obj.create(cr, uid, vals)
-                    req_ids.append(req_id)
-                
-                vals['act_to'] = case.employee_id.manager3_id and case.employee_id.manager3_id.user_id and case.employee_id.manager3_id.user_id.id or False
-                if vals['act_to']:                 
-                    req_id = reqst_obj.create(cr, uid, vals)
-                    req_ids.append(req_id)
-                
-                reqst_obj.request_send(cr, uid, req_ids)
-        return res
+#     def holidays_confirm(self, cr, uid, ids, *args):
+#         res = super(hr_holidays, self).holidays_confirm(cr, uid, ids)
+#         reqst_obj = self.pool.get('res.request')
+#         for case in self.browse(cr,uid,ids):
+#         #Notification to Employee
+#             req_ids=[]
+#             if  case.type == 'remove':
+#                 vals = { 
+#                         'name': 'Leave Request'
+#                        ,'act_to': case.employee_id.manager_id and case.employee_id.manager_id.user_id and case.employee_id.manager_id.user_id.id or False 
+#                        ,'body':'Employee ' + str(case.employee_id.name) + ' has applied for leave. ' 
+#                                ' Please do the need full.'
+#                        ,'priority':'2'
+#                         }
+#                 if vals['act_to']: 
+#                     #Mani
+#                     #req_id = reqst_obj.create(cr, uid, vals)
+#                     req_ids.append(req_id)
+#                 
+#                 vals['act_to'] = case.employee_id.manager2_id and case.employee_id.manager2_id.user_id and case.employee_id.manager2_id.user_id.id or False
+#                 if vals['act_to']:                 
+#                     #Mani
+#                     #req_id = reqst_obj.create(cr, uid, vals)
+#                     req_ids.append(req_id)
+#                 
+#                 vals['act_to'] = case.employee_id.manager3_id and case.employee_id.manager3_id.user_id and case.employee_id.manager3_id.user_id.id or False
+#                 if vals['act_to']:                 
+#                     #Mani
+#                     #req_id = reqst_obj.create(cr, uid, vals)
+#                     req_ids.append(req_id)
+#                 
+#                 # mani
+#                 #reqst_obj.request_send(cr, uid, req_ids)
+#                 if case.state == 'confirm':
+#                     template = self.pool.get('ir.model.data').get_object(cr, uid, 'Edumedia_India', 'leave_request_send_mail')
+#                     assert template._name == 'mail.template'
+#                     mail_id = self.pool.get('mail.template').send_mail(cr, uid, template.id, case.id, True, {})
+#         return res
     
     def holidays_validate(self, cr, uid, ids, context=None):
         context = dict(context or {})
@@ -138,8 +170,13 @@ class hr_holidays(osv.osv):
                        ,'body':'Manager ' + str(man_name or '') + ' has approved your leave.' 
                        ,'priority':'2'
                         } 
-                req_id = reqst_obj.create(cr, uid, vals)                
-                reqst_obj.request_send(cr, uid, [req_id])
+#MANI
+#                 req_id = reqst_obj.create(cr, uid, vals)                
+#                 reqst_obj.request_send(cr, uid, [req_id])
+                
+                template = self.pool.get('ir.model.data').get_object(cr, uid, 'Edumedia_India', 'leave_approved_send_mail')
+                assert template._name == 'mail.template'
+                mail_id = self.pool.get('mail.template').send_mail(cr, uid, template.id, case.id, True, context=context)
             
         return res
     
@@ -161,9 +198,29 @@ class hr_holidays(osv.osv):
                        ,'body':'Manager ' + str(man_name or '') + ' has refused your leave.' 
                        ,'priority':'2'
                         } 
-                req_id = reqst_obj.create(cr, uid, vals)
-                reqst_obj.request_send(cr, uid, [req_id])
+# Mani                
+#                 req_id = reqst_obj.create(cr, uid, vals)
+#                 reqst_obj.request_send(cr, uid, [req_id])
+                template = self.pool.get('ir.model.data').get_object(cr, uid, 'Edumedia_India', 'leave_refuse_send_mail')
+                assert template._name == 'mail.template'
+                mail_id = self.pool.get('mail.template').send_mail(cr, uid, template.id, case.id, True, {})
         return res
+    
+    def create(self, cr, uid, vals, context=None):
+        context = dict(context or {})
+        context.update({
+                        'create': 1 
+                        })
+        vals.update({'state':'draft'})
+        
+        return super(hr_holidays,self).create(cr, uid, vals, context)
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        context = dict(context or {})
+        if context.get('create'):
+            vals.update({'state' : 'draft'})
+        print "write vals", vals
+        return super(hr_holidays, self).write(cr, uid, ids, vals, context)
     
 hr_holidays()    
 

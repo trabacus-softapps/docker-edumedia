@@ -21,6 +21,7 @@
                    #'ed_report.xml',
                    #'ed_activity.xml',
                    'ed_mentor.xml',
+                   'ed_template.xml',
                    #'ed_akshaya.xml',                   
                    #'wizard/ed_wizard.xml',
                    #'wizard/ed_crm_lead.xml',
