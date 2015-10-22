@@ -90,3 +90,10 @@ man_ed_view_stock_rpt1,ed_view_stock_rpt1,model_ed_view_stock_rpt1,ed_hr_manager
 man_ed_view_stock_rpt_lines,ed_view_stock_rpt_lines,model_ed_view_stock_rpt_lines,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
 man_ed_vw_appraisal_score,ed_vw_appraisal_score,model_ed_vw_appraisal_score,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
 man_ed_vw_appraisal_score_ln,ed_vw_appraisal_score_ln,model_ed_vw_appraisal_score_ln,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
+man_edu_hr_exit,edu_hr_exit,model_edu_hr_exit,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
+man_edu_hr_reason,edu_hr_reason,model_edu_hr_reason,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
+man_edu_hr_working_relation,edu_hr_working_relation,model_edu_hr_working_relation,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
+man_edu_hr_role,edu_hr_role,model_edu_hr_role,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
+man_edu_hr_opinion,edu_hr_opinion,model_edu_hr_opinion,ed_hr_manager,TRUE,TRUE,TRUE,TRUE
+,,,,,,,
+man_document_directory,document.document_directory,document.model_document_directory,ed_hr_manager,TRUE,TRUE,TRUE,TRUE

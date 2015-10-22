@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                     Default - HR - Reasons to leave
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <record model="edu.hr.reason" id="edu_hr_reason_carrerchange">
+            <field name="name">Change of Career</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_carreradvancement">
+            <field name="name">Career Advancement Opportunity/Better Opportunity</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_circumstances">
+            <field name="name">Family Circumstances</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_relocation">
+            <field name="name">Relocation</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_commute">
+            <field name="name">Commute</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_lackrecognition">
+            <field name="name">Lack of Recognition</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_benefits">
+            <field name="name">Compensation/Benefits</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_issues">
+            <field name="name">Issues with Supervisor/Management</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_workconditions">
+            <field name="name">Work Conditions</field>
+        </record>
+        <record model="edu.hr.reason" id="edu_hr_reason_other">
+            <field name="name">Other</field>
+        </record>
+
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                     Default - HR - working relationship
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_treatment">
+            <field name="name">Was consistently fair/ equitable treatment</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_treatment">
+            <field name="name">Provided recognition on the job</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_resolvecomplaint">
+            <field name="name">Resolved complaints in a timely manner</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_empneeds">
+            <field name="name">Was sensitive to employees’ needs</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_feedback">
+            <field name="name">Provided helpful feedback on performance</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_encourage">
+            <field name="name">Encourage/listen to suggestions</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_learnopportunity">
+            <field name="name">Provide you ample learning opportunities in your job</field>
+        </record>
+        <record model="edu.hr.working.relation" id="edu_hr_working_relation_policies">
+            <field name="name">Follow policies and practices</field>
+        </record>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                     Default - HR - rate the relation to your role
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <record model="edu.hr.role" id="edu_hr_role_depinteraction">
+            <field name="name">Interaction within your department</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_supportinteraction">
+            <field name="name">Interactin with support team</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_morale">
+            <field name="name">Morale in your department</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_equippment">
+            <field name="name">Equipment provided (materials, resources, facilities)</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_review">
+            <field name="name">Company’s Performance Review System</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_growthopp">
+            <field name="name">Career development opportunities</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_potential">
+            <field name="name">Growth potential</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_jobsatification">
+            <field name="name">Your job satisfaction</field>
+        </record>
+        <record model="edu.hr.role" id="edu_hr_role_workbalance">
+            <field name="name">Work life balance</field>
+        </record>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                     Default - HR - opinion
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <record model="edu.hr.opinion" id="edu_hr_opinion_paidholiday">
+            <field name="name">Paid Holidays</field>
+        </record>
+        <record model="edu.hr.opinion" id="edu_hr_opinion_policies">
+            <field name="name">Company policies</field>
+        </record>
+        <record model="edu.hr.opinion" id="edu_hr_opinion_medical_benefits">
+            <field name="name">Safety/ Medical Benefits</field>
+        </record>
+        <record model="edu.hr.opinion" id="edu_hr_opinion_training">
+            <field name="name">Training provided/Learning and Development</field>
+        </record>
+
+    </data>
+</openerp>
+	                

@@ -47,7 +47,31 @@
    			</search>
    		</field>
    	</record>
-   
+	   <record id="mentor_view_partner_form" model="ir.ui.view">
+		   <field name="name">mentor.res.partner.form</field>
+		   <field name="model">res.partner</field>
+		   <field name="inherit_id" ref="base.view_partner_form"/>
+		   <field eval="1" name="priority"/>
+		   <field name="arch" type="xml">
+
+			   <xpath expr="//field[@name='city']" position="after">
+                  <field name="ed_city_id" on_change="onchange_ed_city_id(ed_city_id,context)" placeholder="City" style="width: 40%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+			   </xpath>
+			   <xpath expr="//field[@name='city']" position="attributes">
+					   <attribute name="invisible">1</attribute>
+			   </xpath>
+			   <xpath expr="//notebook/page/field[@name='child_ids']/form/sheet/group[2]/div[2]/div[@class='address_format']"
+					   position="replace">
+				   <div class="address_format">
+					   <field name="ed_city_id" on_change="onchange_ed_city_id(ed_city_id,context)" placeholder="City" style="width: 40%"/>
+					   <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%"
+							  options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+					   <field name="zip" placeholder="ZIP" style="width: 20%"/>
+				   </div>
+			   </xpath>
+		   </field>
+	   </record>
+
    <!--
    	<record id="view_ed_partner_mentor_tree" model="ir.ui.view">
    		<field name="name">ed_partner_mentor_tree</field>
@@ -157,10 +181,10 @@
    	</record> -->
    	
 <!--   	<menuitem action="action_ed_mentor_partner2" id="menu_action_ed_mentor_partner2" name="Database" parent="menu_edumedia_mentor" sequence="1"/>
--->   	
+
+
    	
-   	
-   	
+
    	<record id="mentor_view_partner_form" model="ir.ui.view">
    		<field name="name">mentor.res.partner.form</field>
    		<field name="model">res.partner</field>
@@ -175,7 +199,7 @@
    				</group>
    			</xpath>
    		</field>
-   	</record>
+   	</record>-->
    	
    	
    	<record id="action_partner_form_database" model="ir.actions.act_window">
@@ -535,11 +559,10 @@
    		<field name="model">res.users</field>
    		<field name="inherit_id" ref="base.view_users_form"/>
    		<field name="arch" type="xml">       
-   			
    			<field name="active" position="after">
-   				<field name="city_id"/> 
+   				<field name="city_id"/>
+				<field name="city_ids" widget="many2many_tags"/>
    			</field>
-   			
    		</field>
    	</record> 
    

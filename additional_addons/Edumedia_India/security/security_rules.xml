@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Holiday security rules -->
+        <record model="ir.rule" id="holiday_view_rule">
+            <field name="name">Holidays Dashboard</field>
+            <field name="model_id" search="[('model','=','ed.vw.holidays')]" model="ir.model"/>
+            <field name="domain_force">[('city_id','=',user.wrkcity_id.id),('h_year','=',time.strftime('%Y'))]</field>
+        </record>
+
+        <record model="ir.rule" id="holiday_view_rule">
+            <field name="name">Holidays Dashboard</field>
+            <field name="model_id" search="[('model','=','ed.vw.holidays')]" model="ir.model"/>
+            <field name="domain_force">[('city_id','=',user.city_id.id),('h_year','=',time.strftime('%Y'))]</field>
+        </record>
+
+        <record model="ir.rule" id="holiday_view_rule">
+            <field name="name">Holidays Dashboard</field>
+            <field name="model_id" search="[('model','=','ed.vw.holidays')]" model="ir.model"/>
+            <field name="domain_force">[('city_id','=',user.city_id.id),('h_year','=',time.strftime('%Y'))]</field>
+        </record>
+
+        <record model="ir.rule" id="base.res_partner_rule">
+			<field name="name">Partner Multi Company Rule</field>
+			<field name="model_id" ref="base.model_res_partner"/>
+			<field name="global" eval="True"/>
+			<field name="domain_force">['|','|',('company_id.child_ids','in',[x.id for x in
+				user.company_ids]),('company_id','in',[x.id for x in
+				user.company_ids]),('company_id','=',False)]</field>
+		</record>
+
+                    <!-- ~~~~~~~~~~  HR EXIT ~~~~~~~~~~~ -->
+        <record model="ir.rule" id="edu_hrexit_user_rule">
+            <field name="name">Edumedia HRExit HR User Rule</field>
+            <field name="model_id" search="[('model','=','edu.hr.exit')]" model="ir.model"/>
+            <field name="domain_force">['|',('employee_id.resource_id.user_id', '=', user.id),('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('ed_hr_user'))]"/>
+        </record>
+        <record model="ir.rule" id="edu_hrexit_manager_rule">
+            <field name="name">Edumedia HRExit HR Manager Rule</field>
+            <field name="model_id" search="[('model','=','edu.hr.exit')]" model="ir.model"/>
+            <field name="domain_force">['|',('manager_id.resource_id.user_id', '=', user.id),('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('ed_hr_manager'))]"/>
+        </record>
+        <record model="ir.rule" id="edu_hrexit_hr_rule">
+            <field name="name">Edumedia HRExit HR Rule</field>
+            <field name="model_id" search="[('model','=','edu.hr.exit')]" model="ir.model"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('ed_hr'))]"/>
+        </record>
+        <record id="edu_partner_city_rule" model="ir.rule">
+			<field name="name">Edumedia Partner City Rule</field>
+			<field name="model_id" ref="base.model_res_partner"/>
+			<field name="global" eval="True"/>
+			<field name="domain_force">['|',('ed_city_id','in',[x.id for x in user.city_ids]),('ed_city_id','=',False)]</field>
+		</record>
+        <record id="edu_city_rule" model="ir.rule">
+			<field name="name">Edumedia City Rule</field>
+			<field name="model_id" ref="model_ed_city"/>
+			<field name="global" eval="True"/>
+			<field name="domain_force">['|',('id','in',[x.id for x in user.city_ids]),('id','=',False)]</field>
+		</record>
+
+    </data>
+</openerp>

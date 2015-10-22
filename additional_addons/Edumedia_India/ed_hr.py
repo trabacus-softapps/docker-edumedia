@@ -72,7 +72,8 @@ class hr_employee(osv.osv):
                  'pf_no':fields.char('PF Account No',size=15),
                  'late_count':fields.integer('Late Count'),
                  'emp_alloc_ids' : fields.one2many('ed.hr.allocation','hr_emp_id','Allocation',ondelete = 'cascade'),
-                 'address_home'  : fields.char('Home Address', size=256)
+                 'address_home'  : fields.char('Home Address', size=256),
+                 'designation'  : fields.char('Designation', size=256)
                  
                  } 
  
@@ -973,3 +974,291 @@ class ed_hr_allocation(osv.osv):
                 
                 }
 ed_hr_allocation()
+
+class edu_hr_reason(osv.osv):
+    _name = 'edu.hr.reason'
+    _description = "Reason"
+    _columns = {
+            'name'      : fields.char('Reason', size=250),
+                }
+
+class edu_hr_working_relation(osv.osv):
+    _name = 'edu.hr.working.relation'
+    _description = "Working Relation"
+    _columns = {
+            'exit_id'      : fields.many2one('edu.hr.exit', 'Exit Id'),
+            'name'         : fields.char('Description', size=250),
+            'state'        : fields.selection([('never', 'Never')
+                                      , ('always', 'Always')
+                                      , ('sometimes', 'Sometimes')], 'State'),
+                }
+
+class edu_hr_role(osv.osv):
+    _name = 'edu.hr.role'
+    _description = "Role"
+    _columns = {
+            'exit_id'      : fields.many2one('edu.hr.exit', 'Exit Id'),
+            'name'         : fields.char('Description', size=250),
+            'state'        : fields.selection([('excellant', 'Excellant')
+                                      , ('good', 'Good')
+                                      , ('fair', 'Fair')
+                                      , ('poor', 'Poor')], 'State'),
+                }
+
+class edu_hr_opinion(osv.osv):
+    _name = 'edu.hr.opinion'
+    _description = "Opinion"
+    _columns = {
+            'exit_id'      : fields.many2one('edu.hr.exit', 'Exit Id'),
+            'name'         : fields.char('Description', size=250),
+            'state'        : fields.selection([('excellant', 'Excellant')
+                                      , ('good', 'Good')
+                                      , ('fair', 'Fair')
+                                      , ('poor', 'Poor')], 'State'),
+                }
+
+class edu_hr_exit(osv.osv):
+    _name = 'edu.hr.exit'
+    _description = "HR Exit"
+
+    def default_get(self, cr, uid, fields, context=None):
+        context = dict(context or {})
+        hr_emp_obj = self.pool.get("hr.employee")
+        users_obj = self.pool.get("res.users")
+        hr_work_relation_obj = self.pool.get("edu.hr.working.relation")
+        hr_role_obj = self.pool.get("edu.hr.role")
+        hr_opinion_obj = self.pool.get("edu.hr.opinion")
+        is_edit_access = False
+        hruser = users_obj.has_group(cr, uid, 'Edumedia_India.ed_hr_user')
+        hrmanager = users_obj.has_group(cr, uid, 'Edumedia_India.ed_hr_manager')
+        hr = users_obj.has_group(cr, uid, 'Edumedia_India.ed_hr')
+        print 'ssss',hruser,hrmanager,hr
+        res = super(edu_hr_exit, self).default_get(cr, uid, fields, context)
+        user = users_obj.browse(cr, uid, uid, context)
+        cr.execute("""select h.id as emp_id
+                      , h.designation as emp_designation
+                      , h.department_id as emp_department_id
+                      , h.manager_id as emp_manager_id
+                      , h.date_of_join as emp_joining_date
+                      from hr_employee h
+                        inner join resource_resource r on r.id = h.resource_id
+                      where r.user_id = %d"""%(uid))
+        empdata = cr.dictfetchone()
+        print 'empdata',empdata
+        work_relation_ids = hr_work_relation_obj.search(cr, uid, [])
+        role_ids = hr_role_obj.search(cr, uid, [])
+        opinion_ids = hr_opinion_obj.search(cr, uid, [])
+
+        if empdata:
+            if hruser or hrmanager or hr:
+                 res.update({'hr_edit_access' : hruser and 'hr_user' or (hrmanager and 'hr_manager' or (hr and 'hr')),})
+            res.update({'employee_id' : empdata.get('emp_id') or False,
+                        'designation' : empdata.get('emp_designation'),
+                        'department_id' : empdata.get('emp_department_id'),
+                        'manager_id' : empdata.get('emp_manager_id'),
+                        'joining_date' : empdata.get('emp_joining_date'),
+                        'state'      : 'new',
+                        'working_relation_ids' : work_relation_ids,
+                        'role_ids' : role_ids,
+                        'opinion_ids' : opinion_ids,
+                    })
+            print 'res',res
+        return res
+
+    def _hr_edit_access(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        users_obj = self.pool['res.users']
+        is_edit_access = False
+        hruser = users_obj.has_group(cr, uid, 'Edumedia_India.ed_hr_user')
+        hrmanager = users_obj.has_group(cr, uid, 'Edumedia_India.ed_hr_manager')
+        hr = users_obj.has_group(cr, uid, 'Edumedia_India.ed_hr')
+        for case in self.browse(cr,uid,ids):
+            res[case.id] = hruser and 'hr_user' or (hrmanager and 'hr_manager' or (hr and 'hr'))
+        return res
+
+    _columns = {
+        'employee_id': fields.many2one('hr.employee', 'Employee Name'),
+        'designation': fields.char('Designaiton', size=250),
+        'department_id': fields.many2one('hr.department', 'Department'),
+        'manager_id': fields.many2one('hr.employee', 'Reporting Manager'),
+        'joining_date': fields.date('Date of Joining'),
+        'relieving_date': fields.date('Date of Relieving'),
+        'resignation_date': fields.date('Date of Resignation'),
+        'interview_date': fields.date('Date of Interview'),
+        'hr_edit_access': fields.function(_hr_edit_access, string='Edit Access', type='selection'
+                                , selection= [('hr_user', _('User')),
+                                    ('hr_manager', _('Manager')),
+                                    ('hr', _('HR'))]),
+
+        'state': fields.selection([('new', 'New')
+                                      , ('applied', 'Applied')
+                                      , ('approve_mgr', 'Approved By Manager')
+                                      , ('reject_mgr', 'Rejected By Manager')
+                                      , ('interviewed', 'Interviewed')
+                                      , ('accepted', 'Accepted')
+                                      , ('rejected', 'Rejected')
+                                      , ('cleared', 'Cleared')
+                                      , ('relieved', 'Relieved')], 'State'),
+        'is_other_reason': fields.boolean('Other Reason'),
+        'reason_id': fields.many2one('edu.hr.reason', 'Reason', ondelete='cascade'),
+        'other_reason_remarks' : fields.text('Other'),
+        'attachment_ids': fields.many2many('ir.attachment',
+            'edu_hr_exit_ir_attachments_rel',
+            'exit_id', 'attachment_id', 'No Dues'),
+        'working_relation_ids': fields.one2many('edu.hr.working.relation', 'exit_id', 'Working Relation',
+                                                ondelete='cascade'),
+        'role_ids': fields.one2many('edu.hr.role', 'exit_id', 'Role', ondelete='cascade'),
+        'opinion_ids': fields.one2many('edu.hr.opinion', 'exit_id', 'Opinion', ondelete='cascade'),
+        'accept_job_remarks': fields.text('Accept Job'),
+        'role_expectaion': fields.selection([('yes', 'Yes')
+                                      , ('no', 'No')], 'State'),
+        'role_expectaion_remarks': fields.text('Expectaion'),
+        'best_practice_remarks': fields.text('Best Practice'),
+        'core_values_remarks': fields.text('Core Values'),
+        'suggestions_remarks': fields.text('Suggestions'),
+        'retain_remarks': fields.text('Retain'),
+        'refer_remarks': fields.text('Refer'),
+        'manager_remarks': fields.text('Manager Remarks'),
+        'hr_remarks': fields.text('hr Remarks'),
+        'user_remarks': fields.text('hr Remarks'),
+            }
+    _order = 'relieving_date'
+
+    def onchange_reason_id(self, cr, uid, ids, reason_id, context=None):
+        context = dict(context or {})
+        res = {}
+        reason_obj = self.pool.get('edu.hr.reason')
+        if reason_id:
+            reason_data = reason_obj.browse(cr, uid, reason_id, context)
+            if reason_data.name == 'Other':
+                res['is_other_reason'] = True
+        return {'value':res}
+
+    def button_apply(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            if case.employee_id.resource_id.user_id.id != uid and 'Frm_button_reset_apply' not in context:
+                raise osv.except_osv(_('Warning'), _('You cannot apply for other employee'))
+            self.write(cr, uid, [case.id], {'state' : 'applied'}, context)
+        return True
+
+    def button_reset_apply(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            if not case.joining_date:
+                raise osv.except_osv(_('Attachment'), _('Please enter joining date'))
+        context.update({'Frm_button_reset_apply' : True})
+        self.button_apply(cr, uid, ids, context)
+        return True
+
+    def button_approve_manager(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            if case.employee_id.resource_id.user_id.id == uid and 'Frm_button_reset_approve_manager' not in context:
+                raise osv.except_osv(_('Warning'), _('You cannot approve your own record'))
+            self.write(cr, uid, [case.id], {'state': 'approve_mgr'}, context)
+        return True
+
+    def button_reset_approve_manager(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        context.update({'Frm_button_reset_approve_manager' : True})
+
+        self.button_approve_manager(cr, uid, ids, context)
+        return True
+
+    def button_reject_manager(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            self.write(cr, uid, [case.id], {'state': 'reject_mgr'}, context)
+        return True
+
+    def button_interview(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+
+        for case in self.browse(cr, uid, ids, context):
+            if case.employee_id.resource_id.user_id.id == uid and 'Frm_button_reset_approve_manager' not in context:
+                raise osv.except_osv(_('Warning'), _('You cannot process your own record'))
+            self.write(cr, uid, [case.id], {'state': 'interviewed'}, context)
+        return True
+
+    def button_reset_interview(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        context.update({'Frm_button_reset_interviewr' : True})
+        self.button_interview(cr, uid, ids, context)
+        return True
+
+    def button_accept(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            if not case.relieving_date:
+                raise osv.except_osv(_('Attachment'), _('Please enter Date Of Relieving'))
+            if not case.resignation_date:
+                raise osv.except_osv(_('Attachment'), _('Please enter Date Of Resignation'))
+            if not case.interview_date:
+                raise osv.except_osv(_('Attachment'), _('Please enter Date Of Interview'))
+            self.write(cr, uid, [case.id], {'state': 'accepted'}, context)
+        return True
+
+    def button_reset_accept(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        self.button_accept(cr, uid, ids, context)
+        return True
+
+    def button_reject(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            self.write(cr, uid, [case.id], {'state': 'rejected'}, context)
+        return True
+
+    def button_reset_reject(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        self.button_reject(cr, uid, ids, context)
+        return True
+
+    def button_clear(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        for case in self.browse(cr, uid, ids, context):
+            if not case.attachment_ids:
+                raise osv.except_osv(_('Attachment'), _('Please attach No dues file as an attachment'))
+            self.write(cr, uid, [case.id], {'state': 'cleared'}, context)
+        return True
+
+    def button_reset_clear(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        resource_obj = self.pool.get('resource.resource')
+        for case in self.browse(cr, uid, ids, context):
+            if case.employee_id.resource_id.id:
+                resource_obj.write(cr ,uid , case.employee_id.resource_id.id, {'active' : True})
+            self.button_clear(cr, uid, ids, context)
+        return True
+
+    def button_relieve(self, cr, uid, ids, context):
+
+        context = dict(context or {})
+        resource_obj = self.pool.get('resource.resource')
+        for case in self.browse(cr, uid, ids, context):
+            if case.employee_id.resource_id.id:
+                resource_obj.write(cr ,uid , case.employee_id.resource_id.id, {'active' : False})
+            if not case.working_relation_ids:
+                raise osv.except_osv(_('Warning'), _('Please describe your working relationship with your reporting manager'))
+            if not case.role_ids:
+                raise osv.except_osv(_('Warning'), _('Please rate your role at EduMedia'))
+            if not case.opinion_ids:
+                raise osv.except_osv(_('Warning'), _('Please give the opinion regarding the employee benefits provided'))
+            self.write(cr, uid, [case.id], {'state': 'relieved'}, context)
+        return True
+
+

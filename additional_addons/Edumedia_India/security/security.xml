@@ -147,12 +147,18 @@
 	       <record model='ir.ui.menu' id='menu_action_ed_emp_my_details'>
 			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
 	      </record> 
-	      
+
 	       <record model='ir.ui.menu' id='menu_action_ed_emp_team_details'>
 			<field name="groups_id" eval="[(6,0,[ref('ed_hr_manager')])]"/>
 	      </record> 
-	      
-  <!-- 	  ~~~~~~~~~~~~  HR => Attendance ~~~~~~~~~~~~ --> 
+
+ <!-- 	  ~~~~~~~~~~~~  HR =>EXIT~~~~~~~~~~~~ -->
+
+	     <record model='ir.ui.menu' id='menu_edu_hr_exit'>
+			<field name="groups_id" eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>
+	     </record>
+
+  <!-- 	  ~~~~~~~~~~~~  HR => Attendance ~~~~~~~~~~~~ -->
 	    	      
 		  <record model='ir.ui.menu' id='hr_attendance.menu_hr_attendance'>
 			<field name="groups_id"  eval="[(6,0,[ref('ed_hr_user'),ref('ed_hr_manager'),ref('ed_hr')])]"/>

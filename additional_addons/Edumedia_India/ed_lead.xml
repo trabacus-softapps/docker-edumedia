@@ -74,7 +74,7 @@
                 <field name="create_date" position="replace"/>
                 <field name="name" string="Opportunity" position="replace"/>
                 <field name="partner_id" position="attributes">
-                      <attribute name="string">School</attribute>      
+                      <attribute name="string"></attribute>
                 </field>  
                 <field name="priority" position="replace"/> 
                 <field name="partner_id"  position="after">

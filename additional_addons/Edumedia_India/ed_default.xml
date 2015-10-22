@@ -135,13 +135,8 @@
 <!-- 	            <field name="type">opportunity</field> -->
 <!--         </record>      -->
 
-<!-- Holiday security rules -->
-		<record model="ir.rule" id="holiday_view_rule">
-           <field name="name">Holidays Dashboard</field>
-           <field name="model_id" search="[('model','=','ed.vw.holidays')]" model="ir.model"/>
-           <field name="domain_force">[('city_id','=',user.wrkcity_id.id),('h_year','=',time.strftime('%Y'))]</field>
-       </record>
-     
+
+
    </data>
 </openerp>  
    

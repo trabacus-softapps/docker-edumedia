@@ -11,6 +11,7 @@
                 'board','hr_attendance','hr_payroll','hr_expense','hr_contract', 'document' ],
     'init_xml': [
                  'data/ed.year.csv'
+                ,'data/default_data.xml'
                  ],
     'update_xml': [
                    #'ed_link.xml', 
@@ -41,6 +42,7 @@
                    'ed_leaves.xml',  
                    'ed_payroll.xml',            
                    'security/security.xml',
+                   'security/security_rules.xml',
                    'ed_schedular.xml',
 #                    'security/Admin/ir.model.access.csv',
 #                    'security/Leads/ir.model.access.csv',

@@ -688,7 +688,8 @@
             <field name="arch" type="xml">       
            
             		<field name="email" position="after">
-             			<field name="city_id"/> 
+             			<field name="city_id"/>
+
              		</field>
             	
             </field>

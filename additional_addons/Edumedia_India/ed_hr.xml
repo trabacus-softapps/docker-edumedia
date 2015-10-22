@@ -19,7 +19,8 @@
             	<field name="category_ids" position="after"> 
             	 	 <field name="manager_id" />
             	 	 <field name="manager2_id"/>
-            	 	 <field name="manager3_id"/>  
+            	 	 <field name="manager3_id"/>
+					<field name="designation"/>
             		<newline/>
             	
                  
@@ -47,6 +48,7 @@
             	 	 <field name="manager_id" />
             	 	 <field name="manager2_id" />
             	 	 <field name="manager3_id" />
+				  	 <field name="designation"/>
               </field>
             
             </field>
@@ -66,7 +68,8 @@
 	                            <field name="department_id" widget="selection"/>
 		                        <field name="manager_id"/>
 		                        <field name="manager2_id"/> 
-	                            <field name="manager3_id"/>   
+	                            <field name="manager3_id"/>
+								<field name="designation"/>
 	                            <field name="active" groups="base.group_no_one"/>
 	                            <newline/>
 <!-- 		                        <button name="do_create_attendance" string="Schedule" type="object" icon="gtk-go-forward" colspan="4"/> -->
@@ -1795,9 +1798,207 @@
 		          action="ed_hr_document"
 		          id="ed_menu_hr_document_files"
 		          parent="menu_ed_hr_repositary"/>
-	  
-	  
-    </data>
+
+
+	   <!-- ***********************************************************************
+			 		HUMAN RESOURCES->HUMAN RESOURCES->Exit
+	 ***********************************************************************
+
+	   <record id="view_edu_hr_exit_search" model="ir.ui.view">
+		   <field name="name">view_edu_hr_exit_search</field>
+		   <field name="model">edu.hr.exit</field>
+		   <field name="type">search</field>
+		   <field name="arch" type="xml">
+			   <search string="News">
+				   <field name="employee_id" />
+				   <field name="designation"/>
+				   <field name="department_id"/>
+				   <field name="manager_id"/>
+				   <field name="joining_date"/>
+				   <field name="relieving_date"/>
+				   <field name="resignation_date"/>\
+   				   <field name="state"/>
+			   </search>
+		   </field>
+	   </record>-->
+	   <record id="view_edu_hr_exit_tree" model="ir.ui.view">
+		   <field name="name">view_edu_hr_exit_tree</field>
+		   <field name="model">edu.hr.exit</field>
+		   <field name="type">tree</field>
+		   <field name="arch" type="xml">
+			   <tree string="Exit">
+				   <field name="employee_id" />
+				   <field name="designation"/>
+				   <field name="department_id"/>
+				   <field name="manager_id"/>
+				   <field name="joining_date"/>
+				   <field name="relieving_date"/>
+				   <field name="resignation_date"/>
+   				   <field name="state"/>
+			   </tree>
+		   </field>
+	   </record>
+
+	   <record id="view_edu_hr_exit_form" model="ir.ui.view">
+		   <field name="name">view_edu_hr_exit_form</field>
+		   <field name="model">edu.hr.exit</field>
+		   <field name="type">form</field>
+		   <field name="arch" type="xml">
+			   <form string="Exit">
+				   <header>
+
+					   <button name="button_apply" states="new" string="Applied" type="object"/>
+					   <button name="button_reset_apply"
+							   attrs="{'invisible': ['|',('hr_edit_access', '=','hr_user'),('state','not in',('approve_mgr','reject_mgr'))]}"
+							   string="Reset To Applied"
+							   type="object"/>
+					   <button name="button_approve_manager"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr_manager'),('state','not in',('applied'))]}"
+							   string="Approved By Manager"
+							   type="object"/>
+					   <button name="button_reset_approve_manager"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('interviewed'))]}"
+							   string="Reset To Approved By Manager" type="object"/>
+					   <button name="button_reject_manager"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr_manager'),('state','not in',('applied'))]}"
+							   string="Rejected By Manager" type="object"/>
+					   <button name="button_reset_interview"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('accepted','rejected'))]}"
+							   string="Reset To Interview"
+							   type="object"/>
+					   <button name="button_interview"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('approve_mgr'))]}"
+							   string="Interviewed" type="object"/>
+					   <button name="button_reset_accept"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('cleared'))]}"
+							   string="Reset To Accepted" type="object"/>
+					   <button name="button_accept"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('interviewed'))]}"
+							   string="Accepted" type="object"/>
+					   <button name="button_reject"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('interviewed'))]}"
+							   string="Rejected" type="object"/>
+					   <button name="button_reset_clear"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('relieved'))]}"
+							   string="Reset To Cleared" type="object"/>
+					   <button name="button_clear"
+							   attrs="{'invisible': ['|',('hr_edit_access', '!=','hr'),('state','not in',('accepted'))]}"
+							   string="Cleared" type="object"/>
+					   <button name="button_relieve"
+							   attrs="{'invisible': ['|',('hr_edit_access','!=','hr'),('state','not in',('cleared'))]}"
+							   string="Relieved" type="object"/>
+					   <field name="state" widget="statusbar" class="oe_inline"
+							  statusbar_visible="new,applied,approve_mgr,accepted,interviewed,cleared"/>
+				   </header>
+				   <sheet string="Exit">
+					   <group col="4" colspan="2">
+						   <field name="employee_id" readonly="1"/>
+						   <field name="designation"
+								  readonly="1"/>
+						   <field name="department_id"
+								  readonly="1"/>
+						   <field name="manager_id"
+								  readonly="1"/>
+						   <field name="joining_date" readonly="1"/>
+						   <field name="interview_date"
+								  attrs="{'readonly': [('hr_edit_access', '!=','hr')]}"/>
+						   <field name="relieving_date"
+								  attrs="{'readonly': [('hr_edit_access', '!=','hr')]}"/>
+						   <field name="resignation_date"
+								  attrs="{'readonly': [('hr_edit_access', '!=','hr')]}"/>
+						   <field name="hr_edit_access" invisible="1"/>
+						   <newline/>
+						   <u><label string="User Remarks:" attrs="{'invisible': [('hr_edit_access', '!=','hr_user')],'readonly':[('state','not in',('new'))]}" colspan="4"/></u>
+						   <field name="manager_remarks" attrs="{'invisible': [('hr_edit_access', '!=','hr_user')]}" colspan="4" nolabel="1"/>
+						   <newline/>
+						   <u><label string="Manager Remarks:" attrs="{'invisible': [('hr_edit_access', '!=','hr_manager')],'readonly':[('state','not in',('approve_mgr','reject_mgr'))]}" colspan="4"/></u>
+						   <field name="manager_remarks" attrs="{'invisible': [('hr_edit_access', '!=','hr_manager')]}" colspan="4" nolabel="1"/>
+						   <newline/>
+						   <u><label string="HR Remarks:" attrs="{'invisible': [('hr_edit_access', '!=','hr')]}" colspan="4"/></u>
+						   <field name="hr_remarks" attrs="{'invisible': [('hr_edit_access', '!=','hr')]}" colspan="4" nolabel="1"/>
+					   </group>
+					   <notebook>
+						   <page string="Questionnarie" states="accepted,cleared,relieved"
+								 >
+							   <group colspan="2" col="2">
+								   <label string="1. Please help us understand the reason behind leaving EduMedia"
+										  colspan="2"/>
+								   <field name="is_other_reason" invisible="1"/>
+								   <field name="reason_id" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"
+										  on_change="onchange_reason_id(reason_id,context)"/>
+								   <field name="other_reason_remarks"
+										  attrs="{'invisible': [('is_other_reason', '!=',True)],'required':[('is_other_reason', '=',True)]}"
+										  nolabel="1" colspan="2"/>
+								   <label string="2. Describe your working relationship with your reporting manager and rate your experience in the following aspects -"
+										  colspan="2"/>
+								   <field name="working_relation_ids" colspan="2" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" widget="one2many_list">
+									   <tree string="Working Relationship" editable="top" >
+										   <field name="name" />
+										   <field name="state" />
+									   </tree>
+								   </field>
+								   <label string="3. How would you rate the following in relation to your role at EduMedia?"
+										  colspan="2"/>
+								   <field name="role_ids" colspan="2" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" widget="one2many_list">
+									   <tree string="Role" editable="top" >
+										   <field name="name" />
+										   <field name="state"/>
+									   </tree>
+								   </field>
+								   <label string="4. What is your opinion regarding the employee benefits provided by the company?"
+										  colspan="2"/>
+								   <field name="opinion_ids" colspan="2" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" widget="one2many_list">
+									   <tree string="Opinion" editable="top" >
+										   <field name="name" />
+										   <field name="state" />
+									   </tree>
+								   </field>
+								   <label string="5. What factors led you to accept a job with our company?"
+										  colspan="2"/>
+								   <field name="accept_job_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <label string="6. Was your role in the organization in accordance with your initial expectations?"
+										  colspan="2"/>
+								   <field name="role_expectaion" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <field name="role_expectaion_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <label string="7. Please highlight some of the best practices followed at Edumedia and your department."
+										  colspan="2"/>
+								   <field name="best_practice_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <label string="8. Please tell us about some of the core values you would have observed in your team or organization?"
+										  colspan="2"/>
+								   <field name="core_values_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <label string="9. Based on your experience with us, please provide suggestions for organization improvement?"
+										  colspan="2"/>
+								   <field name="suggestions_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <label string="10. What EduMedia would have done differently to retain you?"
+										  colspan="2"/>
+								   <field name="retain_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+								   <label string="11. Would you consider working for EduMedia again or refer your friend in the future?"
+										  colspan="2"/>
+								   <field name="refer_remarks" attrs="{'required': [('state', '=','cleared')]}" nolabel="1" colspan="2"/>
+
+							   </group>
+						   </page>
+						   <page string="No Dues" states="accepted"
+								 >
+							   <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
+						   </page>
+					   </notebook>
+				   </sheet>
+			   </form>
+		   </field>
+	   </record>
+
+	   <record id="action_edu_hr_exit" model="ir.actions.act_window">
+		   <field name="name">Exit</field>
+		   <field name="type">ir.actions.act_window</field>
+		   <field name="res_model">edu.hr.exit</field>
+		   <field name="view_type">form</field>
+		   <field name="view_mode">tree,form</field>
+	   </record>
+	   <menuitem action="action_edu_hr_exit" id="menu_edu_hr_exit" name="Exit" parent="hr.menu_hr_main" sequence="10"/>
+
+
+   </data>
   </openerp>
   
   

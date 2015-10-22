@@ -112,7 +112,7 @@ class res_partner(osv.osv):
                 'ed_tin':fields.char('TIN NO.',size=50),
                 'ed_text':fields.text('Notes'),
                 'type' : fields.many2one('ed.type','Type'),
-                'ed_city_id': fields.related('child_ids', 'ed_city_id', type='many2one', relation='ed.city', string='City'),
+                'ed_city_id': fields.many2one('ed.city', 'City'),
                 'sale_ids': fields.function(_get_sale_ids, method=True, type='one2many', obj='sale.order', string='Sale Orders' ,readonly=True),
 #                 'time_from':fields.time('From'),
 #                 'time_to':fields.time('To'),
@@ -136,8 +136,15 @@ class res_partner(osv.osv):
               'ed_sh_subscrip' :False,
                }
      
-     
-   
+    def onchange_ed_city_id(self, cr, uid, ids, ed_city_id, context):
+        context = dict(context or {})
+        city_obj = self.pool.get("ed.city")
+        res = {'city' : ''}
+        if ed_city_id :
+           city_data = city_obj.browse(cr, uid, ed_city_id, context)
+           res['city'] = city_data.name
+        return {'value':res}
+
 #    def mark_Subscription(self, cr, uid, ids, context=None):
 #    def mark_Subscription(self, cr, uid, automatic=False, use_new_cursor=False, context=None):        
 #        subcrip_obj = self.pool.get('ed.subscription')
@@ -240,7 +247,9 @@ class res_users(osv.osv):
     
     _columns={
               'city_id':fields.many2one('ed.city','City'),
-#              for holiday dashboard purpose
+
+              'city_ids':fields.many2many('ed.city','ed_user_city_rel','user_id','city_id','Allowed Cities'),
+              #              for holiday dashboard purpose
               'wrkcity_id':fields.function(_get_city_id, method=True, type='many2one', obj='ed.city', string='Employee Address City',readonly=True, store=True),
               }
     
