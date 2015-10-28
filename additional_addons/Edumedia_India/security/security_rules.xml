@@ -52,7 +52,7 @@
 			<field name="name">Edumedia Partner City Rule</field>
 			<field name="model_id" ref="base.model_res_partner"/>
 			<field name="global" eval="True"/>
-			<field name="domain_force">['|',('ed_city_id','in',[x.id for x in user.city_ids]),('ed_city_id','=',False)]</field>
+			<field name="domain_force">['|','|',('ed_city_id','in',[user.city_id.id]),('ed_city_id','in',[x.id for x in user.city_ids]),('ed_city_id','=',False)]</field>
 		</record>
         <record id="edu_city_rule" model="ir.rule">
 			<field name="name">Edumedia City Rule</field>
