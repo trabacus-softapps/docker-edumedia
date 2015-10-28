@@ -32,7 +32,7 @@ class ed_subscription(osv.osv):
         address_obj = self.pool.get('res.partner')
         for this in self.browse(cr,uid,ids,context):                        
             if this.partner_id and this.receive_addr == 'instute_addr':
-                address_id = address_obj.search(cr,uid,[('partner_id','=',this.partner_id.id)])[0]
+                address_id = address_obj.search(cr,uid,[('id','=',this.partner_id.id)])[0]
                 address = address_obj.browse(cr,uid,address_id)
                 addr += address.street or ''
                 addr += address.street2 or ''
