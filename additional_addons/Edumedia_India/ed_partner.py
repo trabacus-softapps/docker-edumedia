@@ -266,4 +266,29 @@ class res_users(osv.osv):
 #            raise osv.except_osv(_('Warning'),_("Cannot Create User ...... Limit Exceeded"))  
     
 res_users()
-       
+
+class crm_lead(osv.osv):
+    _inherit='crm.lead'
+
+    def onchange_partner_id(self, cr, uid, ids, part, context):
+        context = dict(context or {})
+        partner_obj = self.pool.get('res.partner')
+        data = {}
+        partner = partner_obj.browse(cr,uid,part,context)
+        print 'Aditi Purohit',partner
+        if partner:
+            data.update({'street' : partner.street
+                           , 'street2' : partner.street2
+                           , 'city' : partner.city
+                           , 'state_id' : partner.state_id.id
+                           , 'zip' : partner.zip
+                           , 'country_id' : partner.country_id.id
+                           , 'email_from' : partner.email
+                           , 'function' : partner.function
+                           , 'phone' : partner.phone
+                           , 'mobile' : partner.mobile
+                           , 'fax'   : partner.fax
+                           , 'title'   : partner.title
+                           , 'contact_name'   : partner.name
+                        })
+        return {'value':data}
