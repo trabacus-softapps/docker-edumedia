@@ -269,7 +269,6 @@ res_users()
 
 class crm_lead(osv.osv):
     _inherit='crm.lead'
-
     def onchange_partner_id(self, cr, uid, ids, part, context):
         context = dict(context or {})
         partner_obj = self.pool.get('res.partner')
