@@ -289,6 +289,6 @@ class crm_lead(osv.osv):
                            , 'mobile' : partner.mobile
                            , 'fax'   : partner.fax
                            , 'title'   : partner.title
-                           , 'contact_name'   : partner.name
+                           , 'partner_name'   : partner.name
                         })
         return {'value':data}

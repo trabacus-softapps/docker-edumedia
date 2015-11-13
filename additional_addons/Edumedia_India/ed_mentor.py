@@ -565,4 +565,23 @@ class ed_advertisers(osv.osv):
     
 ed_advertisers()
 
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+    _columns = {
+                'no_boxes': fields.integer('No. of Boxes'),
+                'docket_no': fields.char('Docket No.', size=100),
+                'mode': fields.char('Mode of transport', size=100),
+                'weight': fields.char('Weight', size=100),
+                'delivery_detail': fields.text('Delivery Detail'),
+                'courier_name': fields.char('Courier Name', size=100),
+                }
+    _order = 'id desc'
+stock_picking()
 
+class sale_order(osv.osv):
+    _inherit='sale.order'
+    _columns={
+        'date_action': fields.date('Next Action Date', select=True),
+        'title_action': fields.char('Next Action'),
+        }
+sale_order()

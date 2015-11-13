@@ -679,7 +679,7 @@
 		<menuitem action="action_ed_partneraddr" id="menu_action_ed_partneraddr" name="Contacts" parent="menu_edumedia_customer" sequence="2"/>
 		
 		-->
-     
+	    <!-- user Form View-->
      <record id="ed_view_users_form" model="ir.ui.view">
             <field name="name">ed_view_users_form</field>
             <field name="type">form</field>
