@@ -577,6 +577,50 @@
                 </xpath>
 		</field>
 	</record>
+
+	   <!--   *****************  Inherited: Delivery Order	*****************-->
+
+	   <record id="edu_view_picking_out_form" model="ir.ui.view">
+		   <field name="name">edu_view_picking_out_form</field>
+		   <field name="type">form</field>
+		   <field name="model">stock.picking</field>
+		   <field name="inherit_id" ref="stock.view_picking_form"/>
+		   <field name="arch" type="xml">
+			   <xpath expr="//field[@name='picking_type_id']" position="after">
+				   <field name="docket_no" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}"/>
+				   <field name="mode" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}"/>
+				   <field name="weight" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}"/>
+			   </xpath>
+			   <xpath expr="//field[@name='priority']" position="after">
+				   <field name="courier_name" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}"/>
+				   <field name="no_boxes" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}"/>
+				   <field name="delivery_detail" attrs="{'invisible':[('picking_type_code','!=','outgoing')]}"/>
+			   </xpath>
+		   </field>
+	   </record>
+
+	   <!-- sale Form Viesw-->
+	   <record id="edu_view_order_form" model="ir.ui.view">
+		   <field name="name">edu_view_order_form</field>
+		   <field name="model">sale.order</field>
+		   <field name="inherit_id" ref="sale.view_order_form"/>
+		   <field name="type">form</field>
+		   <field name="arch" type="xml">
+			   <xpath expr="//field[@name='payment_term']" position="after">
+				   <label for="title_action"/>
+				   <div>
+					   <field name="date_action" nolabel="1"/>
+					   <label string="-"
+							  attrs="{'invisible': ['|', ('date_action', '=', False), ('title_action', '=', False)]}"/>
+					   <field name="title_action" class="oe_inline" nolabel="1" placeholder="e.g. Call for proposal"/>
+				   </div>
+			   </xpath>
+			   <xpath expr="//button[@string='Create Invoice']" position="attributes">
+				   <attribute name="invisible">1</attribute>
+			   </xpath>
+
+		   </field>
+	   </record>
 </data>
 </openerp>
 		                 
