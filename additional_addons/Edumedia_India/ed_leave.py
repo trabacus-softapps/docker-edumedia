@@ -1,4 +1,5 @@
 from openerp.osv import fields,osv 
+from openerp.tools.translate import _
 import datetime
 import time
 from dateutil import parser
@@ -57,31 +58,77 @@ class hr_holidays(osv.osv):
     # TODO: can be improved using resource calendar method Overriden
     def _get_number_of_days(self, date_from, date_to):
         """Returns a float equals to the timedelta between two dates given as string."""
-
+        diff_day = 0
         DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-        from_dt = datetime.datetime.strptime(date_from, DATETIME_FORMAT)
-        to_dt = datetime.datetime.strptime(date_to, DATETIME_FORMAT)
-        timedelta = to_dt - from_dt
-        diff_day = timedelta.days + float(timedelta.seconds) / 86400
+        if date_from and date_to:
+            from_dt = datetime.datetime.strptime(date_from, DATETIME_FORMAT)
+            to_dt = datetime.datetime.strptime(date_to, DATETIME_FORMAT)
+            timedelta = to_dt - from_dt
+            diff_day = timedelta.days + float(timedelta.seconds) / 86400
         return diff_day
     #overriden
-    def onchange_date_from(self, cr, uid, ids, date_to, date_from,first_day,sec_day):
+    def onchange_date_from(self, cr, uid, ids, chk_whch, date_to, date_from,first_day,sec_day):
+        holObj = self.pool.get('ed.vw.holidays')
+        User = self.pool.get('res.users').browse(cr, uid, uid)
+        SatSunIds = []
         result = {}
         if date_to and date_from:
             datefrom = parser.parse(''.join((re.compile('\d')).findall(date_from)))
             dateto = parser.parse(''.join((re.compile('\d')).findall(date_to)))
             endday = ((parser.parse(''.join((re.compile('\d')).findall(date_to))))).strftime("%a").lower()
             diff_day = self._get_number_of_days(date_from, date_to)
+            
+            
+            # to check is there any sunday in the date range also to get 2nd and 4th saturday 
+            
+            cr.execute("""
+                    select a.* from 
+                        (
+                          select 
+                              to_date(to_char(d,'YYYY-MM-DD'),'YYYY-MM-DD') as date, 
+                              replace(to_char(d,'DAY'),' ','') as sat_day, 
+                              extract(day from d), 
+                              case when extract(day from d)  between 1 and 7 then 1 else 
+                              case when extract(day from d)  between 8 and 14 then 2 else
+                              case when extract(day from d)  between 15 and 21 then 3 else
+                              case when extract(day from d)  between 22 and 28 then 4     
+                              else 5 end end end end as weeks
+                            from generate_series('""" +datefrom.strftime('%Y-%m-%d 00:00:00')+"""'::date, '""" +dateto.strftime('%Y-%m-%d 00:00:00')+"""'::date,'1day') g(d) 
+                            where extract(dow from d) = 0 or extract(dow from d) = 6
+                         )a
+                     where a.sat_day ='SATURDAY' and a.weeks in (2,4) or a.sat_day ='SUNDAY'
+            """)
+            satSun = cr.fetchall()
+            SatSunIds = [x[0] for x in satSun]
+            if satSun and len(satSun) >=1:
+                diff_day = diff_day - len(satSun)
+            
+            # to get list of holidays based on city
+            holIds = holObj.search(cr, uid, [('h_date','>=',datefrom.strftime('%Y-%m-%d')),('h_date','<=',datefrom.strftime('%Y-%m-%d')),('city_id','=',User.city_id.id)])
+            for h in holObj.browse(cr, uid, holIds):
+                # checking if the holiday is saturday or sunday 
+                if h.h_date not in SatSunIds:
+                    diff_day = diff_day - 1
+                
+                
             no_days = round(diff_day) + 1
             if first_day: no_days -= 0.5
             if sec_day: no_days -= 0.5
-            if endday == 'sat': no_days += 1
+            #if endday == 'sat': no_days += 1
             result['value'] = {
                                'date_from': datefrom.strftime('%Y-%m-%d 00:00:00'),
                                'date_to': dateto.strftime('%Y-%m-%d 00:00:00'),
                                'number_of_days_temp': no_days
                                }
+            """ To uncheck the Half day check boxes. At any point only on check box should be active """
+            if chk_whch == 'fst_day' and first_day:
+                result['value'].update({'sec_day':False})
+            if chk_whch == 'sec_day' and sec_day:
+                result['value'].update({'fst_day':False})
+            
+            
             return result
+            
         result['value'] = {
             'number_of_days_temp': 0,
         }
@@ -180,6 +227,8 @@ class hr_holidays(osv.osv):
             
         return res
     
+
+    
     def holidays_refuse(self, cr, uid, ids, *args):
         Attend_obj = self.pool.get("ed.attendance")
         reqst_obj = self.pool.get('res.request')
@@ -212,14 +261,25 @@ class hr_holidays(osv.osv):
                         'create': 1 
                         })
         vals.update({'state':'draft'})
-        
+        # to check the end date should not be less than start date
+        if vals.get('date_from') and vals.get('date_to'):
+            diff = self._get_number_of_days(vals.get('date_from'),vals.get('date_to'))
+            if diff <0:
+                raise osv.except_osv(_('Warning!'), _('The number of days must be greater than 0 !'))
+                
         return super(hr_holidays,self).create(cr, uid, vals, context)
     
     def write(self, cr, uid, ids, vals, context=None):
         context = dict(context or {})
         if context.get('create'):
             vals.update({'state' : 'draft'})
-        print "write vals", vals
+        
+        for case in self.browse(cr, uid, ids):    
+            # to check the end date should not be less than start date
+            diff = self._get_number_of_days(vals.get('date_from',case.date_from),vals.get('date_to',case.date_to))
+            if diff <0:
+                raise osv.except_osv(_('Warning!'), _('The number of days must be greater than 0 !'))
+        
         return super(hr_holidays, self).write(cr, uid, ids, vals, context)
     
 hr_holidays()    
@@ -271,7 +331,7 @@ class ed_time_off(osv.osv):
         days = timedelta.days + float(timedelta.seconds) / 86400
         return days
     
-    def onchange_date_from(self, cr, uid, ids, start_date, end_date,first_day,sec_day):
+    def onchange_date_from(self, cr, uid, ids, chk_whch, start_date, end_date,first_day,sec_day):
         result = {}
         if start_date and end_date:
             diff_day = self._get_number_of_days(start_date, end_date)            
@@ -285,7 +345,15 @@ class ed_time_off(osv.osv):
                 'diff_time' : time_hrs[0],
                 'dummy_diff' : int(diff_day)
             }
+            """ To uncheck the Half day check boxes. At any point only on check box should be active """
+            if chk_whch == 'fst_day' and first_day:
+                result['value'].update({'sec_day':False})
+            if chk_whch == 'sec_day' and sec_day:
+                result['value'].update({'fst_day':False})
+            
             return result
+            
+           
         result['value'] = {
             'number_of_days_temp': 0,
             'diff_time':0,
@@ -319,5 +387,7 @@ class ed_time_off(osv.osv):
             absent_rec_ids = Attend_obj.search(cr,uid,[('employee_id','=',case.emp_id.id),('log_date','>=',case.start_date),('log_date','<=',case.end_date),('state','=','absent')])
             Attend_obj.write(cr, uid, absent_rec_ids, {'state':'time_off','remarks':case.name})
         return True
+    
+    
     
 ed_time_off()

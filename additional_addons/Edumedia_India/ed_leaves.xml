@@ -44,10 +44,10 @@
                                 <field name="department_id"/>
                             </group>
                             <group col="12" colspan="4">                            
-                                <field name="date_from" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)" required="1"/>
-                                <field name="fst_day" colspan="1" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)"/>  
-                                <field name="date_to" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)" required="1"/>
-                                <field name="sec_day" colspan="1" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)"/>
+                                <field name="date_from" on_change="onchange_date_from('date_from',date_to, date_from,fst_day,sec_day)" required="1"/>
+                                <field name="fst_day" colspan="1" on_change="onchange_date_from('fst_day',date_to, date_from,fst_day,sec_day)"/>  
+                                <field name="date_to" on_change="onchange_date_from('date_to',date_to, date_from,fst_day,sec_day)" required="1"/>
+                                <field name="sec_day" colspan="1" on_change="onchange_date_from('sec_day',date_to, date_from,fst_day,sec_day)"/>
                             </group>
                             <newline/>
                             <group>
@@ -134,10 +134,10 @@
                                 <field name="department_id"/>
                             </group>
                                  <group col="12" colspan="4">                            
-                                <field name="date_from" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)" required="1"/>
-                                <field name="fst_day" colspan="1" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)"/>
-                                <field name="date_to" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)" required="1"/>
-                                <field name="sec_day" colspan="1" on_change="onchange_date_from(date_to, date_from,fst_day,sec_day)"/>
+                                <field name="date_from" on_change="onchange_date_from('date_from',date_to, date_from,fst_day,sec_day)" required="1"/>
+                                <field name="fst_day" colspan="1" on_change="onchange_date_from('fst_day',date_to, date_from,fst_day,sec_day)"/>
+                                <field name="date_to" on_change="onchange_date_from('date_to',date_to, date_from,fst_day,sec_day)" required="1"/>
+                                <field name="sec_day" colspan="1" on_change="onchange_date_from('sec_day',date_to, date_from,fst_day,sec_day)"/>
                                 </group>
                                 <newline/>
                             <group>
@@ -330,7 +330,7 @@
 				   <field name="type">tree</field>
 				   <field name="arch" type="xml">
 				          <tree string="My Time Off" >
-				           
+				              <field name="state" invisible="1"/>
 		                    <field name="name"  />
 		                    <field name="emp_id" />
 		                    <field name="start_date"  />
@@ -356,10 +356,10 @@
     		                <field name="name"  />
     	                    <field name="emp_id"  />
     	                    <group col="12" colspan="4">	             
-    	                    <field name="start_date" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)" required="1"/>
-    	                    <field name="fst_day" nolabel="1" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)"/>
-    	                    <field name="end_date" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)" required="1"/>
-    	                    <field name="sec_day" nolabel="1" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)"/>
+        	                    <field name="start_date" on_change="onchange_date_from('start_date',start_date, end_date,fst_day,sec_day)" required="1"/>
+        	                    <field name="fst_day" nolabel="1" on_change="onchange_date_from('fst_day',start_date, end_date,fst_day,sec_day)"/>
+        	                    <field name="end_date" on_change="onchange_date_from('end_date',start_date, end_date,fst_day,sec_day)" required="1"/>
+        	                    <field name="sec_day" nolabel="1" on_change="onchange_date_from('sec_day',start_date, end_date,fst_day,sec_day)"/>
     	                    </group>
     	                    <newline/>
     	                    <group col="4" colspan="2"> 
@@ -420,10 +420,10 @@
         		                <field name="name"  />
         	                    <field name="emp_id"  />
         	                    <group col="12" colspan="4">
-        	                    <field name="start_date" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)" required="1"/>
-        	                    <field name="fst_day" nolabel="1" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)"/>
-        	                    <field name="end_date" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)" required="1"/>
-        	                    <field name="sec_day" nolabel="1" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)"/>
+        	                        <field name="start_date" on_change="onchange_date_from('start_date',start_date, end_date,fst_day,sec_day)" required="1"/>
+        	                        <field name="fst_day" nolabel="1" on_change="onchange_date_from('fst_day',start_date, end_date,fst_day,sec_day)"/>
+        	                        <field name="end_date" on_change="onchange_date_from('end_date',start_date, end_date,fst_day,sec_day)" required="1"/>
+        	                        <field name="sec_day" nolabel="1" on_change="onchange_date_from('sec_day',start_date, end_date,fst_day,sec_day)"/>
         	                    </group>
         	                    <newline/>
         	                    <group col="4" colspan="2"> 
@@ -518,10 +518,10 @@
         		                <field name="name"  />
         	                    <field name="emp_id"  />
         	                    <group col="12" colspan="4">
-        	                    <field name="start_date" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)" required="1"/>
-        	                    <field name="fst_day" nolabel="1" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)"/>
-        	                    <field name="end_date" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)" required="1"/>
-        	                    <field name="sec_day" nolabel="1" on_change="onchange_date_from(start_date, end_date,fst_day,sec_day)"/>
+        	                        <field name="start_date" on_change="onchange_date_from('start_date',start_date, end_date,fst_day,sec_day)" required="1"/>
+        	                        <field name="fst_day" nolabel="1" on_change="onchange_date_from('fst_day',start_date, end_date,fst_day,sec_day)"/>
+        	                        <field name="end_date" on_change="onchange_date_from('end_date',start_date, end_date,fst_day,sec_day)" required="1"/>
+        	                        <field name="sec_day" nolabel="1" on_change="onchange_date_from('sec_day',start_date, end_date,fst_day,sec_day)"/>
         	                    </group>
         	                    <newline/>
         	                   <group col="4" colspan="2"> 

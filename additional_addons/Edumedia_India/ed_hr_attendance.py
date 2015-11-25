@@ -408,6 +408,31 @@ class hr_employee(osv.osv):
         emp_ids = self.search(cr, uid, [('active','=',True)])
 #         emp_ids = [113]
 #         logdate = '2015-08-20' 
+    
+        
+        # to check the 2nd and 4th sat and also sunday
+        cr.execute("""
+                    select a.* from 
+                        (
+                          select 
+                              to_date(to_char(d,'YYYY-MM-DD'),'YYYY-MM-DD') as date, 
+                              replace(to_char(d,'DAY'),' ','') as sat_day, 
+                              extract(day from d), 
+                              case when extract(day from d)  between 1 and 7 then 1 else 
+                              case when extract(day from d)  between 8 and 14 then 2 else
+                              case when extract(day from d)  between 15 and 21 then 3 else
+                              case when extract(day from d)  between 22 and 28 then 4     
+                              else 5 end end end end as weeks
+                            from generate_series('""" +time.strftime("%Y-%m-%d")+"""'::date, '""" +time.strftime("%Y-%m-%d")+"""'::date,'1day') g(d) 
+                            where extract(dow from d) = 0 or extract(dow from d) = 6
+                         )a
+                     where a.sat_day ='SATURDAY' and a.weeks in (2,4) or a.sat_day ='SUNDAY'
+            """)
+        satSun = cr.fetchall()
+        SatSunIds = [x[0] for x in satSun]
+        if time.strftime("%Y-%m-%d") in SatSunIds:
+            return
+
         while( logdate <= time.strftime("%Y-%m-%d")):
             for case in self.browse(cr, uid, emp_ids):
                 siMaps = {}
