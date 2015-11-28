@@ -104,7 +104,7 @@ class hr_holidays(osv.osv):
                 diff_day = diff_day - len(satSun)
             
             # to get list of holidays based on city
-            holIds = holObj.search(cr, uid, [('h_date','>=',datefrom.strftime('%Y-%m-%d')),('h_date','<=',datefrom.strftime('%Y-%m-%d')),('city_id','=',User.city_id.id)])
+            holIds = holObj.search(cr, uid, [('h_date','>=',datefrom.strftime('%Y-%m-%d')),('h_date','<=',dateto.strftime('%Y-%m-%d')),('city_id','=',User.city_id.id)])
             for h in holObj.browse(cr, uid, holIds):
                 # checking if the holiday is saturday or sunday 
                 if h.h_date not in SatSunIds:
