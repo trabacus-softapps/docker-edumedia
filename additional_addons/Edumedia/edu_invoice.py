@@ -70,7 +70,7 @@ class sale_order(osv.osv):
             self.signal_workflow(cr, uid, ids, 'quotation_sent')
             res = rep_obj.pentaho_report_action(cr, uid, 'account_cusinvoice', ids, None ,None)
             res['datas'].update({'output_type':'pdf'})
-            res.update({'name' : case.name and 'Quotation - ' + case.name or 'Quotation'})
+            res.update({'name' : case.name and 'Order Form - ' + case.name or 'Order Form'})
         return res
     
 class account_invoice(osv.osv):
