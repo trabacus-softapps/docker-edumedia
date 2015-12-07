@@ -576,6 +576,37 @@ class stock_picking(osv.osv):
                 'courier_name': fields.char('Courier Name', size=100),
                 }
     _order = 'id desc'
+
+    def action_quotation_send(self, cr, uid, ids, context=None):
+        '''
+        This function opens a window to compose an email, with the edi sale template message loaded by default
+        '''
+        assert len(ids) == 1, 'This option should only be used for a single id at a time.'
+        ir_model_data = self.pool.get('ir.model.data')
+        template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        ctx = dict()
+        ctx.update({
+            'default_model': 'stock.picking',
+            'default_res_id': ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
 stock_picking()
 
 class sale_order(osv.osv):
@@ -583,5 +614,19 @@ class sale_order(osv.osv):
     _columns={
         'date_action': fields.date('Next Action Date', select=True),
         'title_action': fields.char('Next Action'),
+        'proposal' : fields.text('Proposal'),
         }
+
+    def print_proposal(self, cr, uid, ids, context=None):
+        rep_obj = self.pool.get('ir.actions.report.xml')
+        attachment_obj = self.pool.get('ir.attachment')
+        for case in self.browse(cr, uid, ids):
+            if not case.order_line:
+              raise except_orm(_('No Lines!'), _('Please create some quotation lines.'))
+              return False
+            self.signal_workflow(cr, uid, ids, 'quotation_sent')
+            res = rep_obj.pentaho_report_action(cr, uid, 'report_proposal', ids, None ,None)
+            res['datas'].update({'output_type':'pdf'})
+            res.update({'name' : case.name and 'Proposal - ' + case.name or 'Proposal'})
+        return res
 sale_order()
