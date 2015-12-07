@@ -621,10 +621,6 @@ class sale_order(osv.osv):
         rep_obj = self.pool.get('ir.actions.report.xml')
         attachment_obj = self.pool.get('ir.attachment')
         for case in self.browse(cr, uid, ids):
-            if not case.order_line:
-              raise except_orm(_('No Lines!'), _('Please create some quotation lines.'))
-              return False
-            self.signal_workflow(cr, uid, ids, 'quotation_sent')
             res = rep_obj.pentaho_report_action(cr, uid, 'report_proposal', ids, None ,None)
             res['datas'].update({'output_type':'pdf'})
             res.update({'name' : case.name and 'Proposal - ' + case.name or 'Proposal'})
