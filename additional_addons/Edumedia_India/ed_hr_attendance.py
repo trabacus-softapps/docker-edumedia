@@ -589,10 +589,11 @@ class hr_employee(osv.osv):
                        
                          for lr in Leave_obj.browse(cr,uid,[LeaveRecords[0]]):
                              day = hfday = 0
-                             if lr.holiday_status_id.type == 'paid':
+                             print "lr.holiday_status_id........",lr.holiday_status_id, case.id, logdate
+                             if lr.holiday_status_id.name == 'paid':
                                  day = 1
                                  hfday = 0.5                               
-                             self._create_LeaveTimeRecords(cr, uid, [case.id], {'day': day, 'hfday':hfday, 'state': lr.holiday_status_id.type, 'logdate':logdate
+                             self._create_LeaveTimeRecords(cr, uid, [case.id], {'day': day, 'hfday':hfday, 'state': lr.holiday_status_id.name, 'logdate':logdate
                                                                           , 'date_from': lr.date_from, 'date_to':lr.date_to, 'fst_day':lr.fst_day, 'sec_day':lr.sec_day,'descp':lr.name}
                                                            , TodaysLogs, edatt_obj, context)
                              
@@ -741,12 +742,12 @@ class hr_employee(osv.osv):
                 body += """ There are employee time-off requests waiting for your approval. Please login to the Edumedia ERP and approve the same using the Human Resources link.\n\n""" 
                 body += """ Regards, \n\n The Edumedia HR Team.""" 
                 
-            #if type == 'absent':
-            #    subject = 'Absent Records'  
-            #    body = ""                
-            #    body += """\n\nDear """ + (case.name or '-') + """,\n\n""" 
-            #    body += """ There are Absent records against your name. Please login to Edumedia ERP and apply for leave/time-off. Please note Absent records affect your salary.\n\n""" 
-            #    body += """ Regards, \n\n The Edumedia HR Team.""" 
+            # if type == 'absent':
+            #     subject = 'Absent Records'
+            #     body = ""
+            #     body += """\n\nDear """ + (case.name or '-') + """,\n\n"""
+            #     body += """ There are Absent records against your name. Please login to Edumedia ERP and apply for leave/time-off. Please note Absent records affect your salary.\n\n"""
+            #     body += """ Regards, \n\n The Edumedia HR Team."""
                 
             if emails and email_from: 
                 flag = openerp.tools.email_send(

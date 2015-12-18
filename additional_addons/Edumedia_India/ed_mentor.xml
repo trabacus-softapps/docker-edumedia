@@ -668,11 +668,11 @@
                     </div>
                 </xpath>
                 <xpath expr="//button[@string='Print']" position="replace">
-                    <button name="print_quotation" string="Quote Form" help="Print Quote Form" type="object"
+                    <button name="print_quotation" string="Order Form" help="Print Order Form" type="object"
                             states="draft" class="oe_highlight" groups="base.group_user"/>
                 </xpath>
                 <xpath expr="//button[@string='Print']" position="replace">
-                    <button name="print_quotation" string="Quote Form" type="object" help="Print Quote Form"
+                    <button name="print_quotation" string="Order Form" type="object" help="Print Order Form"
                             states="sent,progress,manual" groups="base.group_user"/>
                 </xpath>
 
