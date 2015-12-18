@@ -741,12 +741,12 @@ class hr_employee(osv.osv):
                 body += """ There are employee time-off requests waiting for your approval. Please login to the Edumedia ERP and approve the same using the Human Resources link.\n\n""" 
                 body += """ Regards, \n\n The Edumedia HR Team.""" 
                 
-            if type == 'absent':
-                subject = 'Absent Records'  
-                body = ""                
-                body += """\n\nDear """ + (case.name or '-') + """,\n\n""" 
-                body += """ There are Absent records against your name. Please login to Edumedia ERP and apply for leave/time-off. Please note Absent records affect your salary.\n\n""" 
-                body += """ Regards, \n\n The Edumedia HR Team.""" 
+            #if type == 'absent':
+            #    subject = 'Absent Records'  
+            #    body = ""                
+            #    body += """\n\nDear """ + (case.name or '-') + """,\n\n""" 
+            #    body += """ There are Absent records against your name. Please login to Edumedia ERP and apply for leave/time-off. Please note Absent records affect your salary.\n\n""" 
+            #    body += """ Regards, \n\n The Edumedia HR Team.""" 
                 
             if emails and email_from: 
                 flag = openerp.tools.email_send(

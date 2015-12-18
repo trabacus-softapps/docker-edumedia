@@ -574,6 +574,8 @@ class stock_picking(osv.osv):
                 'weight': fields.char('Weight', size=100),
                 'delivery_detail': fields.text('Delivery Detail'),
                 'courier_name': fields.char('Courier Name', size=100),
+                'covering_letter': fields.text('Covering Letter'),
+                'from_address': fields.text('From'),
                 }
     _order = 'id desc'
 
@@ -607,6 +609,13 @@ class stock_picking(osv.osv):
             'target': 'new',
             'context': ctx,
         }
+    def print_coveringletter(self, cr, uid, ids, context=None):
+        rep_obj = self.pool.get('ir.actions.report.xml')
+        for case in self.browse(cr, uid, ids):
+            res = rep_obj.pentaho_report_action(cr, uid, 'report_coveringletter', ids, None ,None)
+            res['datas'].update({'output_type':'pdf'})
+            res.update({'name' : case.name and 'Covering Letter - ' + case.name or 'Covering Letter'})
+        return res
 stock_picking()
 
 class sale_order(osv.osv):
@@ -614,14 +623,15 @@ class sale_order(osv.osv):
     _columns={
         'date_action': fields.date('Next Action Date', select=True),
         'title_action': fields.char('Next Action'),
+        'subject' : fields.char('Subject', size=100),
         'proposal' : fields.text('Proposal'),
+        'terms_condition' : fields.text('Proposal'),
         }
 
     def print_proposal(self, cr, uid, ids, context=None):
         rep_obj = self.pool.get('ir.actions.report.xml')
-        attachment_obj = self.pool.get('ir.attachment')
         for case in self.browse(cr, uid, ids):
-            res = rep_obj.pentaho_report_action(cr, uid, 'report_proposal', ids, None ,None)
+            res = rep_obj.pentaho_report_action(cr, uid, 'report_proposal', ids, {'uid':uid}, None)
             res['datas'].update({'output_type':'pdf'})
             res.update({'name' : case.name and 'Proposal - ' + case.name or 'Proposal'})
         return res
