@@ -51,8 +51,8 @@
         <record id="edu_partner_city_rule" model="ir.rule">
 			<field name="name">Edumedia Partner City Rule</field>
 			<field name="model_id" ref="base.model_res_partner"/>
-			<field name="global" eval="True"/>
 			<field name="domain_force">['|','|',('ed_city_id','in',[user.city_id.id]),('ed_city_id','in',[x.id for x in user.city_ids]),('ed_city_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('ed_sales_admin')),(4, ref('ed_sales_manager')),(4, ref('ed_sales_user')),(4, ref('base.group_sale_salesman')),(4, ref('base.group_sale_salesman_all_leads')),(4, ref('base.group_sale_manager'))]"/>
 		</record>
         <record id="edu_city_rule" model="ir.rule">
 			<field name="name">Edumedia City Rule</field>

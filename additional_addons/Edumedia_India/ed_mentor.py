@@ -9,7 +9,8 @@ import datetime
 import re
 from dateutil import parser
 import openerp.tools
-    
+from openerp.exceptions import UserError
+
 class ed_subscription(osv.osv): 
     _name='ed.subscription'
     
@@ -636,3 +637,28 @@ class sale_order(osv.osv):
             res.update({'name' : case.name and 'Proposal - ' + case.name or 'Proposal'})
         return res
 sale_order()
+
+class account_order_confirm(osv.osv_memory):
+    """
+    This wizard will confirm the all the selected draft sale orders/quotations
+    """
+
+    _name = "account.order.confirm"
+    _description = "Confirm the selected Sale Order(s)/Quotation(s)"
+    _columns={
+        'is_validate_so' : fields.boolean('Validate Quotations')
+    }
+    def order_confirm(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        active_ids = context.get('active_ids', []) or []
+
+        sale_obj = self.pool['sale.order']
+        for wiz in self.browse(cr, uid, ids, context) :
+            for case in sale_obj.browse(cr, uid, active_ids, context=context):
+                if case.state not in ('draft','sent'):
+                    raise UserError(_("Selected Quotation(s) cannot be confirmed as they are not in 'Draft Quotaion'/'Quotaion sent' state."))
+                sale_obj.action_button_confirm(cr,uid,[case.id],context)
+                if wiz.is_validate_so:
+                    sale_obj.action_invoice_create(cr,uid,[case.id],context)
+        return {'type': 'ir.actions.act_window_close'}

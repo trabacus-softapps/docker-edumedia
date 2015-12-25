@@ -868,3 +868,4 @@ class ed_wiz_erp_implemantation(osv.osv_memory):
                    }    
     
 ed_wiz_erp_implemantation()
+

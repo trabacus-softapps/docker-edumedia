@@ -318,7 +318,7 @@ class ed_time_off(osv.osv):
     
     _sql_constraints = [
         ('date_check', "CHECK ( number_of_days_temp > 0 )", "The number of days must be greater than 0 !"),
-        ('date_check2', "CHECK (start_date <= end_date))", "The start date must be before the end date !")
+        ('date_check2', "CHECK (start_date <= end_date)", "The start date must be before the end date !")
     ]
     
     def _get_number_of_days(self, start_date, end_date):
