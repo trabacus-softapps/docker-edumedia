@@ -701,8 +701,8 @@ class hr_employee(osv.osv):
                self.action_send(cr, uid, [case.id],'leave', context) 
             if len(Tmoff_rec_ids) > 0:
                 self.action_send(cr, uid, [case.id],'timeoff', context)
-            if len(Absent_rec_ids) > 0:
-                self.action_send(cr, uid, [case.id],'absent', context)
+#             if len(Absent_rec_ids) > 0:
+#                 self.action_send(cr, uid, [case.id],'absent', context)
         return True        
                     
     def action_send(self, cr, uid, ids,type, context=None):
