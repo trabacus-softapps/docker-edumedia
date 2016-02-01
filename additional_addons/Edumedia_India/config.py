@@ -842,33 +842,35 @@ ed_advertisers_position()
 
 class ed_business_development(osv.osv):
     _name = 'ed.business.development'
+    _description = "Business Development"
+    _inherit = ['mail.thread', 'ir.needaction_mixin', 'utm.mixin']
     _columns = {
-        'name'         : fields.char('Name', size=256, required=False, select=True),
+        'name'         : fields.char('Name', size=256, required=False, select=True,track_visibility='onchange'),
         'user_id'      : fields.many2one('res.users', 'Business Development Executive', select=True, track_visibility='onchange', ondelete="restrict"),
         'title_action' : fields.char('Explanation', size=500, track_visibility='onchange'),
         'date_action'  : fields.date('Next Action Date', select=True, track_visibility='onchange'),
-        'description'  : fields.text('Remarks'),
+        'description'  : fields.text('Remarks',track_visibility='onchange'),
 
         'company_id'     : fields.many2one('res.company', 'Company', ondelete='cascade', select=True, change_default=True),
 
-        'contact_name': fields.char('Contact Name', size=64),
-        'partner_name': fields.char("School Name", size=64,help='The name of the future partner company that will be created while converting the lead into opportunity', select=1),
+        'contact_name': fields.char('Contact Name', size=64,track_visibility='onchange'),
+        'partner_name': fields.char("School Name", size=64,help='The name of the future partner company that will be created while converting the lead into opportunity', select=1,track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', 'School', ondelete='set null', track_visibility='onchange',
             select=True, help="Linked partner (optional). Usually created when converting the lead."),
         'title': fields.many2one('res.partner.title', 'Title'),
-        'phone': fields.char("Phone", size=64),
-        'email_from': fields.char('Email', size=128, help="Email address of the contact", select=1),
+        'phone': fields.char("Phone", size=64,track_visibility='onchange'),
+        'email_from': fields.char('Email', size=128, help="Email address of the contact", select=1,track_visibility='onchange'),
 
         # Fields for address,
-        'street': fields.char('Street'),
-        'street2': fields.char('Street2'),
-        'zip': fields.char('Zip', change_default=True, size=24),
-        'city': fields.char('City'),
-        'state_id': fields.many2one("res.country.state", 'State'),
-        'country_id': fields.many2one('res.country', 'Country'),
-        'phone': fields.char('Phone'),
-        'fax': fields.char('Fax'),
-        'mobile': fields.char('Mobile'),
+        'street': fields.char('Street',track_visibility='onchange'),
+        'street2': fields.char('Street2',track_visibility='onchange'),
+        'zip': fields.char('Zip', change_default=True, size=24,track_visibility='onchange'),
+        'city': fields.char('City',track_visibility='onchange'),
+        'state_id': fields.many2one("res.country.state", 'State',track_visibility='onchange'),
+        'country_id': fields.many2one('res.country', 'Country',track_visibility='onchange'),
+        'phone': fields.char('Phone',track_visibility='onchange'),
+        'fax': fields.char('Fax',track_visibility='onchange'),
+        'mobile': fields.char('Mobile',track_visibility='onchange'),
 
         #ODOO
          'create_date': fields.datetime('Creation Date', readonly=True),
