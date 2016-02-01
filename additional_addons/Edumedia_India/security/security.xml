@@ -805,6 +805,27 @@
 			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
 	    </record>
 		-->
-	    
+
+
+				<!-- Business Development-->
+		<record model="ir.module.category" id="module_category_ed_business_development">
+			<field name="name">Business Development</field>
+			<field name="description">Helps you manage your Business Development.</field>
+			<field name="sequence">1</field>
+		</record>
+
+		<record id="ed_group_business_development_manager" model="res.groups">
+			<field name="name">All Developments</field>
+			<field name="category_id" ref="module_category_ed_business_development"/>
+			<field name="comment">the user will have access to All Development.</field>
+		</record>
+
+	    <record id="ed_group_business_development_user" model="res.groups">
+			<field name="name">Own Developments</field>
+			<field name="category_id" ref="module_category_ed_business_development"/>
+			<field name="implied_ids" eval="[(4, ref('ed_group_business_development_manager'))]"/>
+			<field name="comment">the user will have access to his Own Developments.</field>
+		</record>
+
 </data>
 </openerp>
