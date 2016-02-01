@@ -1990,13 +1990,16 @@
             <field name="act_window_id" ref="business_development_action"/>
         </record>
 
-        <menuitem id="business_development_menu" name="Business Development" sequence="6"/>
+        <menuitem id="business_development_menu" name="Business Development" sequence="6"
+		groups="base.group_no_one,ed_group_business_development_user,ed_group_business_development_manager"/>
 
         <menuitem id ='action_simpa_dcaf_form_id' action = 'business_development_action' name='Business Development'
-				  parent = 'business_development_menu' sequence = '1'/>
+				  parent = 'business_development_menu' sequence = '1'
+		groups="base.group_no_one,ed_group_business_development_user,ed_group_business_development_manager"/>
 
 	    <menuitem id ='action_simpa_dcaf_form_id1' action = 'business_development_action' name='Business Development'
-				  parent = 'action_simpa_dcaf_form_id' sequence = '1'/>
+				  parent = 'action_simpa_dcaf_form_id' sequence = '1'
+				  groups="base.group_no_one,ed_group_business_development_user,ed_group_business_development_manager"/>
 
 
 
