@@ -53,8 +53,24 @@
             <field eval="'do_remainder_mail'" name="function" />
             <field eval="'()'" name="args" />
         </record>
-        
 
+        <!--	*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+						Scheduler to Create Attendance
+		*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. *.*.*.*.*.*.*.*.*.*.*.*.*.*.* .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. -->
+
+
+		  <record forcecreate="True" id="scheduler_hr_attendance" model="ir.cron">
+				<field name="name">Scheduler Bio-Matric Report to Integrate on ERP</field>
+				<field eval="True" name="active" />
+				<field name="user_id" ref="base.user_root" />
+				<field name="interval_number">1</field>
+				<field name="interval_type">days</field>
+				<field name="numbercall">-1</field>
+				<field eval="True" name="doall" />
+				<field eval="'hr.attendance'" name="model" />
+				<field eval="'run_scheduler_biometric_record'" name="function" />
+				<field eval="'()'" name="args" />
+			</record>
         
     </data>
 </openerp>

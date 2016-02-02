@@ -1,11 +1,27 @@
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
-import time 
+import datetime
+import time
+from openerp import sql_db, tools
+from openerp.tools.translate import _
+import xlrd
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from operator import itemgetter
+import pytz
 import openerp.tools
 from dateutil import parser
 import re
 from dateutil.relativedelta import relativedelta 
- 
+import os
+import shutil
+import logging
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+import openerp
+_logger = logging.getLogger(__name__)
+from openerp.exceptions import UserError, AccessError
+
+
 class hr_attendance(osv.osv): 
     _inherit = "hr.attendance"
     _columns = { 
@@ -29,7 +45,115 @@ class hr_attendance(osv.osv):
         raise osv.except_osv(_('Warning!'),_('You cannot delete this record !')) 
         return super(hr.attendance, self).unlink(cr, uid, ids, context)
 
-    
+    def run_scheduler_biometric_record(self, cr, uid, automatic=False, use_new_cursor=False, context=None):
+        hr_atendance = self.pool.get('hr.attendance')
+        hr_obj = self.pool.get('hr.employee')
+        dataFile=''
+        date = emp_id = log_in = log_out= emp_name=''
+        hr_id = []
+        hr_attendace_id = []
+        ftp_path = (tools.config['biometric_path'] or '/var/ftp/')
+        path1 = ftp_path + '/processed'
+        path2 = ftp_path + '/processing'
+        biometric_log = open(ftp_path + '/log/' + datetime.today().strftime('%Y-%m-%d')+".log","ab")
+        for dir_entry in os.listdir(path2):
+            dir_entry_path = os.path.join(path2, dir_entry)
+            if os.path.isfile(dir_entry_path):
+                with open(dir_entry_path, 'rU') as biometric:
+                    try:
+                        file_name = biometric.name[biometric.name.find('ing/')+4:]
+                    except:
+                        print "Error"
+                        pass
+                dataFile = str(dir_entry_path)
+            try:
+                workbook = xlrd.open_workbook(dataFile)
+                xl_sheet = workbook.sheet_by_index(1)
+                print 'xl_sheet',xl_sheet
+                for row_idx in range(0, xl_sheet.nrows):
+                    if row_idx > 3:
+                        for col_idx in range(0, 8):
+                            if col_idx < 8:
+                                if col_idx == 0:
+                                    cell_obj = xl_sheet.cell(row_idx, col_idx)
+                                    cell_val = xl_sheet.cell(row_idx, col_idx)
+                                    if cell_val.value: # value in the cell
+                                        date = str(cell_val.value)
+                                        date = str(date[6:10]+"-"+date[3:5]+"-"+date[0:2])
+
+                                elif col_idx == 1:
+                                    cell_obj = xl_sheet.cell(row_idx, col_idx)
+                                    cell_val = xl_sheet.cell(row_idx, col_idx)
+                                    if cell_val.value: # value in the cell
+                                        emp_id = str(cell_val.value)
+                                        hr_id = hr_obj.search(cr,uid,[('identification_id','=',emp_id)])
+
+                                elif col_idx == 5:
+                                    cell_obj = xl_sheet.cell(row_idx, col_idx)
+                                    cell_val = xl_sheet.cell(row_idx, col_idx)
+                                    if cell_val.value: # value in the cell
+                                        log_in = str(cell_val.value)
+
+                                elif col_idx == 6:
+                                    cell_obj = xl_sheet.cell(row_idx, col_idx)
+                                    cell_val = xl_sheet.cell(row_idx, col_idx)
+                                    if cell_val.value: # value in the cell
+                                        log_out = str(cell_val.value)
+
+
+                        if emp_id:
+                            cr.execute("""select id from hr_attendance where name::date = '"""+str(date)+"""'::date and employee_id in \
+                                          (select id from hr_employee where identification_id = '"""+str(emp_id)+"""')""")
+                            hr_attendace_id = cr.fetchall()
+                            if hr_attendace_id:
+                                hr_attendace_id=zip(*hr_attendace_id)[0]
+
+                            if not hr_attendace_id:
+                                if log_in and hr_id:
+                                    in_date = str(date)+" " +str(log_in)+":00"
+                                    in_date = self.tr_timezone(cr,uid,in_date)
+                                    hr_atendance_id = hr_atendance.create(cr,uid,{"employee_id":hr_id[0],"name":in_date,'action':'sign_in'})
+                                    print 'hr_atendance_id',hr_atendance_id
+                                if log_out and hr_id:
+                                    log_out = str(date)+" " +str(log_out)+":00"
+                                    log_out = self.tr_timezone(cr,uid,log_out)
+                                    hr_atendance_id = hr_atendance.create(cr,uid,{"employee_id":hr_id[0],"name":log_out,'action':'sign_in'})
+                                    print 'hr_atendance_id',hr_atendance_id
+                            else:
+                                _logger.error('Duplicate Records %s' % (file_name))
+                                k = '\n' + datetime.today().strftime('%H:%M:%S') + 'Reading biometric ' + biometric.name + 'Duplicate Records in '+ file_name + " "+date+" and "+emp_id
+                                biometric_log.write(k)
+
+                        date = emp_id = log_in = log_out= emp_name= in_date=''
+                        hr_attendace_id=[]
+                print "file_name",file_name
+                x = path1+"/processed/"+file_name
+                if os.path.isfile(x): os.remove(x)
+                shutil.move(biometric.name, ftp_path  + '/processed')
+            except:
+                _logger.error('Unable To Read File  %s' % (file_name))
+                k = '\n' + datetime.today().strftime('%H:%M:%S') + 'Reading biometric ' + biometric.name + ' Unable To Find File In biometric '+ file_name
+                biometric_log.write(k)
+                x = ftp_path  + '/erroneous/' +  file_name
+                if os.path.isfile(x): os.remove(x)
+                shutil.move(biometric.name, ftp_path  + '/erroneous')
+                continue
+
+            # x = ftp_path  + '/Processed/' +  file_name
+        return True
+
+    def tr_timezone(self,cr,uid,today,context=None):
+
+        user_obj = self.pool.get('res.users')
+        zone = self.pool.get('res.users').browse(cr,uid,uid).tz or 'Asia/Kolkata'
+        user = self.pool['res.users'].read(
+            cr, uid, [uid], ['tz'], context=context)[0]
+        local_tz = pytz.timezone(zone)
+        ed_dt = datetime.strptime(today, '%Y-%m-%d %H:%M:%S')
+        ed_local_dt = local_tz.localize(ed_dt, is_dst=None)
+        ed_utc_dt = ed_local_dt.astimezone(pytz.UTC)
+        return ed_utc_dt
+
 hr_attendance()
 
   
