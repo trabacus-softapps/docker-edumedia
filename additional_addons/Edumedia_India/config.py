@@ -2,6 +2,7 @@ from openerp.osv import fields,osv
 from openerp.tools.translate import _
 import openerp.tools
 from openerp.osv.orm import except_orm, browse_record
+import time
 
 CLASS_STD = [
     (1,'1'),
@@ -837,4 +838,3 @@ class ed_advertisers_position(osv.osv):
               'name' : fields.char('Position',size=50),              
               }      
 ed_advertisers_position() 
-                                                                                        

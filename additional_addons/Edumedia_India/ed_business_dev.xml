@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+
+
+
+	   <!-- BUSINESS DEVELOPMENT Form View-->
+
+
+	<record model="ir.ui.view" id="bd_form_view_tr">
+	   <field name="name">BUSINESS DEVELOPMENT</field>
+	   <field name="model">ed.business.development</field>
+	   <field name="priority">1</field>
+	   <field name="arch" type="xml">
+			<form string="BUSINESS DEVELOPMENT" version="7.0" >
+					<div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Describe the Business Development..."/></h1>
+                    </div>
+ 					<group>
+                      <group>
+                            <field name="partner_name"/>
+                            <!-- Preload all the partner's information -->
+                           <!-- <field name="partner_id" on_change="on_change_partner_id(partner_id)"
+                                options='{"create_name_field": "name"}'/>
+                                context="{'default_name': contact_name, 'default_street': street, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_function': function, 'default_phone': phone, 'default_mobile': mobile, 'default_fax': fax, 'default_email': email_from, 'default_user_id': user_id}"/>-->
+                            <label for="street" string="Address"/>
+                            <div>
+                                <field name="street" placeholder="Street..."/>
+                                <field name="street2"/>
+                                <div class="address_format">
+                                    <field name="city" placeholder="City" style="width: 40%%"/>
+                                    <field name="state_id" options='{"no_open": True}' placeholder="State" style="width: 24%%"/>
+                                    <field name="zip" placeholder="ZIP" style="width: 34%%"/>
+                                </div>
+                                <field name="country_id" placeholder="Country" options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="contact_name"/>
+                            <div>
+                                <field name="contact_name" class="oe_inline"/><span attrs="{'invisible': [('title', '=', '')]}">, </span>
+                                <field name="title" placeholder="Title" domain="[('domain', '=', 'contact')]" class="oe_inline" options='{"no_open": True}'/>
+                            </div>
+                            <field name="email_from" widget="email"/>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="fax"/>
+							<field name = "company_id" invisible="1"/>
+                        </group>
+                        <group>
+						   <label for="date_action"/>
+							<div>
+								<field name="date_action" class="oe_inline" required='1'/>
+								<field name="title_action"
+									placeholder="Next Action Explanation..."/>
+							</div>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+				<group>
+				 <field name="description"/></group>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+			</form>
+		</field>
+	   </record>
+<!-- BUSINESS DEVELOPMENT Search View -->
+
+        <record id="business_development_view_search_tr" model="ir.ui.view">
+		   <field name="name">BUSINESS DEVELOPMENT</field>
+		   <field name="model">ed.business.development</field>
+            <field name="arch" type="xml">
+				<search>
+                    <field name="create_date" invisible="1"/>
+					<field name="partner_name"/>
+                    <field name="contact_name"/>
+                    <field name="phone"/>
+                    <field name="user_id"/>
+					<field name="date_action"/>
+
+
+				<group expand="0" string="Group By">
+						<separator/>
+						<filter string="Today" name="bd_today"
+							domain="[('create_date', '&lt;=', current_date)]"/>
+				</group>
+				</search>
+            </field>
+        </record>
+
+        <!-- BUSINESS DEVELOPMENT Tree View -->
+        <record model="ir.ui.view" id="business_development_tree_view">
+		   <field name="name">BUSINESS DEVELOPMENT</field>
+		   <field name="model">ed.business.development</field>
+            <field name="arch" type="xml">
+                <tree string="Business Development">
+                    <field name="create_date" invisible="1"/>
+					<field name="partner_name"/>
+                    <field name="contact_name"/>
+                    <field name="phone"/>
+                    <field name="user_id"/>
+
+					<field name="date_action"/>
+                </tree>
+            </field>
+		</record>
+
+        <!-- **************************** Action Business Development ******************************** -->
+
+        <record id="business_development_action" model="ir.actions.act_window">
+            <field name="name">Business Development</field>
+            <field name="res_model">ed.business.development</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_bd_today':1}</field>
+			<field name="search_view_id" ref="business_development_view_search_tr"/>
+        </record>
+
+	    <record id="business_development_out_view1_waiting" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="business_development_tree_view"/>
+	        <field name="act_window_id" ref="business_development_action"/>
+        </record>
+
+        <record id="business_development_out_view2_waiting" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bd_form_view_tr"/>
+            <field name="act_window_id" ref="business_development_action"/>
+        </record>
+
+        <menuitem id="business_development_menu" name="Business Development" sequence="6"
+		groups="base.group_no_one,ed_group_business_development_user,ed_group_business_development_manager"/>
+
+        <menuitem id ='action_simpa_dcaf_form_id' action = 'business_development_action' name='Business Development'
+				  parent = 'business_development_menu' sequence = '1'
+		groups="base.group_no_one,ed_group_business_development_user,ed_group_business_development_manager"/>
+
+	    <menuitem id ='action_simpa_dcaf_form_id1' action = 'business_development_action' name='Business Development'
+				  parent = 'action_simpa_dcaf_form_id' sequence = '1'
+				  groups="base.group_no_one,ed_group_business_development_user,ed_group_business_development_manager"/>
+
+
+
+   </data>
+</openerp>

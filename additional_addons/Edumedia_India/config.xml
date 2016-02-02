@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-   <data> 
-   
+   <data>
+
    	<!--        <menuitem id="menu_ed_config" name="Configuration" parent="menu_schlcinema_root" sequence="6"/>-->
         <menuitem id="menu_ed_mentor_config" name="Configuration" parent="menu_mentor_root" sequence="6"/>
         
@@ -1862,7 +1862,9 @@
       	<menuitem action="action_ed_advertiser_posit_form" id="menu_ed_advertiser_posit_form" name="Advertising Position" parent="menu_ed_mentor_config" sequence="4"/>
 			       
 
-	  		             
-   </data> 
+
+
+
+   </data>
 </openerp>
 	                
