@@ -62,6 +62,7 @@
                     'security/HR/ir.model.access.csv',
                     'security/Mentor/ir.model.access.csv',
                     'dashboard.xml',
+                    'security/Business_Development/ir.model.access.csv',
                    ],
     'installable': True,
     'active': False,
