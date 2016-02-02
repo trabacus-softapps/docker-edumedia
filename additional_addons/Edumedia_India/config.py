@@ -838,4 +838,3 @@ class ed_advertisers_position(osv.osv):
               'name' : fields.char('Position',size=50),              
               }      
 ed_advertisers_position() 
-
