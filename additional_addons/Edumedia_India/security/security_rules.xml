@@ -61,15 +61,5 @@
 			<field name="domain_force">['|',('id','in',[x.id for x in user.city_ids]),('id','=',False)]</field>
 		</record>
 
-
-        <!-- Rule for Business Development -->
-
-        <record id="business_development_rule" model="ir.rule">
-            <field name="name">Business Development</field>
-            <field ref="model_ed_business_development" name="model_id"/>
-            <field name="domain_force">[('create_uid','=',user.id)]</field>
-            <field name="groups" eval="[(4, ref('ed_group_business_development_user'))]"/>
-        </record>
-
     </data>
 </openerp>
