@@ -814,18 +814,21 @@
 			<field name="sequence">1</field>
 		</record>
 
-		<record id="ed_group_business_development_manager" model="res.groups">
-			<field name="name">All Developments</field>
-			<field name="category_id" ref="module_category_ed_business_development"/>
-			<field name="comment">the user will have access to All Development.</field>
-		</record>
 
 	    <record id="ed_group_business_development_user" model="res.groups">
 			<field name="name">Own Developments</field>
 			<field name="category_id" ref="module_category_ed_business_development"/>
-			<field name="implied_ids" eval="[(4, ref('ed_group_business_development_manager'))]"/>
 			<field name="comment">the user will have access to his Own Developments.</field>
 		</record>
+
+		<record id="ed_group_business_development_manager" model="res.groups">
+			<field name="name">All Developments</field>
+			<field name="category_id" ref="module_category_ed_business_development"/>
+			<field name="implied_ids" eval="[(4, ref('ed_group_business_development_user'))]"/>
+			<field name="comment">the user will have access to All Development.</field>
+		</record>
+
+
 
 </data>
 </openerp>

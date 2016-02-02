@@ -56,6 +56,7 @@
 #                    'security/Activity_User/ir.model.access.csv',
 #                    'security/Akshaya_Manager/ir.model.access.csv',
 #                    'security/Akshaya_User/ir.model.access.csv',
+                    'ed_business_dev.xml',
                     'security/HR_User/ir.model.access.csv',
                     'security/HR_Manager/ir.model.access.csv',
                     'security/HR/ir.model.access.csv',
