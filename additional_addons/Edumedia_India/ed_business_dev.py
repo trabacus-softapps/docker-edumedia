@@ -19,7 +19,7 @@ class ed_business_development(osv.osv):
         'company_id'     : fields.many2one('res.company', 'Company', ondelete='cascade', select=True, change_default=True),
 
         'contact_name': fields.char('Contact Name', size=64,track_visibility='onchange'),
-        'partner_name': fields.char("School Name", size=64,help='The name of the future partner company that will be created while converting the lead into opportunity', select=1,track_visibility='onchange'),
+        'partner_name': fields.char("Client Name", size=64,help='The name of the future partner company that will be created while converting the lead into opportunity', select=1,track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', 'School', ondelete='set null', track_visibility='onchange',
             select=True, help="Linked partner (optional). Usually created when converting the lead."),
         'title': fields.many2one('res.partner.title', 'Title'),
